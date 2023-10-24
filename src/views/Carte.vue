@@ -1,36 +1,49 @@
-<template class="page">
-    <div>
-        <br><br><br>
-        <h1>Carte :</h1>
-      <div class="background"></div>
-    </div>
+<template>
+  <div ref="container"></div>
 </template>
-  
-<script>
-  export default {
-    // eslint-disable-next-line vue/multi-word-component-names
-    name: 'Carte',
-    computed: {
-    }
-  }
-</script>
-  
-<style scoped>
-  .background {
-    position: relative;
-    min-height: 1100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    background-image: url('../assets/images/carte.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
 
-.image-container img {
-    width: 100%;
+<script>
+// Importez Three.js
+import * as THREE from 'three';
+
+export default {
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Carte',
+  mounted() {
+    // Créez la scène, la caméra et le rendu
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    this.$refs.container.appendChild(renderer.domElement);
+
+    // Ajoutez un cube
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // Positionnez la caméra
+    camera.position.z = 5;
+
+    // Fonction d'animation
+    function animate() {
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Gestionnaire d'événement de redimensionnement de la fenêtre
+    window.addEventListener('resize', () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    });
+  }
 }
-</style>
-  
+
+</script>
