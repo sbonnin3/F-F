@@ -7,6 +7,8 @@
 <script>
 // Importez Three.js
 import * as THREE from 'three';
+let zoom = 1;
+let testZoom = 0;
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Carte',
@@ -40,10 +42,10 @@ export default {
     let angleX = Math.PI / 4; // Angle initial pour une vue en diagonale
     document.addEventListener('keydown', (event) => {
     const speed = 0.05;
-    if (event.key === "ArrowUp") {
+    if (event.key === "ArrowUp" && angleX <= 1.6) {
       angleX += speed;
     }
-    if (event.key === "ArrowDown") {
+    if (event.key === "ArrowDown" && angleX >= -1.6) {
       angleX -= speed;
     }
     if (event.key === "ArrowLeft") {
@@ -52,13 +54,27 @@ export default {
     if (event.key === "ArrowRight") {
       angleY -= speed;
     }
+    if (event.keyCode === 32) {
+      if (testZoom == 0) {
+        zoom -= 0.01;
+        if (zoom <= 0) {
+          testZoom = 1
+        }
+      }
+      if (testZoom == 1) {
+        zoom += 0.01;
+        if (zoom >= 1.5) {
+          testZoom = 0
+        }
+      }
+    }
     });
     function loop() {
       requestAnimationFrame(loop);
       // Appliquer les rotations à la caméra
-      camera.position.x = Math.sin(angleY) * 5;
-      camera.position.z = Math.cos(angleY) * 5;
-      camera.position.y = Math.sin(angleX) * 5 + 5; // Ajoutez la hauteur
+      camera.position.x = Math.sin(angleY) * 5 * zoom;
+      camera.position.z = Math.cos(angleY) * 5 * zoom;
+      camera.position.y = Math.sin(angleX) * 5 + 5 * zoom; // Ajoutez la hauteur
       camera.lookAt(0, 0, 0);
       // Mettre à jour la position de la lumière
       light.position.copy(camera.position);
