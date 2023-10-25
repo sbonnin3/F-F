@@ -43,6 +43,7 @@ export default {
 </script>
 
 <style>
+
 body, html {
   background-color: whitesmoke;
   color: black;
@@ -113,10 +114,6 @@ a {
 
 img {
   border-radius: 20px;
-}
-
-.page {
-  z-index: 0;
 }
 
 @media screen and (max-width: 768px) {
