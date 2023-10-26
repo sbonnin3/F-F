@@ -5,11 +5,20 @@
 </template>
 
 <script>
-// Importez Three.js
 import * as THREE from 'three';
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Carte',
+  data() {
+    return {
+      mouseX: 0,
+      mouseY: 0,
+      isDragging: false,
+      angleY: 0,
+      angleX: Math.PI / 4, // Angle initial pour une vue en diagonale
+    }
+  },
   mounted() {
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight)
@@ -36,35 +45,72 @@ export default {
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     this.$refs.container.appendChild(renderer.domElement);
-    let angleY = 0;
-    let angleX = Math.PI / 4; // Angle initial pour une vue en diagonale
+
+    document.addEventListener('mousedown', this.onMouseDown);
+    document.addEventListener('mousemove', this.onMouseMove);
+    document.addEventListener('mouseup', this.onMouseUp);
+
     document.addEventListener('keydown', (event) => {
-    const speed = 0.05;
-    if (event.key === "ArrowUp" && angleX <= 1.6) {
-      angleX += speed;
-    }
-    if (event.key === "ArrowDown" && angleX >= -1.6) {
-      angleX -= speed;
-    }
-    if (event.key === "ArrowLeft") {
-      angleY += speed;
-    }
-    if (event.key === "ArrowRight") {
-      angleY -= speed;
-    }
+      const speed = 0.05;
+      if (event.key === "ArrowUp" && this.angleX <= 1.6) {
+        this.angleX += speed;
+      }
+      if (event.key === "ArrowDown" && this.angleX >= -1.6) {
+        this.angleX -= speed;
+      }
+      if (event.key === "ArrowLeft") {
+        this.angleY += speed;
+      }
+      if (event.key === "ArrowRight") {
+        this.angleY -= speed;
+      }
     });
-    function loop() {
+
+    const loop = () => {
       requestAnimationFrame(loop);
+
       // Appliquer les rotations à la caméra
-      camera.position.x = Math.sin(angleY) * 5;
-      camera.position.z = Math.cos(angleY) * 5;
-      camera.position.y = Math.sin(angleX) * 5 + 5; // Ajoutez la hauteur
+      camera.position.x = Math.sin(this.angleY) * 5;
+      camera.position.z = Math.cos(this.angleY) * 5;
+      camera.position.y = Math.sin(this.angleX) * 5 + 5; // Ajoutez la hauteur
       camera.lookAt(0, 0, 0);
+
       // Mettre à jour la position de la lumière
       light.position.copy(camera.position);
+
       renderer.render(scene, camera);
     }
+
     loop();
+  },
+  methods: {
+    onMouseDown(event) {
+      this.isDragging = true;
+      this.mouseX = event.clientX;
+      this.mouseY = event.clientY;
+    },
+    onMouseMove(event) {
+      if (this.isDragging) {
+        const deltaX = event.clientX - this.mouseX;
+        const deltaY = event.clientY - this.mouseY;
+
+        // Mettez à jour la rotation en fonction du mouvement de la souris
+        this.angleY -= deltaX * 0.01;
+        this.angleX += deltaY * 0.01;
+        if (this.angleX > 1.6) {
+        this.angleX = 1.6;
+        }
+        if (this.angleX < -1.6) {
+          this.angleX = -1.6;
+        }
+
+        this.mouseX = event.clientX;
+        this.mouseY = event.clientY;
+      }
+    },
+    onMouseUp() {
+      this.isDragging = false;
+    },
   }
 }
 </script>
