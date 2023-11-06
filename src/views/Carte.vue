@@ -1,74 +1,3 @@
-<!--
-<template>
-  <div class="carte" ref="container"></div>
-</template>
-
-<script>
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import sansNomGLB from '../assets/paul_ricard.glb';
-
-export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Carte',
-  data() {
-    return {
-      mouseX: 0,
-      mouseY: 0,
-      isDragging: false,
-      angleY: 0,
-      angleX: Math.PI / 4,
-    }
-  },
-  mounted() {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  this.$refs.container.appendChild(renderer.domElement);
-
-  const loader = new GLTFLoader();
-
-  loader.load(sansNomGLB, (gltf) => {
-    const object = gltf.scene; // Accédez à l'objet du résultat du chargement
-
-    // Ajoutez l'objet à la scène
-    scene.add(object);
-
-    const light = new THREE.PointLight(0xeeeeee, 30);
-    scene.add(light);
-
-    camera.position.z = 5;
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      // Appliquer les rotations à la caméra
-      camera.position.x = Math.sin(this.angleY) * 5;
-      camera.position.z = Math.cos(this.angleY) * 5;
-      camera.position.y = Math.sin(this.angleX) * 5 + 5; // Ajoutez la hauteur
-      camera.lookAt(0, 0, 0);
-
-      // Mettre à jour la position de la lumière
-      light.position.copy(camera.position);
-
-      renderer.render(scene, camera);
-    }
-
-    animate();
-  });
-}
-}
-</script>
-
-<style scoped>
-.carte {
-  overflow: hidden;
-}
-</style>
--->
-
-
 <template>
   <div>
     <div class="carte" ref="container"></div>
@@ -107,7 +36,7 @@ export default {
       scene.add(object);
     })
 
-    const light = new THREE.PointLight(0xeeeeee, 30)
+    const light = new THREE.PointLight(0xffffffff, 30)
     scene.add(light)
 
     document.addEventListener('mousedown', this.onMouseDown);
@@ -136,7 +65,7 @@ export default {
       // Appliquer les rotations à la caméra
       camera.position.x = Math.sin(this.angleY) * 5;
       camera.position.z = Math.cos(this.angleY) * 5;
-      camera.position.y = Math.sin(this.angleX) * 5 + 5; // Ajoutez la hauteur
+      camera.position.y = Math.sin(this.angleX) * 5 + 6;
       camera.lookAt(0, 0, 0);
 
       // Mettre à jour la position de la lumière
