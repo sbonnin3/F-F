@@ -19,6 +19,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import plateforme from '../assets/paul_ricard/Plateforme.glb'
 import route from '../assets/paul_ricard/Route.glb'
+import voiture from '../assets/paul_ricard/Voiture.glb'
 import batiments from '../assets/paul_ricard/Batiments.glb'
 import toilettes from '../assets/paul_ricard/Toilettes.glb'
 
@@ -45,7 +46,7 @@ export default {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight); // Ajustez la taille ici
     this.$refs.container.appendChild(renderer.domElement);
 
     const loader = new GLTFLoader();
@@ -58,6 +59,16 @@ export default {
     loader.load(route, (gltf) => {
       const object = gltf.scene;
       scene.add(object);
+    })
+
+    loader.load(voiture, (gltf) => {
+      const object = gltf.scene;
+      scene.add(object);
+      
+      // Vérifier s'il y a des animations
+      if (gltf.animations && gltf.animations.length > 0) {
+        this.driveAnimation = gltf.animations[0];
+      }
     })
 
     loader.load(batiments, (gltf) => {
@@ -117,7 +128,7 @@ export default {
       } else if (this.batimentsObject) {
         this.batimentsObject.visible = false; // Désaffiche l'objet batiments
       }
-
+      renderer.setSize(window.innerWidth , window.innerHeight);
       renderer.render(scene, camera);
     }
 
@@ -180,6 +191,9 @@ export default {
 }
 
 .menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 200px;
   padding: 16px;
   background-color: rgba(100,100,100);
