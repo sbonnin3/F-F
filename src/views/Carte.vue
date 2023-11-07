@@ -1,13 +1,26 @@
 <template>
-  <div>
+  <div class="container">
     <div class="carte" ref="container"></div>
+    <div class="menu">
+      <h2>Menu</h2>
+      <label>
+        <input type="checkbox" v-model="chek_toilettes" @change="faireQuelqueChose"> Toilettes
+      </label>
+      <label>
+        <input type="checkbox" v-model="chek_batiments" @change="faireQuelqueChose"> Bâtiments
+      </label>
+      <!-- Ajoutez d'autres options si nécessaire -->
+    </div>
   </div>
 </template>
 
 <script>
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import sansNomGLB from '../assets/paul_ricard.glb';
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import plateforme from '../assets/paul_ricard/Plateforme.glb'
+import route from '../assets/paul_ricard/Route.glb'
+import batiments from '../assets/paul_ricard/Batiments.glb'
+import toilettes from '../assets/paul_ricard/Toilettes.glb'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -19,6 +32,13 @@ export default {
       isDragging: false,
       angleY: 0,
       angleX: Math.PI / 4, // Angle initial pour une vue en diagonale
+
+      toilettesObject: null,
+      batimentsObject: null,
+
+      chek_toilettes: false, // La propriété option1 sera liée à la case à cocher correspondante
+      chek_batiments: false // La propriété option2 sera liée à la case à cocher correspondante
+
     }
   },
   mounted() {
@@ -30,10 +50,24 @@ export default {
 
     const loader = new GLTFLoader();
 
-    loader.load(sansNomGLB, (gltf) => {
+    loader.load(plateforme, (gltf) => {
       const object = gltf.scene;
-
       scene.add(object);
+    })
+
+    loader.load(route, (gltf) => {
+      const object = gltf.scene;
+      scene.add(object);
+    })
+
+    loader.load(batiments, (gltf) => {
+      this.batimentsObject = gltf.scene; // Stockez l'objet dans la variable batimentsObject
+      scene.add(this.batimentsObject);
+    })
+
+    loader.load(toilettes, (gltf) => {
+      this.toilettesObject = gltf.scene; // Stockez l'objet dans la variable toilettesObject
+      scene.add(this.toilettesObject);
     })
 
     const light = new THREE.PointLight(0xffffffff, 30)
@@ -71,12 +105,38 @@ export default {
       // Mettre à jour la position de la lumière
       light.position.copy(camera.position);
 
+      // Vérifier la visibilité des objets
+      if (this.chek_toilettes && this.toilettesObject) {
+        this.toilettesObject.visible = true; // Affiche l'objet toilettes
+      } else if (this.toilettesObject) {
+        this.toilettesObject.visible = false; // Désaffiche l'objet toilettes
+      }
+
+      if (this.chek_batiments && this.batimentsObject) {
+        this.batimentsObject.visible = true; // Affiche l'objet batiments
+      } else if (this.batimentsObject) {
+        this.batimentsObject.visible = false; // Désaffiche l'objet batiments
+      }
+
       renderer.render(scene, camera);
     }
 
     loop();
   },
   methods: {
+    faireQuelqueChose() {
+      if (this.chek_toilettes && this.toilettesObject) {
+        this.toilettesObject.visible = true; // Affiche l'objet toilettes
+      } else if (this.toilettesObject) {
+        this.toilettesObject.visible = false; // Désaffiche l'objet toilettes
+      }
+
+      if (this.chek_batiments && this.batimentsObject) {
+        this.batimentsObject.visible = true; // Affiche l'objet batiments
+      } else if (this.batimentsObject) {
+        this.batimentsObject.visible = false; // Désaffiche l'objet batiments
+      }
+    },
     onMouseDown(event) {
       this.isDragging = true;
       this.mouseX = event.clientX;
@@ -109,7 +169,30 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  background-color: black;
+}
+
 .carte {
+  flex: 1;
   overflow: hidden;
+}
+
+.menu {
+  width: 200px;
+  padding: 16px;
+  background-color: rgba(100,100,100);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.menu h2 {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+
+.menu label {
+  display: block;
+  margin-bottom: 8px;
 }
 </style>
