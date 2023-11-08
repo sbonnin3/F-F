@@ -135,7 +135,7 @@ export default {
         this.restaurantsObject.visible = false; // Désaffiche l'objet batiments
       }
 
-      renderer.setSize(window.innerWidth , window.innerHeight);
+      renderer.setSize(window.innerWidth, 0.999*window.innerHeight);
       renderer.render(scene, camera);
     }
 
@@ -209,7 +209,7 @@ export default {
   left: 0;
   width: 200px;
   padding: 16px;
-  background-color: rgba(100,100,100);
+  background-color: rgba(180,180,180);
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
