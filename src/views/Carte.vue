@@ -12,6 +12,9 @@
       <label>
         <input type="checkbox" v-model="chek_restaurants" @change="faireQuelqueChose"> Restaurants
       </label>
+      <label>
+        <input type="checkbox" v-model="chek_concerts" @change="faireQuelqueChose"> Concerts
+      </label>
       <!-- Ajoutez d'autres options si nécessaire -->
     </div>
   </div>
@@ -25,6 +28,7 @@ import route from '../assets/paul_ricard/Route.glb'
 import batiments from '../assets/paul_ricard/Batiments.glb'
 import toilettes from '../assets/paul_ricard/Toilettes.glb'
 import restaurants from '../assets/paul_ricard/Restaurants.glb'
+import concerts from '../assets/paul_ricard/Concerts.glb'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -40,10 +44,12 @@ export default {
       toilettesObject: null,
       batimentsObject: null,
       restaurantsObject: null,
+      concertsObject: null,
 
       chek_toilettes: false, // La propriété option1 sera liée à la case à cocher correspondante
       chek_batiments: false, // La propriété option2 sera liée à la case à cocher correspondante
       chek_restaurants: false, // La propriété option3 sera liée à la case à cocher correspondante
+      chek_concerts: false, // La propriété option4 sera liée à la case à cocher correspondante
 
     }
   },
@@ -67,18 +73,23 @@ export default {
     })
 
     loader.load(batiments, (gltf) => {
-      this.batimentsObject = gltf.scene; // Stockez l'objet dans la variable batimentsObject
+      this.batimentsObject = gltf.scene; // Stockez l'objet dans la variable
       scene.add(this.batimentsObject);
     })
 
     loader.load(toilettes, (gltf) => {
-      this.toilettesObject = gltf.scene; // Stockez l'objet dans la variable toilettesObject
+      this.toilettesObject = gltf.scene; // Stockez l'objet dans la variable
       scene.add(this.toilettesObject);
     })
 
     loader.load(restaurants, (gltf) => {
-      this.restaurantsObject = gltf.scene; // Stockez l'objet dans la variable toilettesObject
+      this.restaurantsObject = gltf.scene; // Stockez l'objet dans la variable
       scene.add(this.restaurantsObject);
+    })
+
+    loader.load(concerts, (gltf) => {
+      this.concertsObject = gltf.scene; // Stockez l'objet dans la variable
+      scene.add(this.concertsObject);
     })
 
     const light = new THREE.PointLight(0xffffffff, 30)
@@ -118,21 +129,27 @@ export default {
 
       // Vérifier la visibilité des objets
       if (this.chek_toilettes && this.toilettesObject) {
-        this.toilettesObject.visible = true; // Affiche l'objet toilettes
+        this.toilettesObject.visible = true; // Affiche l'objet
       } else if (this.toilettesObject) {
-        this.toilettesObject.visible = false; // Désaffiche l'objet toilettes
+        this.toilettesObject.visible = false; // Désaffiche l'objet
       }
 
       if (this.chek_batiments && this.batimentsObject) {
-        this.batimentsObject.visible = true; // Affiche l'objet batiments
+        this.batimentsObject.visible = true; // Affiche l'objet
       } else if (this.batimentsObject) {
-        this.batimentsObject.visible = false; // Désaffiche l'objet batiments
+        this.batimentsObject.visible = false; // Désaffiche l'objet
       }
 
       if (this.chek_restaurants && this.restaurantsObject) {
-        this.restaurantsObject.visible = true; // Affiche l'objet batiments
+        this.restaurantsObject.visible = true; // Affiche l'objet
       } else if (this.restaurantsObject) {
-        this.restaurantsObject.visible = false; // Désaffiche l'objet batiments
+        this.restaurantsObject.visible = false; // Désaffiche l'objet
+      }
+
+      if (this.chek_concerts && this.concertsObject) {
+        this.concertsObject.visible = true; // Affiche l'objet
+      } else if (this.concertsObject) {
+        this.concertsObject.visible = false; // Désaffiche l'objet
       }
 
       renderer.setSize(window.innerWidth, 0.999*window.innerHeight);
@@ -144,21 +161,27 @@ export default {
   methods: {
     faireQuelqueChose() {
       if (this.chek_toilettes && this.toilettesObject) {
-        this.toilettesObject.visible = true; // Affiche l'objet toilettes
+        this.toilettesObject.visible = true; // Affiche l'objet
       } else if (this.toilettesObject) {
-        this.toilettesObject.visible = false; // Désaffiche l'objet toilettes
+        this.toilettesObject.visible = false; // Désaffiche l'objet
       }
 
       if (this.chek_batiments && this.batimentsObject) {
-        this.batimentsObject.visible = true; // Affiche l'objet batiments
+        this.batimentsObject.visible = true; // Affiche l'objet
       } else if (this.batimentsObject) {
-        this.batimentsObject.visible = false; // Désaffiche l'objet batiments
+        this.batimentsObject.visible = false; // Désaffiche l'objet
       }
 
       if (this.chek_restaurants && this.restaurantsObject) {
-        this.restaurantsObject.visible = true; // Affiche l'objet batiments
+        this.restaurantsObject.visible = true; // Affiche l'objet
       } else if (this.restaurantsObject) {
-        this.restaurantsObject.visible = false; // Désaffiche l'objet batiments
+        this.restaurantsObject.visible = false; // Désaffiche l'objet
+      }
+
+      if (this.chek_concerts && this.concertsObject) {
+        this.concertsObject.visible = true; // Affiche l'objet
+      } else if (this.concertsObject) {
+        this.concertsObject.visible = false; // Désaffiche l'objet
       }
     },
     onMouseDown(event) {
