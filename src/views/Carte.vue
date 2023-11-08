@@ -9,6 +9,9 @@
       <label>
         <input type="checkbox" v-model="chek_batiments" @change="faireQuelqueChose"> Bâtiments
       </label>
+      <label>
+        <input type="checkbox" v-model="chek_restaurants" @change="faireQuelqueChose"> Restaurants
+      </label>
       <!-- Ajoutez d'autres options si nécessaire -->
     </div>
   </div>
@@ -19,9 +22,9 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import plateforme from '../assets/paul_ricard/Plateforme.glb'
 import route from '../assets/paul_ricard/Route.glb'
-import voiture from '../assets/paul_ricard/Voiture.glb'
 import batiments from '../assets/paul_ricard/Batiments.glb'
 import toilettes from '../assets/paul_ricard/Toilettes.glb'
+import restaurants from '../assets/paul_ricard/Restaurants.glb'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -36,9 +39,11 @@ export default {
 
       toilettesObject: null,
       batimentsObject: null,
+      restaurantsObject: null,
 
       chek_toilettes: false, // La propriété option1 sera liée à la case à cocher correspondante
-      chek_batiments: false // La propriété option2 sera liée à la case à cocher correspondante
+      chek_batiments: false, // La propriété option2 sera liée à la case à cocher correspondante
+      chek_restaurants: false, // La propriété option3 sera liée à la case à cocher correspondante
 
     }
   },
@@ -61,16 +66,6 @@ export default {
       scene.add(object);
     })
 
-    loader.load(voiture, (gltf) => {
-      const object = gltf.scene;
-      scene.add(object);
-      
-      // Vérifier s'il y a des animations
-      if (gltf.animations && gltf.animations.length > 0) {
-        this.driveAnimation = gltf.animations[0];
-      }
-    })
-
     loader.load(batiments, (gltf) => {
       this.batimentsObject = gltf.scene; // Stockez l'objet dans la variable batimentsObject
       scene.add(this.batimentsObject);
@@ -79,6 +74,11 @@ export default {
     loader.load(toilettes, (gltf) => {
       this.toilettesObject = gltf.scene; // Stockez l'objet dans la variable toilettesObject
       scene.add(this.toilettesObject);
+    })
+
+    loader.load(restaurants, (gltf) => {
+      this.restaurantsObject = gltf.scene; // Stockez l'objet dans la variable toilettesObject
+      scene.add(this.restaurantsObject);
     })
 
     const light = new THREE.PointLight(0xffffffff, 30)
@@ -128,6 +128,13 @@ export default {
       } else if (this.batimentsObject) {
         this.batimentsObject.visible = false; // Désaffiche l'objet batiments
       }
+
+      if (this.chek_restaurants && this.restaurantsObject) {
+        this.restaurantsObject.visible = true; // Affiche l'objet batiments
+      } else if (this.restaurantsObject) {
+        this.restaurantsObject.visible = false; // Désaffiche l'objet batiments
+      }
+
       renderer.setSize(window.innerWidth , window.innerHeight);
       renderer.render(scene, camera);
     }
@@ -146,6 +153,12 @@ export default {
         this.batimentsObject.visible = true; // Affiche l'objet batiments
       } else if (this.batimentsObject) {
         this.batimentsObject.visible = false; // Désaffiche l'objet batiments
+      }
+
+      if (this.chek_restaurants && this.restaurantsObject) {
+        this.restaurantsObject.visible = true; // Affiche l'objet batiments
+      } else if (this.restaurantsObject) {
+        this.restaurantsObject.visible = false; // Désaffiche l'objet batiments
       }
     },
     onMouseDown(event) {
