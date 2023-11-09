@@ -113,6 +113,9 @@ export default {
     const light = new THREE.PointLight(0xffffffff, 30)
     scene.add(light)
     
+    window.addEventListener('touchstart', this.debutGlissement);
+    window.addEventListener('touchmove', this.glissement);
+    window.addEventListener('touchend', this.finGlissement);
     window.addEventListener('mousedown', this.debutGlissement);
     window.addEventListener('mousemove', this.glissement);
     window.addEventListener('mouseup', this.finGlissement);
@@ -221,31 +224,33 @@ export default {
       this.camera.position.z += 0.03; // Diminuez la position Z pour déplacer la caméra vers l'arrière
     },
     debutGlissement(event) {
-      this.isDragging = true;
-      this.startMouseX = event.clientX;
-      this.startMouseY = event.clientY;
+        if (event.touches && event.touches.length === 1) {
+            this.isDragging = true;
+            this.startMouseX = event.touches[0].clientX;
+            this.startMouseY = event.touches[0].clientY;
 
-      // Stockez également les valeurs initiales de rotation
-      this.startRotationX = this.rotationX;
-      this.startRotationY = this.rotationY;
+            // Stockez également les valeurs initiales de rotation
+            this.startRotationX = this.rotationX;
+            this.startRotationY = this.rotationY;
+        }
     },
 
     glissement(event) {
-      if (this.isDragging) {
-        this.currentMouseX = event.clientX;
-        this.currentMouseY = event.clientY;
+        if (this.isDragging && event.touches && event.touches.length === 1) {
+            this.currentMouseX = event.touches[0].clientX;
+            this.currentMouseY = event.touches[0].clientY;
 
-        const deltaX = (this.currentMouseX - this.startMouseX) * 0.01;
-        const deltaY = (this.currentMouseY - this.startMouseY) * 0.01;
+            const deltaX = (this.currentMouseX - this.startMouseX) * 0.01;
+            const deltaY = (this.currentMouseY - this.startMouseY) * 0.01;
 
-        // Appliquez les changements à la rotation initiale
-        this.rotationX = this.startRotationX + deltaY;
-        this.rotationY = this.startRotationY + deltaX;
-      }
+            // Appliquez les changements à la rotation initiale
+            this.rotationX = this.startRotationX + deltaY;
+            this.rotationY = this.startRotationY + deltaX;
+        }
     },
 
     finGlissement() {
-      this.isDragging = false;
+        this.isDragging = false;
     },
 
     resetRotationAndPosition() {

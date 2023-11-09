@@ -181,10 +181,11 @@ body, html {
 .nav-buttons {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .buttons-nav {
-  margin-left: 20px;
   background-color: #555;
   color: #fff;
   border: 2px solid #ff0;
@@ -194,6 +195,10 @@ body, html {
   font-size: 70%;
   font-weight: bold;
   outline: none;
+}
+
+.buttons-nav:not(:last-child) {
+  margin-right: 10px; /* Espacement entre les boutons */
 }
 
 .buttons-nav:hover {

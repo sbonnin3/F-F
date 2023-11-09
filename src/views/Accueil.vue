@@ -17,7 +17,7 @@
     <div class="suite">
       <div class="image-container">
         <a href="../page/carte" class="logo">
-          <img src="../assets/images/carte.png" alt="Carte">
+          <img src="../assets/images/carte.png" alt="Carte-3D">
         </a>
       </div>
       <div class="text-image">
