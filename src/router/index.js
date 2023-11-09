@@ -21,6 +21,16 @@ const routes = [
     component: () => import('../views/Carte.vue')
   },
   {
+    path: '/page/carte/plan',
+    name: 'carte-3D',
+    component: () => import('../views/ThreeD.vue')
+  },
+  {
+    path: '/page/carte/visite',
+    name: 'carte-StreetView',
+    component: () => import('../views/StreetView.vue')
+  },
+  {
     path: '/page/activites/',
     name: 'activites',
     component: () => import('../views/Activites.vue')
