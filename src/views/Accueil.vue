@@ -1,5 +1,5 @@
 <template class="page">
-  <div>
+  <div class="content">
     <div class="background">
       <h1>FAST & FABULOUS</h1>
     </div>

@@ -1,8 +1,5 @@
 <template>
-    <div>
-      <br>
-      <br>
-      <br>
+    <div class="content">
       <h1>Vous êtes sur la page : Prestataire</h1>
     </div>
   </template>

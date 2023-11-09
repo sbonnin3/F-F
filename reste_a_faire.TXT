@@ -1,0 +1,11 @@
+Finir :
+- Vue 360 autour de l'objet
+
+Ajout de :
+- Gradins
+- Karting
+- Quad
+
+Faire :
+- Système qui permet d'ajouter un objet avec une autre interface sur la carte interactive
+- Ouvrir une fenètre quand on clique sur l'objet

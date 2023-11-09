@@ -1,11 +1,34 @@
 <template>
-  <div>
+  <div class="container">
     <div class="carte" ref="container"></div>
+    <div class="menu">
+      <h2>Menu</h2>
+      <label>
+        <input type="checkbox" v-model="chek_toilettes" @change="faireQuelqueChose"> Toilettes
+      </label>
+      <label>
+        <input type="checkbox" v-model="chek_batiments" @change="faireQuelqueChose"> Bâtiments
+      </label>
+      <label>
+        <input type="checkbox" v-model="chek_restaurants" @change="faireQuelqueChose"> Restaurants
+      </label>
+      <label>
+        <input type="checkbox" v-model="chek_concerts" @change="faireQuelqueChose"> Concerts
+      </label>
+      <!-- Ajoutez d'autres options si nécessaire -->
+    </div>
   </div>
 </template>
 
 <script>
-import * as THREE from 'three';
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import plateforme from '../assets/paul_ricard/Plateforme.glb'
+import route from '../assets/paul_ricard/Route.glb'
+import batiments from '../assets/paul_ricard/Batiments.glb'
+import toilettes from '../assets/paul_ricard/Toilettes.glb'
+import restaurants from '../assets/paul_ricard/Restaurants.glb'
+import concerts from '../assets/paul_ricard/Concerts.glb'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -17,226 +40,59 @@ export default {
       isDragging: false,
       angleY: 0,
       angleX: Math.PI / 4, // Angle initial pour une vue en diagonale
-    }
-  },
-  mounted() {
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight)
-    const plateau = new THREE.BoxGeometry(5, 1, 5)
-    const geometry2 = new THREE.BoxGeometry(1, 1, 1.5)
-    const geometry3 = new THREE.BoxGeometry(0.5, 1, 0.5)
-    const geometry4 = new THREE.BoxGeometry(0.5, 1, 1)
-    geometry2.translate(1.2, 1, -1);
-    geometry3.translate(-1.2, 1, 0);
-    geometry4.translate(1.2, 1, 1.2);
-    const material = new THREE.MeshPhongMaterial({ color:0xffffff })
-    const material1 = new THREE.MeshPhongMaterial({ color:0xfff255 })
-    const material2 = new THREE.MeshPhongMaterial({ color:0xff255 })
-    const mesh = new THREE.Mesh(plateau, material)
-    const mesh2 = new THREE.Mesh(geometry2, material)
-    const mesh3 = new THREE.Mesh(geometry3, material2)
-    const mesh4 = new THREE.Mesh(geometry4, material1)
-    const light = new THREE.PointLight(0xeeeeee, 30)
-    scene.add(light)
-    scene.add(mesh)
-    scene.add(mesh2)
-    scene.add(mesh3)
-    scene.add(mesh4)
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    this.$refs.container.appendChild(renderer.domElement);
 
-    document.addEventListener('mousedown', this.onMouseDown);
-    document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('mouseup', this.onMouseUp);
+      toilettesObject: null,
+      batimentsObject: null,
+      restaurantsObject: null,
+      concertsObject: null,
 
-    document.addEventListener('keydown', (event) => {
-      const speed = 0.05;
-      if (event.key === "ArrowUp" && this.angleX <= 1.6) {
-        this.angleX += speed;
-      }
-      if (event.key === "ArrowDown" && this.angleX >= -1.6) {
-        this.angleX -= speed;
-      }
-      if (event.key === "ArrowLeft") {
-        this.angleY += speed;
-      }
-      if (event.key === "ArrowRight") {
-        this.angleY -= speed;
-      }
-    });
+      chek_toilettes: false, // La propriété option1 sera liée à la case à cocher correspondante
+      chek_batiments: false, // La propriété option2 sera liée à la case à cocher correspondante
+      chek_restaurants: false, // La propriété option3 sera liée à la case à cocher correspondante
+      chek_concerts: false, // La propriété option4 sera liée à la case à cocher correspondante
 
-    const loop = () => {
-      requestAnimationFrame(loop);
-
-      // Appliquer les rotations à la caméra
-      camera.position.x = Math.sin(this.angleY) * 5;
-      camera.position.z = Math.cos(this.angleY) * 5;
-      camera.position.y = Math.sin(this.angleX) * 5 + 5; // Ajoutez la hauteur
-      camera.lookAt(0, 0, 0);
-
-      // Mettre à jour la position de la lumière
-      light.position.copy(camera.position);
-
-      renderer.render(scene, camera);
-    }
-
-    loop();
-  },
-  methods: {
-    onMouseDown(event) {
-      this.isDragging = true;
-      this.mouseX = event.clientX;
-      this.mouseY = event.clientY;
-    },
-    onMouseMove(event) {
-      if (this.isDragging) {
-        const deltaX = event.clientX - this.mouseX;
-        const deltaY = event.clientY - this.mouseY;
-
-        // Mettez à jour la rotation en fonction du mouvement de la souris
-        this.angleY -= deltaX * 0.01;
-        this.angleX += deltaY * 0.01;
-        if (this.angleX > 1.6) {
-        this.angleX = 1.6;
-        }
-        if (this.angleX < -1.6) {
-          this.angleX = -1.6;
-        }
-
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
-      }
-    },
-    onMouseUp() {
-      this.isDragging = false;
-    },
-  }
-}
-</script>
-
-<style scoped>
-.carte {
-  overflow: hidden;
-}
-</style>
-
---------------------------------------------------------------
-
-<template>
-  <div class="carte" ref="container"></div>
-</template>
-
-<script>
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import sansNomGLB from '../assets/paul_ricard.glb';
-
-export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Carte',
-  data() {
-    return {
-      mouseX: 0,
-      mouseY: 0,
-      isDragging: false,
-      angleY: 0,
-      angleX: Math.PI / 4,
-    }
-  },
-  mounted() {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  this.$refs.container.appendChild(renderer.domElement);
-
-  const loader = new GLTFLoader();
-
-  loader.load(sansNomGLB, (gltf) => {
-    const object = gltf.scene; // Accédez à l'objet du résultat du chargement
-
-    // Ajoutez l'objet à la scène
-    scene.add(object);
-
-    const light = new THREE.PointLight(0xeeeeee, 30);
-    scene.add(light);
-
-    camera.position.z = 5;
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      // Appliquer les rotations à la caméra
-      camera.position.x = Math.sin(this.angleY) * 5;
-      camera.position.z = Math.cos(this.angleY) * 5;
-      camera.position.y = Math.sin(this.angleX) * 5 + 5; // Ajoutez la hauteur
-      camera.lookAt(0, 0, 0);
-
-      // Mettre à jour la position de la lumière
-      light.position.copy(camera.position);
-
-      renderer.render(scene, camera);
-    }
-
-    animate();
-  });
-}
-}
-</script>
-
-<style scoped>
-.carte {
-  overflow: hidden;
-}
-</style>
-
------------------------------------------------------------------------------------------------
-
-<template>
-  <div>
-    <div class="carte" ref="container"></div>
-  </div>
-</template>
-
-<script>
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import sansNomGLB from '../assets/paul_ricard.glb';
-
-export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Carte',
-  data() {
-    return {
-      mouseX: 0,
-      mouseY: 0,
-      isDragging: false,
-      angleY: 0,
-      angleX: Math.PI / 4, // Angle initial pour une vue en diagonale
     }
   },
   mounted() {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight); // Ajustez la taille ici
     this.$refs.container.appendChild(renderer.domElement);
 
     const loader = new GLTFLoader();
 
-    loader.load(sansNomGLB, (gltf) => {
-      const object = gltf.scene; // Accédez à l'objet du résultat du chargement
-
+    loader.load(plateforme, (gltf) => {
+      const object = gltf.scene;
       scene.add(object);
-
-      const light = new THREE.PointLight(0xeeeeee, 30);
-      scene.add(light);
-
-      camera.position.z = 5;
     })
 
-    const light = new THREE.PointLight(0xeeeeee, 30)
+    loader.load(route, (gltf) => {
+      const object = gltf.scene;
+      scene.add(object);
+    })
+
+    loader.load(batiments, (gltf) => {
+      this.batimentsObject = gltf.scene; // Stockez l'objet dans la variable
+      scene.add(this.batimentsObject);
+    })
+
+    loader.load(toilettes, (gltf) => {
+      this.toilettesObject = gltf.scene; // Stockez l'objet dans la variable
+      scene.add(this.toilettesObject);
+    })
+
+    loader.load(restaurants, (gltf) => {
+      this.restaurantsObject = gltf.scene; // Stockez l'objet dans la variable
+      scene.add(this.restaurantsObject);
+    })
+
+    loader.load(concerts, (gltf) => {
+      this.concertsObject = gltf.scene; // Stockez l'objet dans la variable
+      scene.add(this.concertsObject);
+    })
+
+    const light = new THREE.PointLight(0xffffffff, 30)
     scene.add(light)
 
     document.addEventListener('mousedown', this.onMouseDown);
@@ -252,10 +108,10 @@ export default {
         this.angleX -= speed;
       }
       if (event.key === "ArrowLeft") {
-        this.angleY += speed;
+        this.angleY -= speed;
       }
       if (event.key === "ArrowRight") {
-        this.angleY -= speed;
+        this.angleY += speed;
       }
     });
 
@@ -265,18 +121,69 @@ export default {
       // Appliquer les rotations à la caméra
       camera.position.x = Math.sin(this.angleY) * 5;
       camera.position.z = Math.cos(this.angleY) * 5;
-      camera.position.y = Math.sin(this.angleX) * 5 + 5; // Ajoutez la hauteur
+      camera.position.y = Math.sin(this.angleX) * 5 + 6;
       camera.lookAt(0, 0, 0);
 
       // Mettre à jour la position de la lumière
       light.position.copy(camera.position);
 
+      // Vérifier la visibilité des objets
+      if (this.chek_toilettes && this.toilettesObject) {
+        this.toilettesObject.visible = true; // Affiche l'objet
+      } else if (this.toilettesObject) {
+        this.toilettesObject.visible = false; // Désaffiche l'objet
+      }
+
+      if (this.chek_batiments && this.batimentsObject) {
+        this.batimentsObject.visible = true; // Affiche l'objet
+      } else if (this.batimentsObject) {
+        this.batimentsObject.visible = false; // Désaffiche l'objet
+      }
+
+      if (this.chek_restaurants && this.restaurantsObject) {
+        this.restaurantsObject.visible = true; // Affiche l'objet
+      } else if (this.restaurantsObject) {
+        this.restaurantsObject.visible = false; // Désaffiche l'objet
+      }
+
+      if (this.chek_concerts && this.concertsObject) {
+        this.concertsObject.visible = true; // Affiche l'objet
+      } else if (this.concertsObject) {
+        this.concertsObject.visible = false; // Désaffiche l'objet
+      }
+
+      renderer.setSize(window.innerWidth, 0.999*window.innerHeight);
       renderer.render(scene, camera);
     }
 
     loop();
   },
   methods: {
+    faireQuelqueChose() {
+      if (this.chek_toilettes && this.toilettesObject) {
+        this.toilettesObject.visible = true; // Affiche l'objet
+      } else if (this.toilettesObject) {
+        this.toilettesObject.visible = false; // Désaffiche l'objet
+      }
+
+      if (this.chek_batiments && this.batimentsObject) {
+        this.batimentsObject.visible = true; // Affiche l'objet
+      } else if (this.batimentsObject) {
+        this.batimentsObject.visible = false; // Désaffiche l'objet
+      }
+
+      if (this.chek_restaurants && this.restaurantsObject) {
+        this.restaurantsObject.visible = true; // Affiche l'objet
+      } else if (this.restaurantsObject) {
+        this.restaurantsObject.visible = false; // Désaffiche l'objet
+      }
+
+      if (this.chek_concerts && this.concertsObject) {
+        this.concertsObject.visible = true; // Affiche l'objet
+      } else if (this.concertsObject) {
+        this.concertsObject.visible = false; // Désaffiche l'objet
+      }
+    },
     onMouseDown(event) {
       this.isDragging = true;
       this.mouseX = event.clientX;
@@ -309,7 +216,33 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  background-color: black;
+}
+
 .carte {
+  flex: 1;
   overflow: hidden;
+}
+
+.menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  padding: 16px;
+  background-color: rgba(180,180,180);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.menu h2 {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+
+.menu label {
+  display: block;
+  margin-bottom: 8px;
 }
 </style>

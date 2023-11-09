@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <br>
-    <br>
-    <br>
+  <div class="content">
     <h1>Bienvenue sur notre site web !</h1>
   </div>
 </template>
