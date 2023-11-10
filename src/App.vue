@@ -67,85 +67,33 @@ export default {
 
   /* Media query pour les téléphones */
   @media (max-width: 767px) {
-    .container {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .nav-buttons {
-      margin-top: 10px;
-    }
-
-    .buttons-nav {
-      padding: 10px;
-    }
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-body, html {
-  margin: 0;
-  padding: 0;
-}
+  .nav-buttons {
+    margin-top: 10px;
+  }
 
-.navbar {
-  position: fixed;
-  width: 100%;
-  background-color: #000;
-  padding: 10px;
-  z-index: 1000;
-}
-
-.container {
-  display: flex;
-  align-items: center;
-}
-
-.content {
-  padding-top: 70px;
-}
-
-.logo img {
-  max-width: 100px;
-}
-
-.nav-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding-left: 2%;
-  padding-right: 2%;
-}
-
-@media screen and (max-width: 768px) {
   .buttons-nav {
-    padding: 8px 16px;
-    margin-left: 10px;
+    padding: 10px;
   }
-}
 
-.mobile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 92%; /* Ajustez la largeur selon vos besoins */
-  margin: 0 auto; /* Centre le contenu horizontalement */
-  padding-right: 8%;
-}
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 
+  .logo {
+    order: -1; /* Pour déplacer le logo à gauche */
+  }
 
-.menu-button {
-  display: none; /* Le bouton de menu est caché sur les écrans plus larges */
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  color: white;
-  cursor: pointer;
-}
-
-/* Media query pour les téléphones */
-@media (max-width: 767px) {
   .menu-button {
-    display: block; /* Afficher le bouton de menu sur les écrans plus petits */
+    display: block;
+    margin-right: 10px; /* Ajustez cette valeur selon vos besoins */
   }
 
   .nav-buttons {
@@ -160,6 +108,85 @@ body, html {
 
   .nav-buttons.active {
     display: flex;
+    justify-content: flex-end; /* Alignez les boutons à droite */
   }
 }
+
+  body, html {
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar {
+    position: fixed;
+    width: 100%;
+    background-color: #000;
+    padding: 10px;
+    z-index: 1000;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+  }
+
+  .content {
+    padding-top: 70px;
+  }
+
+  .logo img {
+    max-width: 100px;
+  }
+
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .buttons-nav {
+      padding: 8px 16px;
+      margin-left: 10px;
+    }
+  }
+
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu-button {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: white;
+    cursor: pointer;
+  }
+
+  /* Media query pour les téléphones */
+  @media (max-width: 767px) {
+    .menu-button {
+      display: block;
+    }
+
+    .nav-buttons {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .buttons-nav {
+      padding: 10px;
+    }
+
+    .nav-buttons.active {
+      display: flex;
+    }
+  }
 </style>
