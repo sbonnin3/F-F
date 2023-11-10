@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h1>Circuit Paul Ricard</h1>
+    <img class="affiche" src="../assets/images/affiche.png" alt="Carte-3D">
   </div>
 </template>
 
@@ -26,12 +26,17 @@ body {
   padding: 0;
 }
 
-h1 {
-  padding-top: 240px;
-  text-align: center;
-  color: rgba(200, 50, 50, 100);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  font-family: 'VotrePolicePreferée', sans-serif;
-  transition: color 0.5s ease;
+.affiche {
+  width: 200px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  padding-top: 130px;
+  transition: transform 0.3s; /* Ajoute une transition pour un effet de lissage lors du changement de taille */
+}
+
+.affiche:hover {
+  transform: scale(1.2); /* Ajustez la valeur selon vos besoins, 1.2 signifie un grossissement de 20% */
 }
 </style>
