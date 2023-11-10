@@ -25,3 +25,12 @@ module.exports = {
     },
   },
 };
+module.exports = {
+  chainWebpack: config => {
+    config.module
+      .rule('images')
+      .use('url-loader')
+      .loader('file-loader')
+      .tap(options => Object.assign(options, { esModule: false }));
+  }
+};

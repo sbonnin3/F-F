@@ -1,7 +1,6 @@
 <template>
   <div class="content">
-  <br>
-    <h1>Bienvenue sur notre site web !</h1>
+    <h1>Circuit Paul Ricard</h1>
   </div>
 </template>
 
@@ -23,9 +22,16 @@ body {
   overflow: hidden;
   background: url("../assets/images/video.gif") center center fixed;
   background-size: cover;
+  margin: 0;
+  padding: 0;
 }
 
-.content h1 {
-  color: white; /* Ajoutez une couleur de texte appropriée pour être visible sur le fond */
+h1 {
+  padding-top: 240px;
+  text-align: center;
+  color: rgba(200, 50, 50, 100);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: 'VotrePolicePreferée', sans-serif;
+  transition: color 0.5s ease;
 }
 </style>

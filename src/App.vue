@@ -3,13 +3,13 @@
     <nav class="navbar">
       <div class="container">
         <div class="mobile-header">
-          <a href="../" class="logo">
+          <a href="../../" class="logo">
             <img src="./assets/images/Image1.png" alt="Logo">
           </a>
           <button class="menu-button" @click="toggleMenu">&#9776;</button>
         </div>
         <div class="nav-buttons" :class="{ 'active': isMenuOpen }">
-          <router-link to="/page/accueil" class="buttons-nav">À propos</router-link>
+          <router-link to="/page/accueil" class="buttons-nav">Informations</router-link>
           <router-link to="/page/activites" class="buttons-nav">Activités</router-link>
           <router-link to="/page/planning" class="buttons-nav">Planning</router-link>
           <router-link to="/page/prestataire" class="buttons-nav">Prestataires</router-link>
@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'HomeView',
+  name: 'App',
   data() {
     return {
       isMenuOpen: false
@@ -54,10 +54,12 @@ export default {
     padding: 10px 15px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    border: 2px solid black; /* Ajoute un contour blanc autour du bouton */
   }
 
   .buttons-nav:hover {
     background-color: #333;
+    border: 2px solid white; /* Ajoute un contour blanc autour du bouton */
   }
 
   /* Style du contenu de la page */
@@ -67,50 +69,50 @@ export default {
 
   /* Media query pour les téléphones */
   @media (max-width: 767px) {
-  .container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    .container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-  .nav-buttons {
-    margin-top: 10px;
-  }
+    .nav-buttons {
+      margin-top: 10px;
+    }
 
-  .buttons-nav {
-    padding: 10px;
-  }
+    .buttons-nav {
+      padding: 10px;
+    }
 
-  .mobile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
+    .mobile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
 
-  .logo {
-    order: -1; /* Pour déplacer le logo à gauche */
-  }
+    .logo {
+      order: -1; /* Pour déplacer le logo à gauche */
+    }
 
-  .menu-button {
-    display: block;
-    margin-right: 10px; /* Ajustez cette valeur selon vos besoins */
-  }
+    .menu-button {
+      display: block;
+      margin-right: 30px; /* Ajustez cette valeur selon vos besoins */
+    }
 
-  .nav-buttons {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    .nav-buttons {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-  .buttons-nav {
-    padding: 10px;
-  }
+    .buttons-nav {
+      padding: 10px;
+    }
 
-  .nav-buttons.active {
-    display: flex;
-    justify-content: flex-end; /* Alignez les boutons à droite */
+    .nav-buttons.active {
+      display: flex;
+      justify-content: flex-end; /* Alignez les boutons à droite */
+    }
   }
-}
 
   body, html {
     margin: 0;
