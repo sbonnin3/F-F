@@ -7,7 +7,7 @@
         <img src="../assets/images/map.png" alt="Carte-3D" class="carte-image">
       </a>
       <a href="../page/carte/visite" class="image-link">
-        <h1>Carte Street View</h1>
+        <h1>Street View</h1>
         <img src="../assets/images/visite.png" alt="Carte-3D" class="carte-image">
       </a>
     </div>
