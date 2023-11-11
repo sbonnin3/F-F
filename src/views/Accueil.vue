@@ -4,7 +4,7 @@
       <h1>FAST & FABULOUS</h1>
     </div>
     <div class="titre">
-      <h1>C'est le meilleur titre que j'ai jamais vu !</h1>
+      <h1>Page d'accueil : Clique sur la 2ème carte tu verras c'est génial !</h1>
     </div>
     <div class="suite">
       <div class="text-image">
