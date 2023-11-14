@@ -8,7 +8,8 @@ const routes = [
     path: '/',
     component: () => import('@/views/public/Template.vue'),
     children: [
-      {path: '', name: 'home', component: () => import('@/views/public/Accueil.vue')},
+      {path: '', name: 'home', component: () => import('@/views/public/HomeView.vue')},
+      {path: '', name: 'a-propos', component: () => import('@/views/public/Accueil.vue')},
       {path: 'map', name: 'map', component: () => import('@/views/public/Carte.vue')},
       {path: 'activities', name: 'activities'},
       {path: 'planning', name: 'planning'},

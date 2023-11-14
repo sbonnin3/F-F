@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <img class="affiche" src="../assets/images/affiche.png" alt="Carte-3D">
+    <img class="affiche" src="@/assets/images/affiche.png" alt="Carte-3D">
   </div>
 </template>
 
@@ -20,7 +20,7 @@ body {
   width: 100%;
   height: 100vh; /* Assurez-vous que la hauteur de votre contenu occupe toute la vue de la fenêtre */
   overflow: hidden;
-  background: url("../assets/images/video.gif") center center fixed;
+  background: url("@/assets/images/video.gif") center center fixed;
   background-size: cover;
   margin: 0;
   padding: 0;
