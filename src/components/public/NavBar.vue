@@ -32,45 +32,5 @@ export default {
             this.isMenuOpen = !this.isMenuOpen;
         }
     }
-},
-  {
-    path: '/',
-    name: 'home',
-    component: () => import('../views/public/Accueil.vue')
-  },
-  {
-    path: '/page/carte/',
-    name: 'carte',
-    component: () => import('../views/public/map/Carte.vue')
-  },
-  {
-    path: '/page/carte/plan',
-    name: 'carte-3D',
-    component: () => import('../views/public/map/ThreeD.vue')
-  },
-  {
-    path: '/page/carte/visite',
-    name: 'carte-StreetView',
-    component: () => import('../views/public/map/StreetView.vue')
-  },
-  {
-    path: '/page/activites/',
-    name: 'activites',
-    component: () => import('../views/public/Activites.vue')
-  },
-  {
-    path: '/page/planning/',
-    name: 'planning',
-    component: () => import('../views/public/Planning.vue')
-  },
-  {
-    path: '/page/prestataire/',
-    name: 'prestataire',
-    component: () => import('../views/public/Prestataire.vue')
-  },
-  {
-    path: '/page/connexion/',
-    name: 'connexion',
-    component: () => import('../views/public/Connexion.vue')
-  }
+}
 </script>
