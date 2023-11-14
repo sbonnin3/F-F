@@ -29,12 +29,12 @@
 <script>
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import plateforme from '../assets/paul_ricard/Plateforme.glb'
-import route from '../assets/paul_ricard/Route.glb'
-import batiments from '../assets/paul_ricard/Batiments.glb'
-import toilettes from '../assets/paul_ricard/Toilettes.glb'
-import restaurants from '../assets/paul_ricard/Restaurants.glb'
-import concerts from '../assets/paul_ricard/Concerts.glb'
+import plateforme from '@/assets/paul_ricard/Plateforme.glb'
+import route from '@/assets/paul_ricard/Route.glb'
+import batiments from '@/assets/paul_ricard/Batiments.glb'
+import toilettes from '@/assets/paul_ricard/Toilettes.glb'
+import restaurants from '@/assets/paul_ricard/Restaurants.glb'
+import concerts from '@/assets/paul_ricard/Concerts.glb'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names

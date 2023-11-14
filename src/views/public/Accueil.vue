@@ -11,13 +11,13 @@
         <p>Cypriis caesorumque has appulit Scironis Isauriae quae letalia ad navem quae quae sed funeribus appulit letalia</p>
       </div>
       <div class="image-container">
-        <img src="../assets/images/dessus_paul_ricard.jpg" alt="Circuit">
+        <img src="@/assets/images/dessus_paul_ricard.jpg" alt="Circuit">
       </div>
     </div>
     <div class="suite">
       <div class="image-container">
         <a href="../page/carte" class="logo">
-          <img src="../assets/images/carte.png" alt="Carte-3D">
+          <img src="@/assets/images/carte.png" alt="Carte-3D">
         </a>
       </div>
       <div class="text-image">
@@ -42,7 +42,7 @@ export default {
   justify-content: center;
   align-items: center;
   color: #fff;
-  background-image: url('../assets/images/paul_ricard.JPG');
+  background-image: url('@/assets/images/paul_ricard.JPG');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

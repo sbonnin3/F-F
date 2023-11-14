@@ -1,54 +1,65 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    component: () => import('@/views/public/Template.vue'),
+    children: [
+      {path: '', name: 'home', component: () => import('@/views/public/Accueil.vue')},
+      {path: 'map', name: 'map', component: () => import('@/views/public/Carte.vue')},
+      {path: 'activities', name: 'activities'},
+      {path: 'planning', name: 'planning'},
+    ]
   },
   {
-    path: '/page/accueil/',
-    name: 'accueil',
-    component: () => import('../views/Accueil.vue')
+    path: '/dashboard',
+    component: () => import('@/views/dashboard/Template.vue'),
+    children: [
+      {path: '', name: 'dashboard'},
+    ]
+  },
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('../views/public/Accueil.vue')
   },
   {
     path: '/page/carte/',
     name: 'carte',
-    component: () => import('../views/Carte.vue')
+    component: () => import('../views/public/Carte.vue')
   },
   {
     path: '/page/carte/plan',
     name: 'carte-3D',
-    component: () => import('../views/ThreeD.vue')
+    component: () => import('../views/public/ThreeD.vue')
   },
   {
     path: '/page/carte/visite',
     name: 'carte-StreetView',
-    component: () => import('../views/StreetView.vue')
+    component: () => import('../views/public/StreetView.vue')
   },
   {
     path: '/page/activites/',
     name: 'activites',
-    component: () => import('../views/Activites.vue')
+    component: () => import('../views/public/Activites.vue')
   },
   {
     path: '/page/planning/',
     name: 'planning',
-    component: () => import('../views/Planning.vue')
+    component: () => import('../views/public/Planning.vue')
   },
   {
     path: '/page/prestataire/',
     name: 'prestataire',
-    component: () => import('../views/Prestataire.vue')
+    component: () => import('../views/public/Prestataire.vue')
   },
   {
     path: '/page/connexion/',
     name: 'connexion',
-    component: () => import('../views/Connexion.vue')
+    component: () => import('../views/public/Connexion.vue')
   }
 ]
 
