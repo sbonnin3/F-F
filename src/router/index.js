@@ -9,10 +9,16 @@ const routes = [
     component: () => import('@/views/public/Template.vue'),
     children: [
       {path: '', name: 'home', component: () => import('@/views/public/HomeView.vue')},
-      {path: '', name: 'a-propos', component: () => import('@/views/public/Accueil.vue')},
-      {path: 'map', name: 'map', component: () => import('@/views/public/Carte.vue')},
-      {path: 'activities', name: 'activities'},
-      {path: 'planning', name: 'planning'},
+      {path: 'about', name: 'about', component: () => import('@/views/public/Accueil.vue')},
+      {path: 'map', name: 'map', component: () => import('@/views/public/map/MapTemplate.vue'),
+        children: [
+          {path: '', name: 'map', component: () => import('@/views/public/map/Carte.vue')},
+          {path: '3D', name: '3D', component: () => import('@/views/public/map/ThreeD.vue')},
+          {path: 'streetview', name: 'streetview', component: () => import('@/views/public/map/StreetView.vue')},
+        ]
+      },
+      {path: 'activities', name: 'activities', component: () => import('../views/public/Activites.vue')},
+      {path: 'planning', name: 'planning', component: () => import('../views/public/Planning.vue')},
     ]
   },
   {
@@ -30,17 +36,17 @@ const routes = [
   {
     path: '/page/carte/',
     name: 'carte',
-    component: () => import('../views/public/Carte.vue')
+    component: () => import('../views/public/map/Carte.vue')
   },
   {
     path: '/page/carte/plan',
     name: 'carte-3D',
-    component: () => import('../views/public/ThreeD.vue')
+    component: () => import('../views/public/map/ThreeD.vue')
   },
   {
     path: '/page/carte/visite',
     name: 'carte-StreetView',
-    component: () => import('../views/public/StreetView.vue')
+    component: () => import('../views/public/map/StreetView.vue')
   },
   {
     path: '/page/activites/',
