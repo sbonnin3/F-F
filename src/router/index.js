@@ -17,8 +17,10 @@ const routes = [
           {path: 'streetview', name: 'streetview', component: () => import('@/views/public/map/StreetView.vue')},
         ]
       },
-      {path: 'activities', name: 'activities', component: () => import('../views/public/Activites.vue')},
-      {path: 'planning', name: 'planning', component: () => import('../views/public/Planning.vue')},
+      {path: 'activities', name: 'activities', component: () => import('@/views/public/Activites.vue')},
+      {path: 'planning', name: 'planning', component: () => import('@/views/public/Planning.vue')},
+      {path: 'providers', name: 'providers', component: () => import('@/views/public/Prestataire.vue')},
+      {path: 'login', name: 'login', component: () => import('@/views/public/Connexion.vue')},
     ]
   },
   {
@@ -27,46 +29,6 @@ const routes = [
     children: [
       {path: '', name: 'dashboard'},
     ]
-  },
-  {
-    path: '/',
-    name: 'home',
-    component: () => import('../views/public/Accueil.vue')
-  },
-  {
-    path: '/page/carte/',
-    name: 'carte',
-    component: () => import('../views/public/map/Carte.vue')
-  },
-  {
-    path: '/page/carte/plan',
-    name: 'carte-3D',
-    component: () => import('../views/public/map/ThreeD.vue')
-  },
-  {
-    path: '/page/carte/visite',
-    name: 'carte-StreetView',
-    component: () => import('../views/public/map/StreetView.vue')
-  },
-  {
-    path: '/page/activites/',
-    name: 'activites',
-    component: () => import('../views/public/Activites.vue')
-  },
-  {
-    path: '/page/planning/',
-    name: 'planning',
-    component: () => import('../views/public/Planning.vue')
-  },
-  {
-    path: '/page/prestataire/',
-    name: 'prestataire',
-    component: () => import('../views/public/Prestataire.vue')
-  },
-  {
-    path: '/page/connexion/',
-    name: 'connexion',
-    component: () => import('../views/public/Connexion.vue')
   }
 ]
 

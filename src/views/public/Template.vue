@@ -10,6 +10,8 @@ import PublicNav from "@/components/public/NavBar.vue";
 
 export default {
     name: "PublicTemplate",
-    components: { PublicNav }
+    components: {
+        PublicNav
+    }
 }
 </script>
