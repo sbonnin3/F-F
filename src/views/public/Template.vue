@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PublicNav :links="publicNavLinks"/>
+    <PublicNav :links="publicNavLinks" />
     <main>
       <router-view></router-view>
     </main>
@@ -27,8 +27,24 @@ export default {
           to: { name: "about" },
         },
         {
+            title: "Carte",
+            to: { name: "map" },
+        },
+        {
+          title: "Activités",
+          to: { name: "activities" },
+        },
+        {
+          title: "Planning",
+          to: { name: "planning" },
+        },
+        {
           title: "Prestataires",
           to: { name: "providers" },
+        },
+        {
+          title: "Connexion",
+          to: { name: "login" },
         },
       ],
     };
