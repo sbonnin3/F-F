@@ -21,6 +21,7 @@ export default {
         {
           title: "Accueil",
           to: { name: "home" },
+          exact: true
         },
         {
           title: "A propos",

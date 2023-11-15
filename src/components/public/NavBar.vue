@@ -11,7 +11,7 @@
       </i>
     </div>
     <div class="nav-links" :class="{ open: isMenuOpen }">
-      <router-link v-for="(link, id) in links" :key="id" :to="link.to">
+      <router-link v-for="(link, id) in links" :key="id" :to="link.to" :exact="link.exact || false">
         {{ link.title }}
       </router-link>
     </div>
@@ -91,6 +91,10 @@ nav {
       transition: all 0.3s ease-in-out;
 
       &:hover {
+        border-bottom: yellow 3px solid;
+      }
+
+      &.active {
         border-bottom: yellow 3px solid;
       }
     }

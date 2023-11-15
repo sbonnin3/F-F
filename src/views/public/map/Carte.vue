@@ -2,11 +2,11 @@
   <div class="content">
     <br>
     <div class="image-container">
-      <router-link to="/map/3D" class="image-link">
+      <router-link to="3D" class="image-link" append>
         <h1>Carte 3D</h1>
         <img src="@/assets/images/map.png" alt="Carte-3D" class="carte-image">
       </router-link>
-      <router-link to="/map/streetview" class="image-link">
+      <router-link to="streetview" class="image-link" append>
         <h1>Street View</h1>
         <img src="@/assets/images/visite.png" alt="Carte-3D" class="carte-image">
       </router-link>
