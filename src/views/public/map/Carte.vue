@@ -2,14 +2,14 @@
   <div class="content">
     <br>
     <div class="image-container">
-      <a href="../page/carte/plan" class="image-link">
+      <router-link to="/map/3D" class="image-link">
         <h1>Carte 3D</h1>
         <img src="@/assets/images/map.png" alt="Carte-3D" class="carte-image">
-      </a>
-      <a href="../page/carte/visite" class="image-link">
+      </router-link>
+      <router-link to="/map/streetview" class="image-link">
         <h1>Street View</h1>
         <img src="@/assets/images/visite.png" alt="Carte-3D" class="carte-image">
-      </a>
+      </router-link>
     </div>
   </div>
 </template>

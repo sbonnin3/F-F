@@ -7,8 +7,8 @@ export default [{
       { path: 'map', name: 'map', component: () => import('@/views/public/map/MapTemplate.vue'),
         children: [
           {path: '', name: 'map', component: () => import('@/views/public/map/Carte.vue')},
-          {path: '3D', name: '3D', component: () => import('@/views/public/map/ThreeD.vue')},
-          {path: 'streetview', name: 'streetview', component: () => import('@/views/public/map/StreetView.vue')},
+          {path: '3D', name: 'map3D', component: () => import('@/views/public/map/ThreeD.vue')},
+          {path: 'streetview', name: 'mapStreetview', component: () => import('@/views/public/map/StreetView.vue')},
         ] },
       { path: 'activities', name: 'activities', component: () => import('@/views/public/Activites.vue') },
       { path: 'planning', name: 'planning', component: () => import('@/views/public/Planning.vue') },
