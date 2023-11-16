@@ -101,7 +101,7 @@ nav {
     z-index: 1001;
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1200px) {
     .hamburger {
       display: block;
     }
