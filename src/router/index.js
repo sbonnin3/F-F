@@ -12,7 +12,7 @@ const router = new VueRouter({
   linkActiveClass: "active",
   routes: [
     ...PublicRoutes,
-    ...DashboardRoutes,
+    ...DashboardRoutes
   ]
 })
 
