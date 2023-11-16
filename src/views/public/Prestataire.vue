@@ -1,13 +1,18 @@
 <template>
     <div class="content">
-      <h1>Vous êtes sur la page : Prestataire</h1>
+      <ProviderProfile />
     </div>
   </template>
   
   <script>
+  import ProviderProfile from '@/components/public/ProviderProfile.vue'
+
   export default {
     // eslint-disable-next-line vue/multi-word-component-names
-    name: 'Prestataire'
+    name: 'Prestataire',
+    components: {
+      ProviderProfile
+    }
   }
   </script>
   
