@@ -4,7 +4,7 @@ export default [{
     children: [
       { path: '', name: 'home', component: () => import('@/views/public/HomeView.vue') },
       { path: 'about', name: 'about', component: () => import('@/views/public/Accueil.vue') },
-      { path: 'map', name: 'map', component: () => import('@/views/public/map/MapTemplate.vue'),
+      { path: 'map', component: () => import('@/views/public/map/MapTemplate.vue'),
         children: [
           {path: '', name: 'map', component: () => import('@/views/public/map/Carte.vue')},
           {path: '3D', name: 'map3D', component: () => import('@/views/public/map/ThreeD.vue')},
