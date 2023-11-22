@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="content">
     <h1>Vous êtes sur la page : Planning</h1>
     <table>
@@ -104,3 +105,16 @@ input[type="checkbox"].checked {
   color: green;
 }
 </style>
+=======
+    <div class="content">
+      <h1>Vous êtes sur la page : Planning</h1>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    // eslint-disable-next-line vue/multi-word-component-names
+    name: 'Planning'
+  }
+  </script>
+>>>>>>> origin/main
