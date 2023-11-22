@@ -393,9 +393,6 @@ export default {
   padding: 0;
 }
 
-.toggle-button .slider {
-}
-
 .toggle-button + span {
   vertical-align: middle; /* Alignement vertical au centre */
   margin-left: 8px; /* Espacement entre le bouton et le texte */
