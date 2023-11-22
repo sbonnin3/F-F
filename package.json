@@ -10,8 +10,6 @@
   "dependencies": {
     "cannon": "^0.6.2",
     "core-js": "^3.8.3",
-    "sass": "^1.69.5",
-    "sass-loader": "^13.3.2",
     "three": "^0.157.0",
     "three-orbit-controls": "^82.1.0",
     "three-orbitcontrols": "^2.110.3",

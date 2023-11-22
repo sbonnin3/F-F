@@ -20,7 +20,7 @@ body {
   width: 100%;
   height: 100vh; /* Assurez-vous que la hauteur de votre contenu occupe toute la vue de la fenêtre */
   overflow: hidden;
-  background: url("@/assets/images/video.gif") 100% 50% fixed;
+  background: url("@/assets/images/video.gif") center center fixed;
   background-size: cover;
   margin: 0;
   padding: 0;
