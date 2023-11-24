@@ -7,12 +7,12 @@
         </div>
       </div>
       <div class="header">
-        <h1>{{ providerDetails.name }}</h1>
-        <h2>{{ providerDetails.category }}</h2>
+        <h1>{{ providerData.name }}</h1>
+        <h2>{{ providerData.category }}</h2>
         <div class="actions">
           <button
             class="btn"
-            v-for="(link, id) in providerDetails.profileLinks"
+            v-for="(link, id) in providerData.profileLinks"
             :key="id"
             @click="redirect(link.to)"
           >
@@ -22,11 +22,11 @@
       </div>
     </div>
     <div class="profile__body">
-      <aside v-if="providerDetails.services" class="services">
+      <aside v-if="providerData.services" class="services">
         <h3>Services</h3>
         <ul>
           <li
-            v-for="(service, id) in providerDetails.services"
+            v-for="(service, id) in providerData.services"
             :key="id"
             @click="$router.push(service.to)"
           >
@@ -38,13 +38,13 @@
         <div class="desc">
           <h3>Provider Description</h3>
           <p>
-            {{ providerDetails.description }}
+            {{ providerData.description }}
           </p>
         </div>
-        <div class="posts" v-if="providerPosts">
+        <div class="posts" v-if="providerData.posts">
           <h3>Posts</h3>
           <div class="elements">
-            <article v-for="(post, id) in providerPosts" :key="id">
+            <article v-for="(post, id) in providerData.posts" :key="id">
               <h4>{{ post.title }}</h4>
               <p v-if="post.date" class="posts_details">{{ post.date }}</p>
               <p v-if="post.content">{{ post.content }}</p>
@@ -60,14 +60,10 @@
 export default {
   name: "ProviderProfile",
   props: {
-    providerDetails: {
+    providerData: {
       type: Object,
       required: true,
-    },
-    providerPosts: {
-      type: Array,
-      required: false,
-    },
+    }
   },
   methods: {
     redirect(to) {

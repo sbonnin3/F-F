@@ -1,7 +1,6 @@
 <template>
     <div class="content">
-      <ProviderProfile  :providerDetails="exampleProviderDetails"
-                        :providerPosts="exampleProviderPosts" />
+      <ProviderProfile  :providerData="providerData"/>
     </div>
   </template>
   
@@ -16,7 +15,7 @@
     },
     data () {
       return {
-        exampleProviderDetails: {
+        exampleProviderData: {
           name: 'Provider Name',
           category: 'Provider Category',
           profileLinks: [
@@ -42,10 +41,8 @@
               to: { name: 'planning' }
             },
           ],
-          description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, quibusdam, quia, quae voluptatem voluptas quod exercitationem voluptatibus quos doloribus quidem. Quisquam voluptatum, quibusdam, quia, quae voluptatem voluptas quod exercitationem voluptatibus quos doloribus quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, quibusdam, quia, quae voluptatem voluptas quod exercitationem voluptatibus quos doloribus quidem. Quisquam voluptatum, quibusdam, quia, quae voluptatem voluptas quod exercitationem voluptatibus quos doloribus quidem. ',
-        },
-
-        exampleProviderPosts: [
+          description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, quibusdam, quia, quae voluptatem voluptas quod exercitationem voluptatibus quos doloribus quidem. Quisquam voluptatum, quibusdam, quia, quae voluptatem voluptas quod exercitationem voluptatibus quos doloribus quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, quibusdam, quia, quae voluptatem voluptas quod exercitationem voluptatibus quos doloribus quidem. Quisquam voluptatum, quibusdam, quia, quae voluptatem voluptas quod exercitationem voluptatibus quos doloribus quidem. ', 
+          posts: [
           {
             title: 'Post 1',
             date: '01/01/2020',
@@ -62,6 +59,7 @@
             content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, quibusdam, quia, quae voluptatem voluptas quod exercitationem voluptatibus quos doloribus quidem.'
           },
         ]
+        }
       }
     }
   }
