@@ -57,13 +57,20 @@
 </template>
 
 <script>
+import { getProvider } from "@/services/from_datasets/providers.service";
+
 export default {
   name: "ProviderProfile",
   props: {
-    providerData: {
-      type: Object,
+    providerId: {
+      type: Number,
       required: true,
     }
+  },
+  data() {
+    return {
+      providerData: getProvider(this.providerId),
+    };
   },
   methods: {
     redirect(to) {
