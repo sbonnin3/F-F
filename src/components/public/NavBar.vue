@@ -121,9 +121,11 @@ nav {
       transform: translateX(100%);
       transition: all 0.3s ease-in-out;
 
+      gap: 10px;
+
       a {
-        font-size: 2rem;
-        padding: 20px 0;
+        font-size: 1.2rem;
+        padding: 10px 0;
       }
 
       z-index: 1000;
