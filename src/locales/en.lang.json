@@ -9,6 +9,17 @@
       "providers": "Providers",
       "login": "Login",
       "logout": "Logout"
+    },
+    "map": {
+      "3Dmap": "3D Map",
+      "streetView": "Street View"
+    },
+    "providers": {
+      "services": "Services",
+      "providerDescription": "Provider Description",
+      "posts": "Posts",
+      "providerNotFound": "Provider not found, please try again.",
+      "searchAccroche": "Select the profile you want to explore :"
     }
   },
   "dashboard": {

@@ -9,6 +9,17 @@
       "providers": "Prestataires",
       "login": "Se Connecter",
       "logout": "Se Déconnecter"
+    },
+    "map": {
+      "3Dmap": "Carte 3D",
+      "streetView": "Vue immersive"
+    },
+    "providers": {
+      "services": "Services",
+      "providerDescription": "Description",
+      "posts": "Articles",
+      "providerNotFound": "Prestataire non trouvé, veuillez réessayer.",
+      "searchAccroche": "Séléctionnez le prestataire que vous souhaitez afficher :"
     }
   },
   "dashboard": {

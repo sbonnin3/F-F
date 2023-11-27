@@ -23,7 +23,7 @@
     </div>
     <div class="profile__body">
       <aside v-if="providerData.services" class="services">
-        <h3>Services</h3>
+        <h3>{{ $t('public.providers.services') }}</h3>
         <ul>
           <li
             v-for="(service, id) in providerData.services"
@@ -36,13 +36,13 @@
       </aside>
       <div class="profile__page">
         <div class="desc">
-          <h3>Provider Description</h3>
+          <h3>{{ $t('public.providers.providerDescription') }}</h3>
           <p>
             {{ providerData.description }}
           </p>
         </div>
         <div class="posts" v-if="providerData.posts">
-          <h3>Posts</h3>
+          <h3>{{ $t('public.providers.posts') }}</h3>
           <div class="elements">
             <article v-for="(post, id) in providerData.posts" :key="id">
               <h4>{{ post.title }}</h4>
@@ -55,7 +55,7 @@
     </div>
   </div>
   <div v-else>
-    <h2>Provider not found, please try again</h2>
+    <h2>{{ $t('public.providers.providerNotFound') }}</h2>
   </div>
 </template>
 

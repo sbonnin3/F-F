@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <h2>{{ $t('public.providers.searchAccroche') }}</h2>
     <select v-model="seletedProvider">
       <option
         v-for="provider in providers"
@@ -38,6 +39,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: firebrick;
+  gap: 20px;
     select {
       width: 100%;
       max-width: 400px;
