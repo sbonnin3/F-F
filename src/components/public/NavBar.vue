@@ -12,7 +12,7 @@
     </div>
     <div class="nav-links" :class="{ open: isMenuOpen }">
       <router-link v-for="(link, id) in links" :key="id" :to="link.to" :exact="link.exact || false">
-        {{ link.title }}
+        {{ $t(link.title) }}
       </router-link>
     </div>
   </nav>

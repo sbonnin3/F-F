@@ -19,32 +19,32 @@ export default {
     return {
       publicNavLinks: [
         {
-          title: "Accueil",
+          title: "public.navigation.home",
           to: { name: "home" },
           exact: true
         },
         {
-          title: "A propos",
+          title: "public.navigation.about",
           to: { name: "about" },
         },
         {
-            title: "Carte",
+            title: "public.navigation.map",
             to: { name: "map" },
         },
         {
-          title: "Activités",
+          title: "public.navigation.activities",
           to: { name: "activities" },
         },
         {
-          title: "Planning",
+          title: "public.navigation.planning",
           to: { name: "planning" },
         },
         {
-          title: "Prestataires",
+          title: "public.navigation.providers",
           to: { name: "providers" },
         },
         {
-          title: "Connexion",
+          title: "public.navigation.login",
           to: { name: "login" },
         },
       ],

@@ -1,0 +1,16 @@
+{
+  "public": {
+    "navigation": {
+      "home": "Accueil",
+      "about": "A propos",
+      "map": "Carte",
+      "activities": "Activitiés",
+      "planning": "Planning",
+      "providers": "Prestataires",
+      "login": "Se Connecter",
+      "logout": "Se Déconnecter"
+    }
+  },
+  "dashboard": {
+  }
+}

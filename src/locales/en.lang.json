@@ -1,0 +1,16 @@
+{
+  "public": {
+    "navigation": {
+      "home": "Home",
+      "about": "About",
+      "map": "Map",
+      "activities": "Activities",
+      "planning": "Planning",
+      "providers": "Providers",
+      "login": "Login",
+      "logout": "Logout"
+    }
+  },
+  "dashboard": {
+  }
+}
