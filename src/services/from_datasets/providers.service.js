@@ -3,7 +3,7 @@ const providers = [
       "id": 1,
       "name": "Provider 1",
       "description": "Provider 1 description",
-      "logo": "https://via.placeholder.com/150",
+      "logo": "https://picsum.photos/200/200",
       "profileLinks": [
         {
           "name": "Facebook",
@@ -39,7 +39,7 @@ const providers = [
       "id": 2,
       "name": "Provider 2",
       "description": "Provider 2 description",
-      "logo": "https://via.placeholder.com/150",
+      "logo": "https://picsum.photos/200/200",
       "profileLinks": [
         {
           "name": "LinkedIn",
@@ -71,7 +71,7 @@ const providers = [
       "id": 3,
       "name": "Provider 3",
       "description": "Provider 3 description",
-      "logo": "https://via.placeholder.com/150",
+      "logo": "https://picsum.photos/200/200",
       "profileLinks": [
         {
           "name": "Facebook",
@@ -107,7 +107,7 @@ const providers = [
       "id": 4,
       "name": "Provider 4",
       "description": "Provider 4 description",
-      "logo": "https://via.placeholder.com/150",
+      "logo": "https://picsum.photos/200/200",
       "profileLinks": [
         {
           "name": "LinkedIn",

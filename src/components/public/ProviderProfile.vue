@@ -1,9 +1,9 @@
 <template>
-  <div class="profile">
+  <div class="profile" v-if="providerData">
     <div class="profile__head">
       <div class="headband">
         <div class="provider-picture">
-          <img src="https://picsum.photos/200/200" alt="provider picture" />
+          <img :src="providerData.logo" alt="provider picture" />
         </div>
       </div>
       <div class="header">
@@ -54,6 +54,9 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <h2>Provider not found, please try again</h2>
+  </div>
 </template>
 
 <script>
@@ -62,14 +65,13 @@ import { getProvider } from "@/services/from_datasets/providers.service";
 export default {
   name: "ProviderProfile",
   props: {
-    providerId: {
-      type: Number,
+    id: {
       required: true,
     }
   },
   data() {
     return {
-      providerData: getProvider(this.providerId),
+      providerData: getProvider(Number(this.id)) || undefined,
     };
   },
   methods: {
@@ -81,6 +83,14 @@ export default {
       }
     },
   },
+  mounted() {
+    console.log(this.providerData);
+  },
+  watch: {
+    id(newVal) {
+      this.providerData = getProvider(Number(newVal)) || undefined;
+    }
+  }
 };
 </script>
 
