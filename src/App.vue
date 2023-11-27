@@ -4,7 +4,12 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  watch: {
+    '$i18n.locale': function (newVal) {
+      localStorage.setItem('user.locale', newVal)
+    }
+  }
 }
 </script>
 
