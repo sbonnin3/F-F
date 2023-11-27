@@ -2,7 +2,7 @@
   <nav>
     <div class="brand">
       <router-link :to="{ name: 'home' }">
-        <img src="@/assets/images/Image1.png" alt="Logo" />
+        <img src="@/assets/images/Image1.png" alt="Logo"/>
       </router-link>
     </div>
     <div class="hamburger" @click="toggleMenu">
@@ -14,6 +14,14 @@
       <router-link v-for="(link, id) in links" :key="id" :to="link.to" :exact="link.exact || false">
         {{ $t(link.title) }}
       </router-link>
+      <span class="lang-changer">
+        <i class="material-symbols">language</i>
+        <select v-model="$i18n.locale">
+          <option v-for="lang in $i18n.availableLocales" :key="lang" :value="lang">
+            {{ getFlagEmoji(lang) }}
+          </option>
+        </select>
+      </span>
     </div>
   </nav>
 </template>
@@ -34,6 +42,17 @@ export default {
   methods: {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
+    },
+    getFlagEmoji(lang) {
+      if (lang === "en") lang = "gb";
+
+      const codePoints = lang.toUpperCase().split("").map((char) => 127397 + char.charCodeAt());
+      return String.fromCodePoint(...codePoints);
+    }
+  },
+  watch: {
+    $route() {
+      this.isMenuOpen = false;
     },
   },
 };
@@ -60,6 +79,7 @@ nav {
     img {
       height: 65px;
     }
+
     z-index: 1001;
   }
 
@@ -97,6 +117,28 @@ nav {
       &.active {
         border-bottom: yellow 3px solid;
       }
+    }
+
+    .lang-changer {
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      select {
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      i {
+        font-size: 1.3rem;
+      }
+
+      border: 1px solid white;
+      padding: 5px;
     }
     z-index: 1001;
   }
