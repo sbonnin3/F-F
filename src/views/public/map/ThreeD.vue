@@ -41,6 +41,8 @@ export default {
   name: 'Carte',
   data() {
     return {
+      hoveredObject: null,
+
       routeObject: null,
       plateformeObject: null,
       toilettesObject: null,
@@ -175,6 +177,60 @@ export default {
     }
 
     loop();
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    // Fonction pour gérer le survol
+    const handleHover = (event) => {
+      // Mettez à jour les coordonnées de la souris en fonction de la position de l'événement
+      const rect = renderer.domElement.getBoundingClientRect();
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+      // Mettez à jour le raycaster
+      raycaster.setFromCamera(mouse, camera);
+
+      // Recherchez les intersections avec les objets de la scène
+      const intersects = raycaster.intersectObjects([
+        this.toilettesObject,
+        this.batimentsObject,
+        this.restaurantsObject,
+        this.concertsObject,
+        // ... autres objets
+      ].filter(obj => obj));
+
+      // Vérifiez s'il y a des intersections
+      if (intersects.length > 0) {
+    const newHoveredObject = intersects[0].object;
+
+    // Vérifiez si l'objet survolé a changé
+    if (newHoveredObject !== this.hoveredObject) {
+      // Réinitialisez la couleur de l'objet précédemment survolé
+      if (this.hoveredObject && this.hoveredObject.material) {
+        this.hoveredObject.material.color.set(0xffffff);
+      }
+
+      // Mettez à jour l'objet survolé
+      this.hoveredObject = newHoveredObject;
+
+      // Changez la couleur de l'objet survolé
+      if (this.hoveredObject && this.hoveredObject.material) {
+        this.hoveredObject.material.color.set(0xff0000);
+      }
+    }
+  } else {
+    // Aucun objet survolé, réinitialisez la couleur
+    if (this.hoveredObject && this.hoveredObject.material) {
+      this.hoveredObject.material.color.set(0xffffff);
+      this.hoveredObject = null;
+    }
+  }
+};
+
+    // Ajoutez des écouteurs d'événements pour gérer le survol
+    window.addEventListener('mousemove', handleHover);
+    window.addEventListener('touchmove', handleHover);
   },
   watch: {
     chek_toilettes() {
@@ -335,9 +391,6 @@ export default {
   cursor: pointer;
   border-radius: 20px;
   padding: 0;
-}
-
-.toggle-button .slider {
 }
 
 .toggle-button + span {
