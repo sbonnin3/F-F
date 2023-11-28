@@ -1,15 +1,18 @@
 <template>
+  <div>
     <router-view></router-view>
+  </div>
 </template>
 
 <script>
+
 export default {
   name: 'App',
   watch: {
     '$i18n.locale': function (newVal) {
       localStorage.setItem('user.locale', newVal)
     }
-  }
+  },
 }
 </script>
 

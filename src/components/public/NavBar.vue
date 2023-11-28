@@ -14,6 +14,10 @@
       <router-link v-for="(link, id) in links" :key="id" :to="link.to" :exact="link.exact || false">
         {{ $t(link.title) }}
       </router-link>
+      <button v-if="!userRole" @click.prevent="openLoginForm" class="loginButton">Connexion</button>
+      <span id="role" v-else>{{ userRole }}</span>
+      <button v-if="userRole" @click="confirmLogout" class="loginButton">Déconnexion</button>
+
       <span class="lang-changer">
         <i class="material-symbols">language</i>
         <select v-model="$i18n.locale">
@@ -29,10 +33,12 @@
 <script>
 export default {
   props: {
+    userRole:{ String
+    },
     links: {
       type: Array,
       required: true,
-    },
+    }
   },
   data() {
     return {
@@ -43,12 +49,19 @@ export default {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
+    openLoginForm() {
+      this.$emit('open-login-form');
+    },
     getFlagEmoji(lang) {
       if (lang === "en") lang = "gb";
 
       const codePoints = lang.toUpperCase().split("").map((char) => 127397 + char.charCodeAt());
       return String.fromCodePoint(...codePoints);
+    },
+    confirmLogout() {
+      this.$emit('confirm-logout');
     }
+    
   },
   watch: {
     $route() {
@@ -141,6 +154,32 @@ nav {
       padding: 5px;
     }
     z-index: 1001;
+  }
+
+  .loginButton{
+    font-family: 'Arial', sans-serif;
+    font-size:1.3rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding : 6px 0 6px 0;
+    color:white;
+    border-bottom: transparent 3px solid;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .loginButton:hover{
+    border-bottom: yellow 3px solid;
+  }
+
+  .loginButton:active{
+    border-bottom: yellow 3px solid;
+  }
+
+  #role{
+    color:yellow;
+    font-size:1.3rem;
   }
 
   @media screen and (max-width: 1200px) {
