@@ -45,7 +45,7 @@ export default {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui, je veux me déconnecté',
+        confirmButtonText: 'Oui, je veux me déconnecter',
         cancelButtonText: "Annuler"
       }).then((result) => {
         if (result.isConfirmed) {

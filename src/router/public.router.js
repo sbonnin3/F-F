@@ -11,7 +11,7 @@ export default [
       {
         path: "about",
         name: "about",
-        component: () => import("@/views/public/Accueil.vue"),
+        component: () => import("@/views/public/APropos.vue"),
       },
       {
         path: "map",

@@ -16,7 +16,7 @@
         {{ $t(link.title) }}
       </router-link>
       -->
-      <router-link v-for="(link, id) in getLinks()" :key="id" :to="link.to">
+      <router-link v-for="(link, id) in getLinks()" :key="id" :to="link.to" :exact="link.exact || false">
         {{ $t(link.title) }}
       </router-link>
       <button v-if="!userRole" @click.prevent="openLoginForm" class="loginButton">Connexion</button>
@@ -51,13 +51,13 @@ export default {
       roleLinks: {
         admin: [
           { title: "Tableau de bord", to: { name: "admin_dashboard" } },
-          { title: "Statistique", to: { name: "admin_statistics" } },
+          { title: "Statistiques", to: { name: "admin_statistics" } },
           { title: "Notifications", to: { name: "admin_notifications" } },
           { title: "Mon compte", to: { name: "admin_account" } }
         ],
         prestataire: [
           { title: "Commande(s)", to: { name: "presta_orders" } },
-          { title: "Statistique", to: { name: "presta_statistics" } },
+          { title: "Statistiques", to: { name: "presta_statistics" } },
           { title: "Notifications", to: { name: "presta_notifications" } },
           { title: "Mon compte", to: { name: "presta_account" } }
         ],
@@ -78,21 +78,22 @@ export default {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
-    openLoginForm() {
-      this.$emit('open-login-form');
-    },
     getFlagEmoji(lang) {
       if (lang === "en") lang = "gb";
 
       const codePoints = lang.toUpperCase().split("").map((char) => 127397 + char.charCodeAt());
       return String.fromCodePoint(...codePoints);
     },
+    openLoginForm() {
+      this.$emit('open-login-form');
+    },
+
     confirmLogout() {
       this.$emit('confirm-logout');
     },
     getLinks() {
       if (this.userRole) {
-        return this.roleLinks[this.userRole.toLowerCase()] || this.defaultLinks;
+        return this.roleLinks[this.userRole.toLowerCase()] || this.links;
       }
       return this.links;
     }
@@ -201,15 +202,15 @@ nav {
     color:white;
     border-bottom: transparent 3px solid;
     transition: all 0.3s ease-in-out;
+
+    &:hover{
+      border-bottom: yellow 3px solid;
+    }
   }
 
-  .loginButton:hover{
-    border-bottom: yellow 3px solid;
-  }
 
-  .loginButton:active{
-    border-bottom: yellow 3px solid;
-  }
+
+
 
   #role{
     color:yellow;
