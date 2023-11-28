@@ -1,15 +1,24 @@
 <template>
-  <div v-if="show" class="login-popup">
-  <div class="login-form">
-      <h2>{{ $t('public.loginForms.login') }}</h2>
-      <form @submit.prevent="login">
-        <input type="email" :placeholder="$t('public.loginForms.email')" v-model="username" required>
-        <input type="password" :placeholder="$t('public.loginForms.password')" v-model="password" required>
-        <button type="submit">{{ $t('public.loginForms.loginSubmit')}}</button>
+  <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center">
+    <!-- Overlay Background -->
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+
+    <!-- Login Form Pop-up -->
+    <div class="relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg shadow-lg z-10">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">Se connecter</h2>
+      <form @submit.prevent="login" class="w-full">
+        <div class="mb-4">
+          <input type="email" placeholder="E-mail" v-model="username" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700">
+        </div>
+        <div class="mb-6">
+          <input type="password" placeholder="Mot de passe" v-model="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3">
+        </div>
+        <div class="flex items-center justify-between">
+          <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded">Connexion</button>
+          <button @click.prevent="closePopup" class="text-black hover:text-yellow-600 font-semibold">Fermer</button>
+        </div>
       </form>
-      <button @click.prevent="closePopup">{{ $t('public.loginForms.closeWindow') }}</button>
     </div>
-    <div class="background-overlay"></div>
   </div>
 </template>
 
