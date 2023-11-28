@@ -1,13 +1,13 @@
 <template>
   <div v-if="show" class="login-popup">
   <div class="login-form">
-      <h2>Se connecter</h2>
+      <h2>{{ $t('public.loginForms.login') }}</h2>
       <form @submit.prevent="login">
-        <input type="email" placeholder="E-mail" v-model="username" required>
-        <input type="password" placeholder="Mot de passe" v-model="password" required>
-        <button type="submit">Connexion</button>
+        <input type="email" :placeholder="$t('public.loginForms.email')" v-model="username" required>
+        <input type="password" :placeholder="$t('public.loginForms.password')" v-model="password" required>
+        <button type="submit">{{ $t('public.loginForms.loginSubmit')}}</button>
       </form>
-      <button @click.prevent="closePopup">Fermer</button>
+      <button @click.prevent="closePopup">{{ $t('public.loginForms.closeWindow') }}</button>
     </div>
     <div class="background-overlay"></div>
   </div>
@@ -41,10 +41,10 @@ export default {
         console.log("Utilisateur trouvé")
         this.$emit('login-success', userData.role);
         Swal.fire({
-          title: 'Connexion réussie !',
-          text: 'Bienvenu(e), ' + this.username,
+          title: this.$t('public.loginForms.loginSuccess'),
+          text: this.$t('public.loginForms.welcome', {name: this.username}),
           icon: 'success',
-          confirmButtonText: 'Fermer'
+          confirmButtonText: this.$t('public.loginForms.closeWindow')
         }).then(() => {
           // Actions à effectuer après la fermeture de l'alerte
           // Par exemple, fermer le formulaire de connexion
@@ -54,10 +54,10 @@ export default {
         })
       } else {
         Swal.fire({
-          title: 'Erreur',
-          text: 'E-mail ou mot de passe invalide.',
+          title: this.$t('public.loginForms.loginErrorTitle'),
+          text: this.$t('public.loginForms.loginError'),
           icon: 'error',
-          confirmButtonText: 'Réessayer'
+          confirmButtonText: this.$t('public.loginForms.closeWindow')
         }).then(() => {
           // Optionnel : Réinitialiser le mot de passe (et/ou l'e-mail)
           this.username = '';
@@ -107,7 +107,7 @@ export default {
 }
 
 .login-form input {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;

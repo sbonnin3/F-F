@@ -39,14 +39,13 @@ export default {
     },
     confirmLogout() {
       Swal.fire({
-        title: 'Êtes-vous sûr ?',
-        text: "Vous êtes sur le point de vous déconnecter.",
+        title: this.$t('public.loginForms.logoutAsk'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui, je veux me déconnecter',
-        cancelButtonText: "Annuler"
+        confirmButtonText: this.$t('public.loginForms.logoutConfirm'),
+        cancelButtonText: this.$t('public.loginForms.closeWindow')
       }).then((result) => {
         if (result.isConfirmed) {
           this.logout();
@@ -56,12 +55,6 @@ export default {
     logout() {
       this.userRole = null; // Réinitialiser l'état de userRole
       localStorage.removeItem('userRole'); // Supprimer le rôle de l'utilisateur de LocalStorage
-      // Afficher une alerte de déconnexion réussie
-      Swal.fire(
-          'Déconnecté !',
-          'Au revoir, bonne journée / soirée',
-          'success'
-      );
     }
   },
 

@@ -33,9 +33,31 @@
         "animations": "Exhibitions and activities: Discover a range of classic and modern cars, take part in interactive workshops and enjoy activities for the whole family.",
         "restauration": "Dining and relaxation areas: Dining areas will be available to allow you to recharge your batteries and enjoy the day comfortably."
       },
-      "endOfPage" : "Join us for a memorable day at the heart of automotive action and passion. Fast&Fabulous at Circuit Paul Ricard is more than an event, it is an experience to be lived to the fullest!"
+      "endOfPage": "Join us for a memorable day at the heart of automotive action and passion. Fast&Fabulous at Circuit Paul Ricard is more than an event, it is an experience to be lived to the fullest!"
+    },
+    "loginForms": {
+      "login": "Login",
+      "email": "Email",
+      "password": "Password",
+      "loginSubmit": "Submit",
+      "closeWindow": "Close",
+      "loginSuccess": "You are now logged in.",
+      "welcome": "Welcome, {name}!",
+      "loginErrorTitle": "Error",
+      "loginError": "An error occurred while logging in. Please try again."
     }
   },
   "dashboard": {
+    "navigation": {
+      "dashboard": "Dashboard",
+      "stats": "Stats",
+      "notifications": "Notifications",
+      "myAccount": "My Account",
+      "orders": "Orders",
+      "reservations": "Reservations",
+      "planning": "Planning",
+      "coursesCalendar": "Courses",
+      "introductionsCalendar": "Introductions"
+    }
   }
 }

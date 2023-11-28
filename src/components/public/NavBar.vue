@@ -19,9 +19,9 @@
       <router-link v-for="(link, id) in getLinks()" :key="id" :to="link.to" :exact="link.exact || false">
         {{ $t(link.title) }}
       </router-link>
-      <button v-if="!userRole" @click.prevent="openLoginForm" class="loginButton">Connexion</button>
+      <button v-if="!userRole" @click.prevent="openLoginForm" class="loginButton">{{ $t('public.navigation.login') }}</button>
       <span id="role" v-else>{{ userRole }}</span>
-      <button v-if="userRole" @click="confirmLogout" class="loginButton">Déconnexion</button>
+      <button v-if="userRole" @click="confirmLogout" class="loginButton">{{ $t('public.navigation.logout') }}</button>
 
       <span class="lang-changer">
         <i class="material-symbols">language</i>
@@ -50,26 +50,26 @@ export default {
       isMenuOpen: false,
       roleLinks: {
         admin: [
-          { title: "Tableau de bord", to: { name: "admin_dashboard" } },
-          { title: "Statistiques", to: { name: "admin_statistics" } },
-          { title: "Notifications", to: { name: "admin_notifications" } },
-          { title: "Mon compte", to: { name: "admin_account" } }
+          { title: "dashboard.navigation.dashboard", to: { name: "admin_dashboard" } },
+          { title: "dashboard.navigation.stats", to: { name: "admin_statistics" } },
+          { title: "dashboard.navigation.notifications", to: { name: "admin_notifications" } },
+          { title: "dashboard.navigation.myAccount", to: { name: "admin_account" } }
         ],
         prestataire: [
-          { title: "Commande(s)", to: { name: "presta_orders" } },
-          { title: "Statistiques", to: { name: "presta_statistics" } },
-          { title: "Notifications", to: { name: "presta_notifications" } },
-          { title: "Mon compte", to: { name: "presta_account" } }
+          { title: "dashboard.navigation.orders", to: { name: "presta_orders" } },
+          { title: "dashboard.navigation.stats", to: { name: "presta_statistics" } },
+          { title: "dashboard.navigation.notifications", to: { name: "presta_notifications" } },
+          { title: "dashboard.navigation.myAccount", to: { name: "presta_account" } }
         ],
         client: [
-          { title: "Réservation(s)", to: { name: "client_reservations" } },
-          { title: "Planning", to: { name: "client_planning" } },
-          { title: "Mon compte", to: { name: "client_account" } }
+          { title: "dashboard.navigation.reservations", to: { name: "client_reservations" } },
+          { title: "dashboard.navigation.planning", to: { name: "client_planning" } },
+          { title: "dashboard.navigation.myAccount", to: { name: "client_account" } }
         ],
         pilote: [
-          { title: "Calendrier course", to: { name: "pilote_planning" } },
-          { title: "Calendrier baptême", to: { name: "pilote_baptism" } },
-          { title: "Mon compte", to: { name: "pilote_account" } }
+          { title: "dashboard.navigation.coursesCalendar", to: { name: "pilote_planning" } },
+          { title: "dashboard.navigation.introductionsCalendar", to: { name: "pilote_baptism" } },
+          { title: "dashboard.navigation.myAccount", to: { name: "pilote_account" } }
         ]
       }
     };

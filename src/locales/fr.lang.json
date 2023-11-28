@@ -34,8 +34,32 @@
         "restauration": "Restauration et zones de détente : Des espaces de restauration seront disponibles pour vous permettre de recharger vos batteries et de profiter de la journée confortablement."
       },
       "endOfPage": "Rejoignez-nous pour une journée mémorable au cœur de l'action et de la passion automobile. Fast&Fabulous au Circuit Paul Ricard est plus qu'un événement, c'est une expérience à vivre pleinement !"
+    },
+    "loginForms": {
+      "login": "Se connecter",
+      "email": "Email",
+      "password": "Mot de passe",
+      "loginSubmit": "Se connecter",
+      "closeWindow": "Fermer",
+      "loginSuccess": "Connexion réussie",
+      "welcome": "Bienvenue {name}",
+      "loginErrorTitle": "Erreur de connexion",
+      "loginError": "Une erreur est survenue lors de la connexion, veuillez réessayer.",
+      "logoutAsk": "Voulez-vous vous déconnecter ?",
+      "logoutConfirm": "Se déconnecter"
     }
   },
   "dashboard": {
+    "navigation": {
+      "dashboard": "Tableau de bord",
+      "stats": "Statistiques",
+      "notifications": "Notifications",
+      "myAccount": "Mon compte",
+      "orders": "Commandes",
+      "reservations": "Réservations",
+      "planning": "Planning",
+      "coursesCalendar": "Calendrier des Courses",
+      "introductionsCalendar": "Calendrier des Baptêmes"
+    }
   }
 }
