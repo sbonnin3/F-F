@@ -11,7 +11,12 @@
       </i>
     </div>
     <div class="nav-links" :class="{ open: isMenuOpen }">
+      <!--
       <router-link v-for="(link, id) in links" :key="id" :to="link.to" :exact="link.exact || false">
+        {{ $t(link.title) }}
+      </router-link>
+      -->
+      <router-link v-for="(link, id) in getLinks()" :key="id" :to="link.to">
         {{ $t(link.title) }}
       </router-link>
       <button v-if="!userRole" @click.prevent="openLoginForm" class="loginButton">Connexion</button>
@@ -43,6 +48,30 @@ export default {
   data() {
     return {
       isMenuOpen: false,
+      roleLinks: {
+        admin: [
+          { title: "Tableau de bord", to: { name: "admin_dashboard" } },
+          { title: "Statistique", to: { name: "admin_statistics" } },
+          { title: "Notifications", to: { name: "admin_notifications" } },
+          { title: "Mon compte", to: { name: "admin_account" } }
+        ],
+        prestataire: [
+          { title: "Commande(s)", to: { name: "presta_orders" } },
+          { title: "Statistique", to: { name: "presta_statistics" } },
+          { title: "Notifications", to: { name: "presta_notifications" } },
+          { title: "Mon compte", to: { name: "presta_account" } }
+        ],
+        client: [
+          { title: "Réservation(s)", to: { name: "client_reservations" } },
+          { title: "Planning", to: { name: "client_planning" } },
+          { title: "Mon compte", to: { name: "client_account" } }
+        ],
+        pilote: [
+          { title: "Calendrier course", to: { name: "pilote_planning" } },
+          { title: "Calendrier baptême", to: { name: "pilote_baptism" } },
+          { title: "Mon compte", to: { name: "pilote_account" } }
+        ]
+      }
     };
   },
   methods: {
@@ -60,8 +89,13 @@ export default {
     },
     confirmLogout() {
       this.$emit('confirm-logout');
+    },
+    getLinks() {
+      if (this.userRole) {
+        return this.roleLinks[this.userRole.toLowerCase()] || this.defaultLinks;
+      }
+      return this.links;
     }
-    
   },
   watch: {
     $route() {

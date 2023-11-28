@@ -62,6 +62,78 @@ export default [
         name: "login",
         component: () => import("@/views/public/Connexion.vue"),
       },
+        // A MIEUX RANGER
+      {
+        path:"admin_dashboard",
+        name:"admin_dashboard",
+        // COMPONENT A RAJOUTER
+
+      },
+      {
+        path: "admin_statistics",
+        name: "admin_statistics",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "admin_notifications",
+        name: "admin_notifications",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "admin_account",
+        name: "admin_account",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "presta_statistics",
+        name: "presta_statistics",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "presta_orders",
+        name: "presta_orders",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "presta_notifications",
+        name: "presta_notifications",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "presta_account",
+        name: "presta_account",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "client_reservations",
+        name: "client_reservations",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "client_planning",
+        name: "client_planning",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "client_account",
+        name: "client_account",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "pilote_planning",
+        name: "pilote_planning",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "pilote_baptism",
+        name: "pilote_baptism",
+        // COMPONENT A RAJOUTER
+      },
+      {
+        path: "pilote_account",
+        name: "pilote_account",
+        // COMPONENT A RAJOUTER
+      },
     ],
   },
 ];
