@@ -1,31 +1,41 @@
 <template class="page">
   <div class="content">
     <div class="background">
-      <h1 class="page-title">FAST & FABULOUS</h1>
-    </div>
-
-    <div class="titre">
-      <h1>{{ $t('public.home.header') }}</h1>
-    </div>
-    <div class="suite">
-      <div class="text">
-        <h1>{{ $t('public.home.secondHeader') }}</h1>
-        <br>
-        <p>{{ $t('public.home.leCircuitPaulRicardEstRaviDaccueillir') }}</p>
-        <br> <br>
-        <h2>{{ $t('public.home.pointsForts.header') }}</h2>
-        <br>
-        <ul>
-        <li>{{ $t('public.home.pointsForts.grandPrix') }} </li>
-        <li>{{ $t('public.home.pointsForts.kartingForAll') }} </li>
-        <li>{{ $t('public.home.pointsForts.bateme') }} </li>
-        <li>{{ $t('public.home.pointsForts.animations') }}</li>
-        <li>{{ $t('public.home.pointsForts.restauration') }} </li>
-        </ul>
-        <br>
-        <h3> {{ $t('public.home.endOfPage') }}</h3>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-50 p-2 sm:p-4 rounded">
+        <h1 class="text-white text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold">
+          FAST & FABULOUS
+        </h1>
       </div>
     </div>
+
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="titre text-center mt-12 mb-10">
+        <!-- Tailles de police réactives pour le titre principal -->
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight">{{ $t('public.home.header') }}</h1>
+        <hr class="my-8 border-gray-600" /> <!-- Séparateur visuel après le titre principal -->
+      </div>
+      <div class="suite">
+        <div class="text space-y-6">
+          <!-- Tailles de police réactives pour le second titre -->
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4">{{ $t('public.home.secondHeader') }}</h1>
+          <!-- Texte adaptatif pour les différents écrans -->
+          <p class="text-lg sm:text-lg leading-relaxed">{{ $t('public.home.leCircuitPaulRicardEstRaviDaccueillir') }}</p>
+          <hr class="my-6 border-gray-300" /> <!-- Séparateur visuel avant les points forts -->
+          <!-- Tailles de police réactives pour les sous-titres -->
+          <h2 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 my-4">{{ $t('public.home.pointsForts.header') }}</h2>
+          <ul class="list-disc pl-5 space-y-3 text-base sm:text-lg">
+            <li>{{ $t('public.home.pointsForts.grandPrix') }}</li>
+            <li>{{ $t('public.home.pointsForts.kartingForAll') }}</li>
+            <li>{{ $t('public.home.pointsForts.bateme') }}</li>
+            <li>{{ $t('public.home.pointsForts.animations') }}</li>
+            <li>{{ $t('public.home.pointsForts.restauration') }}</li>
+          </ul>
+          <hr class="my-6 border-gray-300" /> <!-- Séparateur visuel avant la conclusion -->
+          <!-- Tailles de police réactives pour la conclusion -->
+          <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 mt-6 mb-12 text-center">{{ $t('public.home.endOfPage') }}</h3>
+        </div>
+      </div>
+  </div>
   </div>
  
 </template>
@@ -55,10 +65,10 @@ body {
 }
 
 .suite{
-  padding-top: 5%;
+  padding-top: 0%;
   padding-left: 20%;
   padding-right: 20%;
-  padding-bottom:20%;
+  padding-bottom:2%;
   display: flex;
   justify-content: center;
   align-items: center;
