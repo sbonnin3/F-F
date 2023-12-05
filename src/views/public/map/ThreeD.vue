@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="carte" ref="container"></div>
     <div class="menu">
       <h2>Menu</h2>
@@ -172,7 +172,7 @@ export default {
         this.concertsObject.visible = false; // Désaffiche l'objet
       }
       
-      renderer.setSize(window.innerWidth, 0.999*window.innerHeight);
+      renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.render(scene, this.camera);
     }
 
@@ -411,9 +411,11 @@ export default {
 }
 
 .container {
-  display: flex;
   background-color: black;
+  border: 1px solid red; /* Ajout temporaire pour le débogage */
+  overflow: hidden;
 }
+
 
 .carte {
   flex: 1;

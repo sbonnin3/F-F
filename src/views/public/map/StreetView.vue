@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="carte" ref="container"></div>
   </div>
 </template>
