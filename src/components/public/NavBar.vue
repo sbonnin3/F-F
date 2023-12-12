@@ -2,7 +2,7 @@
   <nav>
     <div class="brand">
       <router-link :to="{ name: 'home' }">
-        <img src="@/assets/images/Image1.png" alt="Logo"/>
+        <img src="@/assets/images/logo_f-f_white.png" alt="logo de l'événement" />
       </router-link>
     </div>
     <div class="hamburger" @click="toggleMenu">
@@ -23,7 +23,7 @@
 
       <span class="lang-changer">
         <i class="material-symbols">language</i>
-        <select v-model="$i18n.locale">
+        <select v-model="$i18n.locale" aria-label="sélection de la langue de l'application">
           <option v-for="lang in $i18n.availableLocales" :key="lang" :value="lang">
             {{ getFlagEmoji(lang) }}
           </option>

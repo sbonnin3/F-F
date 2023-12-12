@@ -2,9 +2,9 @@
   <div class="content">
     <div class="background">
       <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-50 p-2 sm:p-4 rounded">
-        <h1 class="text-white text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold">
+        <div class="text-white text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold">
           FAST & FABULOUS
-        </h1>
+        </div>
       </div>
     </div>
 
@@ -17,7 +17,7 @@
       <div class="suite">
         <div class="text space-y-6">
           <!-- Tailles de police réactives pour le second titre -->
-          <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4">{{ $t('public.home.secondHeader') }}</h1>
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4">{{ $t('public.home.secondHeader') }}</h2>
           <!-- Texte adaptatif pour les différents écrans -->
           <p class="text-lg sm:text-lg leading-relaxed">{{ $t('public.home.leCircuitPaulRicardEstRaviDaccueillir') }}</p>
           <hr class="my-6 border-gray-300" /> <!-- Séparateur visuel avant les points forts -->
@@ -32,7 +32,7 @@
           </ul>
           <hr class="my-6 border-gray-300" /> <!-- Séparateur visuel avant la conclusion -->
           <!-- Tailles de police réactives pour la conclusion -->
-          <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 mt-6 mb-12 text-center">{{ $t('public.home.endOfPage') }}</h3>
+          <p class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 mt-6 mb-12 text-center">{{ $t('public.home.endOfPage') }}</p>
         </div>
       </div>
   </div>

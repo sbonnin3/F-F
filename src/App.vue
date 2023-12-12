@@ -6,9 +6,17 @@
 
 export default {
   name: 'App',
+  mounted() {
+    const userLocale = localStorage.getItem('user.locale')
+    if (userLocale) {
+      this.$i18n.locale = userLocale
+    }
+    document.documentElement.lang = this.$i18n.locale
+  },
   watch: {
     '$i18n.locale': function (newVal) {
       localStorage.setItem('user.locale', newVal)
+      document.documentElement.lang = newVal
     }
   },
 }
@@ -23,7 +31,9 @@ body, h1, h2, h3, p, ul, li {
 
 body {
   font-family: 'Arial', sans-serif;
-  text-align: justify;
+  @media (max-width: 1000px) {
+    text-align: justify;
+  }
 }
 
 
@@ -48,4 +58,5 @@ body {
   white-space: nowrap;
   direction: ltr;
 }
+
 </style>
