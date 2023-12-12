@@ -1,7 +1,8 @@
 <template>
   <div>
-    <PublicNav :links="publicNavLinks" :userRole="userRole" @open-login-form="showLogin" @confirm-logout="confirmLogout"/>
-    <LoginForm :show="showLoginForm" @close-form="closeLoginForm" @login-success="handleLogin" />
+    <PublicNav :links="publicNavLinks" :userRole="userRole" @open-login-form="showLogin"
+               @confirm-logout="confirmLogout"/>
+    <LoginForm :show="showLoginForm" @close-form="closeLoginForm" @login-success="handleLogin"/>
     <main>
       <router-view></router-view>
     </main>
@@ -14,19 +15,11 @@ import LoginForm from "@/components/public/LoginForm.vue";
 import Swal from "sweetalert2";
 
 export default {
-  created() {
-    const savedUserRole = localStorage.getItem('userRole');
-    if (savedUserRole) {
-      this.userRole = savedUserRole; // Restaurez l'état de connexion à partir de LocalStorage
-    }
-  },
-
   name: "PublicTemplate",
   components: {
     LoginForm,
     PublicNav,
   },
-
   methods: {
     showLogin() {
       this.showLoginForm = true;
@@ -57,7 +50,6 @@ export default {
       localStorage.removeItem('userRole'); // Supprimer le rôle de l'utilisateur de LocalStorage
     }
   },
-
   data() {
     return {
       showLoginForm: false,
@@ -65,67 +57,49 @@ export default {
 
       publicNavLinks: [
         {
-          title: "public.navigation.home",
-          to: { name: "home" },
-          exact: true
-        },
-        {
           title: "public.navigation.about",
-          to: { name: "about" },
+          to: {name: "about"},
         },
         {
-            title: "public.navigation.map",
-            to: { name: "map" },
+          title: "public.navigation.map",
+          to: {name: "map"},
         },
         {
           title: "public.navigation.activities",
-          to: { name: "activities" },
+          to: {name: "activities"},
         },
         {
           title: "public.navigation.planning",
-          to: { name: "planning" },
+          to: {name: "planning"},
         },
         {
           title: "public.navigation.providers",
-          to: { name: "providers" },
+          to: {name: "providers"},
         },
       ],
     };
+  },
+  created() {
+    const savedUserRole = localStorage.getItem('userRole');
+    if (savedUserRole) {
+      this.userRole = savedUserRole; // Restaurez l'état de connexion à partir de LocalStorage
+    }
   },
 };
 </script>
 
 <style>
-  /* Reset du style par défaut et ajout de styles de base */
-  body, h1, h2, h3, p, ul, li {
-    margin: 0;
-    padding: 0;
-  }
+/* Reset du style par défaut et ajout de styles de base */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
 
-  body {
-    font-family: 'Arial', sans-serif;
-  }
+body {
+  font-family: 'Arial', sans-serif;
+}
 
-
-  /* Material Symbols */
-  @font-face {
-    font-family: 'Material Symbols';
-    font-style: normal;
-    font-weight: 400;
-    src: url(@/assets/fonts/MaterialSymbolsRounded.woff2) format('woff2');
-  }
-
-  .material-symbols {
-  font-family: 'Material Symbols';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
+main {
+  margin-top: 90px;
 }
 </style>

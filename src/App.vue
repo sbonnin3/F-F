@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
@@ -17,30 +15,30 @@ export default {
 </script>
 
 <style>
-  /* Reset du style par défaut et ajout de styles de base */
-  body, h1, h2, h3, p, ul, li {
-    margin: 0;
-    padding: 0;
-  }
+/* Reset du style par défaut et ajout de styles de base */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
 
-  body {
-    font-family: 'Arial', sans-serif;
-  }
+body {
+  font-family: 'Arial', sans-serif;
+}
 
 
-  /* Material Symbols */
-  @font-face {
-    font-family: 'Material Symbols';
-    font-style: normal;
-    font-weight: 400;
-    src: url(@/assets/fonts/MaterialSymbolsRounded.woff2) format('woff2');
-  }
+/* Material Symbols */
+@font-face {
+  font-family: 'Material Symbols';
+  font-style: normal;
+  font-weight: 400;
+  src: url(@/assets/fonts/MaterialSymbolsRounded.woff2) format('woff2');
+}
 
-  .material-symbols {
+.material-symbols {
   font-family: 'Material Symbols';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 24px; /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;

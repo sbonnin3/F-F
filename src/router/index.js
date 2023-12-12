@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import PublicRoutes from '@/router/public.router'
-import DashboardRoutes from '@/router/dashboard.router'
+import publicRoutes from '@/router/public.router'
+import dashboardRoutes from '@/router/dashboard.router'
 
 Vue.use(VueRouter)
 
@@ -11,8 +11,8 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   linkActiveClass: "active",
   routes: [
-    ...PublicRoutes,
-    ...DashboardRoutes
+    ...publicRoutes,
+    ...dashboardRoutes
   ]
 })
 

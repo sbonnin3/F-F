@@ -11,11 +11,9 @@
       </i>
     </div>
     <div class="nav-links" :class="{ open: isMenuOpen }">
-      <!--
-      <router-link v-for="(link, id) in links" :key="id" :to="link.to" :exact="link.exact || false">
-        {{ $t(link.title) }}
+      <router-link :to="{name: 'home'}" :exact="true">
+        <i class="material-symbols">home</i>
       </router-link>
-      -->
       <router-link v-for="(link, id) in getLinks()" :key="id" :to="link.to" :exact="link.exact || false">
         {{ $t(link.title) }}
       </router-link>
@@ -164,6 +162,11 @@ nav {
 
       &.active {
         border-bottom: yellow 3px solid;
+      }
+
+      i.material-symbols {
+        vertical-align: bottom;
+        padding-bottom: 3px;
       }
     }
 
