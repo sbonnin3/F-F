@@ -23,6 +23,7 @@ body, h1, h2, h3, p, ul, li {
 
 body {
   font-family: 'Arial', sans-serif;
+  text-align: justify;
 }
 
 
