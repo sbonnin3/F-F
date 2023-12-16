@@ -1,9 +1,9 @@
 <template>
-  <div class="profile" v-if="providerData">
+  <div v-if="providerData" class="profile">
     <div class="profile__head">
       <div class="headband">
         <div class="provider-picture">
-          <img :src="providerData.logo" alt="provider picture" />
+          <img :src="providerData.logo" alt="provider picture"/>
         </div>
       </div>
       <div class="header">
@@ -11,10 +11,10 @@
         <h2>{{ providerData.category }}</h2>
         <div class="actions">
           <button
-            class="btn"
-            v-for="(link, id) in providerData.profileLinks"
-            :key="id"
-            @click="redirect(link.to)"
+              v-for="(link, id) in providerData.profileLinks"
+              :key="id"
+              class="btn"
+              @click="redirect(link.to)"
           >
             {{ link.name }}
           </button>
@@ -26,9 +26,9 @@
         <h3>{{ $t('public.providers.services') }}</h3>
         <ul>
           <li
-            v-for="(service, id) in providerData.services"
-            :key="id"
-            @click="$router.push(service.to)"
+              v-for="(service, id) in providerData.services"
+              :key="id"
+              @click="$router.push(service.to)"
           >
             {{ service.name }}
           </li>
@@ -41,12 +41,12 @@
             {{ providerData.description }}
           </p>
         </div>
-        <div class="posts" v-if="providerData.posts">
+        <div v-if="providerPosts.length > 0" class="posts">
           <h3>{{ $t('public.providers.posts') }}</h3>
           <div class="elements">
-            <article v-for="(post, id) in providerData.posts" :key="id">
+            <article v-for="post in providerPosts" :key="post._id">
               <h4>{{ post.title }}</h4>
-              <p v-if="post.date" class="posts_details">{{ post.date }}</p>
+              <p v-if="post.datetime" class="posts_details">{{ post.datetime }}</p>
               <p v-if="post.content">{{ post.content }}</p>
             </article>
           </div>
@@ -54,13 +54,11 @@
       </div>
     </div>
   </div>
-  <div v-else>
-    <h2>{{ $t('public.providers.providerNotFound') }}</h2>
-  </div>
 </template>
 
 <script>
-import { getProvider } from "@/services/from_datasets/providers.service";
+import {getProvider} from "@/services/from_datasets/providers.service";
+import {getPosts} from "@/services/from_datasets/posts.service";
 
 export default {
   name: "ProviderProfile",
@@ -71,7 +69,8 @@ export default {
   },
   data() {
     return {
-      providerData: getProvider(Number(this.id)) || undefined,
+      providerData: null,
+      providerPosts: null
     };
   },
   methods: {
@@ -82,13 +81,21 @@ export default {
         window.open(to, "_blank");
       }
     },
+    async getProviderData(id) {
+      try {
+        this.providerData = await getProvider(Number(id));
+        this.providerPosts = await getPosts(Number(id));
+      } catch (e) {
+        console.error(e);
+      }
+    }
   },
-  mounted() {
-    console.log(this.providerData);
+  async mounted() {
+    await this.getProviderData(this.id);
   },
   watch: {
     id(newVal) {
-      this.providerData = getProvider(Number(newVal)) || undefined;
+      this.getProviderData(newVal);
     }
   }
 };
@@ -105,6 +112,7 @@ export default {
       background-color: #f5f5f5;
 
       position: relative;
+
       .provider-picture {
         width: 180px;
         height: 180px;
@@ -154,6 +162,7 @@ export default {
         justify-content: center;
         flex-wrap: wrap;
         gap: 20px;
+
         .btn {
           color: white;
           background-color: black;
@@ -195,8 +204,10 @@ export default {
     .services {
       flex: 1;
       min-width: 200px;
+
       ul {
         list-style: none;
+
         li {
           font-size: 1.2rem;
           margin-bottom: 10px;
@@ -222,15 +233,18 @@ export default {
           font-size: 1.5rem;
           margin-bottom: 20px;
         }
+
         .elements {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
           gap: 50px;
+
           article {
             width: 100%;
             flex: 1;
             min-width: 300px;
+
             h4 {
               font-size: 1.2rem;
               margin-bottom: 10px;

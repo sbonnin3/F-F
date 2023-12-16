@@ -4,8 +4,8 @@
     <select v-model="seletedProvider" id="provider-select">
       <option
           v-for="provider in providers"
-          :key="provider.id"
-          :value="provider.id"
+          :key="provider._id"
+          :value="provider._id"
       >
         {{ provider.name }}
       </option>
@@ -24,6 +24,7 @@ export default {
       providers: getProviders() || [],
     };
   },
+
   watch: {
     seletedProvider(newVal) {
       this.$router.push({name: "provider", params: {id: newVal}});
