@@ -10,8 +10,9 @@
     <div class="nav-links">
       <router-link v-for="(link, id) in links" :key="id" :exact="link.exact || false" :to="link.to">
         <div class="link-icon material-symbols">{{ link.icon }}</div>
-        <div class="link-text">{{ link.title }}</div>
+        <div class="link-text">{{ $t(link.title) }}</div>
       </router-link>
+      <router-link to="/logout">Logout</router-link>
     </div>
   </nav>
 </template>

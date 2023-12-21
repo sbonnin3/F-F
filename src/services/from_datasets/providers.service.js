@@ -96,8 +96,6 @@ exports.getProviders = () => {
     return providers;
 }
 
-exports.getProvider = async (id) => {
-    setTimeout(() => {
-        return providers.find(provider => provider._id === id);
-    }, 1000);
+exports.getProvider = (id) => {
+    return providers.find(provider => provider._id === id);
 }

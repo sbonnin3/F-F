@@ -14,12 +14,11 @@
       <router-link :to="{name: 'home'}" :exact="true">
         <i class="material-symbols">home</i>
       </router-link>
-      <router-link v-for="(link, id) in getLinks()" :key="id" :to="link.to" :exact="link.exact || false">
+      <router-link v-for="(link, id) in links" :key="id" :to="link.to" :exact="link.exact || false">
         {{ $t(link.title) }}
       </router-link>
-      <button v-if="!userRole" @click.prevent="openLoginForm" class="loginButton">{{ $t('public.navigation.login') }}</button>
-      <span id="role" v-else>{{ userRole }}</span>
-      <button v-if="userRole" @click="confirmLogout" class="loginButton">{{ $t('public.navigation.logout') }}</button>
+      <router-link v-if="!$store.state.isLogged" :to="{name: 'login'}">{{ $t('public.navigation.login') }}</router-link>
+      <router-link v-if="$store.state.isLogged" :to="{name: 'logout'}">{{ $t('public.navigation.logout') }}</router-link>
 
       <span class="lang-changer">
         <i class="material-symbols">language</i>
@@ -46,30 +45,6 @@ export default {
   data() {
     return {
       isMenuOpen: false,
-      roleLinks: {
-        admin: [
-          { title: "dashboard.navigation.dashboard", to: { name: "admin_dashboard" } },
-          { title: "dashboard.navigation.stats", to: { name: "admin_statistics" } },
-          { title: "dashboard.navigation.notifications", to: { name: "admin_notifications" } },
-          { title: "dashboard.navigation.myAccount", to: { name: "admin_account" } }
-        ],
-        prestataire: [
-          { title: "dashboard.navigation.orders", to: { name: "presta_orders" } },
-          { title: "dashboard.navigation.stats", to: { name: "presta_statistics" } },
-          { title: "dashboard.navigation.notifications", to: { name: "presta_notifications" } },
-          { title: "dashboard.navigation.myAccount", to: { name: "presta_account" } }
-        ],
-        client: [
-          { title: "dashboard.navigation.reservations", to: { name: "client_reservations" } },
-          { title: "dashboard.navigation.planning", to: { name: "client_planning" } },
-          { title: "dashboard.navigation.myAccount", to: { name: "client_account" } }
-        ],
-        pilote: [
-          { title: "dashboard.navigation.coursesCalendar", to: { name: "pilote_planning" } },
-          { title: "dashboard.navigation.introductionsCalendar", to: { name: "pilote_baptism" } },
-          { title: "dashboard.navigation.myAccount", to: { name: "pilote_account" } }
-        ]
-      }
     };
   },
   methods: {
@@ -82,19 +57,6 @@ export default {
       const codePoints = lang.toUpperCase().split("").map((char) => 127397 + char.charCodeAt());
       return String.fromCodePoint(...codePoints);
     },
-    openLoginForm() {
-      this.$emit('open-login-form');
-    },
-
-    confirmLogout() {
-      this.$emit('confirm-logout');
-    },
-    getLinks() {
-      if (this.userRole) {
-        return this.roleLinks[this.userRole.toLowerCase()] || this.links;
-      }
-      return this.links;
-    }
   },
   watch: {
     $route() {

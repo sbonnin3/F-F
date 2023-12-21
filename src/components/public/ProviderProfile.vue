@@ -81,17 +81,13 @@ export default {
         window.open(to, "_blank");
       }
     },
-    async getProviderData(id) {
-      try {
-        this.providerData = await getProvider(Number(id));
-        this.providerPosts = await getPosts(Number(id));
-      } catch (e) {
-        console.error(e);
-      }
+    getProviderData(id) {
+      this.providerData = getProvider(Number(id));
+      this.providerPosts = getPosts(Number(id));
     }
   },
-  async mounted() {
-    await this.getProviderData(this.id);
+  created() {
+    this.getProviderData(this.id);
   },
   watch: {
     id(newVal) {

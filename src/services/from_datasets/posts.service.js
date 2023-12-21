@@ -27,12 +27,10 @@ const posts = [
 ];
 
 
-exports.getPosts = async (providerId) => {
-    setTimeout(() => {
-        return posts.filter(post => post.providerId === providerId);
-    }, 1000);
+exports.getPosts = (providerId) => {
+    return posts.filter(post => post.providerId === providerId);
 }
 
-exports.getPost = async (postId) => {
+exports.getPost = (postId) => {
     return posts.find(post => post._id === postId);
 }

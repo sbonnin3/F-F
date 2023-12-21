@@ -24,6 +24,11 @@ export default {
         { title: "dashboard.navigation.myAccount", to: { name: "fre" } }
       ]
     }
+  },
+  mounted() {
+    // if (!this.$store.state.user || !this.$store.state.user.canAccessDashboard) {
+    //   this.$router.push({ name: 'home' })
+    // }
   }
 }
 </script>
