@@ -11,7 +11,7 @@ export default {
   name: "Logout",
   methods: {
     logout() {
-      this.$store.commit("logout");
+      this.$store.dispatch("logout")
       this.$router.push({name: "home"});
     },
   },
