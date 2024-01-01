@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        isLogged: false, user: null, token: null, loading: false, alerts: []
+        isLogged: false, user: null, token: null, alerts: []
     }, mutations: {
         removeUser(state) {
             state.isLogged = false
@@ -23,7 +23,8 @@ export default new Vuex.Store({
             commit('removeUser')
         },
         async login({commit}, {email, password}) {
-            commit('setUser', {user: await Users.getUser(email, password), token: ''})
+            const user = await Users.getUser(email, password)
+            commit('setUser', {user, token: 'token'})
         }
     }
 })

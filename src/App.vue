@@ -1,5 +1,7 @@
 <template>
-  <router-view></router-view>
+  <v-app>
+    <router-view></router-view>
+  </v-app>
 </template>
 
 <script>
@@ -30,33 +32,10 @@ body, h1, h2, h3, p, ul, li {
 }
 
 body {
-  font-family: 'Arial', sans-serif;
   @media (max-width: 1000px) {
     text-align: justify;
   }
 }
 
-
-/* Material Symbols */
-@font-face {
-  font-family: 'Material Symbols';
-  font-style: normal;
-  font-weight: 400;
-  src: url(@/assets/fonts/MaterialSymbolsRounded.woff2) format('woff2');
-}
-
-.material-symbols {
-  font-family: 'Material Symbols';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px; /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-}
-
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 </style>

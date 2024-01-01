@@ -1,9 +1,9 @@
 <template>
   <div>
     <PublicNav :links="publicNavLinks" />
-    <main>
+    <v-main>
       <router-view></router-view>
-    </main>
+    </v-main>
   </div>
 </template>
 

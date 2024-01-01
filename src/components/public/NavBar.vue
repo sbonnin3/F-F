@@ -6,13 +6,13 @@
       </router-link>
     </div>
     <div class="hamburger" @click="toggleMenu">
-      <i class="material-symbols">
-        {{ isMenuOpen ? "close" : "menu" }}
-      </i>
+      <v-icon>
+        {{ isMenuOpen ? "mdi-close" : "mdi-menu" }}
+      </v-icon>
     </div>
     <div class="nav-links" :class="{ open: isMenuOpen }">
       <router-link :to="{name: 'home'}" :exact="true">
-        <i class="material-symbols">home</i>
+        <v-icon>mdi-home</v-icon>
       </router-link>
       <router-link v-for="(link, id) in links" :key="id" :to="link.to" :exact="link.exact || false">
         {{ $t(link.title) }}
@@ -21,7 +21,7 @@
       <router-link v-if="$store.state.isLogged" :to="{name: 'logout'}">{{ $t('public.navigation.logout') }}</router-link>
 
       <span class="lang-changer">
-        <i class="material-symbols">language</i>
+        <v-icon>mdi-translate</v-icon>
         <select v-model="$i18n.locale" aria-label="sélection de la langue de l'application">
           <option v-for="lang in $i18n.availableLocales" :key="lang" :value="lang">
             {{ getFlagEmoji(lang) }}
@@ -83,6 +83,10 @@ nav {
 
   z-index: 1000;
 
+  i {
+    color: #fff !important;
+  }
+
   .brand {
     img {
       height: 65px;
@@ -126,7 +130,7 @@ nav {
         border-bottom: yellow 3px solid;
       }
 
-      i.material-symbols {
+      i {
         vertical-align: bottom;
         padding-bottom: 3px;
       }
@@ -172,10 +176,6 @@ nav {
       border-bottom: yellow 3px solid;
     }
   }
-
-
-
-
 
   #role{
     color:yellow;
