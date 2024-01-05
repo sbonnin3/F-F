@@ -1,22 +1,59 @@
 <template>
-    <div class="content">
-      <h1>Voulez-vous vraiment vous déconnecter ?</h1>
-      <button @click="logout">Oui</button>
-      <button @click="$router.go(-1)">Non</button> <!-- Retour à la page précédente -->
-    </div>
+  <v-container>
+    <v-layout align-center justify-center>
+      <v-flex md4 sm8 xs12>
+        <v-card
+            shaped
+        >
+          <v-card-title>
+            <h1 class="title">
+              Logout
+            </h1>
+          </v-card-title>
+          <v-card-text>
+            <v-form>
+              <p class="display-3 blue--text">{{ $store.state.user.firstname }} {{ $store.state.user.lastname }}</p>
+              <p>{{ $store.state.user.email }}</p>
+              <v-btn
+                  text
+                  type="button"
+                  @click="$router.go(-1)"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                  :loading="loading"
+                  color="primary"
+                  type="button"
+                  @click="logout"
+              >
+                Ok, Logout
+              </v-btn>
+
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Logout",
+  data() {
+    return {
+      loading: false,
+    }
+  },
   methods: {
     logout() {
-      this.$store.dispatch("logout")
-      this.$router.push({name: "home"});
+      this.loading = true;
+      this.$store.dispatch("logout").then(() => {
+        this.loading = false;
+        this.$router.push({name: "home"});
+      });
     },
   },
 };
 </script>
-<style scoped>
-
-</style>

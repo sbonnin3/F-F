@@ -19,7 +19,7 @@ export default new Vuex.Store({
             state.token = token
         }
     }, actions: {
-        logout({commit}) {
+        async logout({commit}) {
             commit('removeUser')
         },
         async login({commit}, {email, password}) {
