@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PublicNav :links="publicNavLinks" />
+    <PublicNav :links="navLinks" />
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -9,49 +9,19 @@
 
 <script>
 import PublicNav from "@/components/public/NavBar.vue";
+import {mapState} from "vuex";
 
 export default {
   name: "PublicTemplate",
   components: {
     PublicNav,
   },
-  data() {
-    return {
-      publicNavLinks: [
-        {
-          title: "public.navigation.about",
-          to: {name: "about"},
-        },
-        {
-          title: "public.navigation.map",
-          to: {name: "map"},
-        },
-        {
-          title: "public.navigation.activities",
-          to: {name: "activities"},
-        },
-        {
-          title: "public.navigation.planning",
-          to: {name: "planning"},
-        },
-        {
-          title: "public.navigation.providers",
-          to: {name: "providers"},
-        },
-      ],
-    };
+  computed: {
+    ...mapState(["navLinks"]),
   },
-  created() {
-    if (this.$store.state.user.canAccessDashboard) {
-      this.$router.push({name: 'dashboard'})
-    }
-
-
-    const savedUserRole = localStorage.getItem('userRole');
-    if (savedUserRole) {
-      this.userRole = savedUserRole; // Restaurez l'état de connexion à partir de LocalStorage
-    }
-  },
+  mounted() {
+    this.$store.dispatch("getNavLinks");
+  }
 }
 ;
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <SideBar
-      :links="links"
+      :links="navLinks"
     />
     <main>
       <router-view></router-view>
@@ -10,25 +10,14 @@
 </template>
 <script>
 import SideBar from '@/components/dashboard/SideBar.vue'
+import {mapState} from "vuex";
 export default {
   name: 'DashboardTemplate',
   components: {
     SideBar
   },
-  data() {
-    return {
-      links: [
-        { title: "dashboard.navigation.dashboard", to: { name: "dashboard" }, icon: "dashboard" },
-        { title: "dashboard.navigation.stats", to: { name: "fre" }, icon: "monitoring" },
-        { title: "dashboard.navigation.notifications", to: { name: "fre" } },
-        { title: "dashboard.navigation.myAccount", to: { name: "fre" } }
-      ]
-    }
-  },
-  mounted() {
-    // if (!this.$store.state.user || !this.$store.state.user.canAccessDashboard) {
-    //   this.$router.push({ name: 'home' })
-    // }
+  computed: {
+    ...mapState(['navLinks'])
   }
 }
 </script>
