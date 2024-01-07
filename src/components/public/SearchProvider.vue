@@ -1,16 +1,15 @@
 <template>
-  <div class="content">
+  <v-container>
     <label for="provider-select">{{ $t('public.providers.searchAccroche') }}</label>
-    <select v-model="seletedProvider" id="provider-select">
-      <option
-          v-for="provider in providers"
-          :key="provider._id"
-          :value="provider._id"
-      >
-        {{ provider.name }}
-      </option>
-    </select>
-  </div>
+    <v-autocomplete
+        v-model="seletedProvider"
+        :items="providers"
+        item-text="name"
+        item-value="_id"
+        label="Search"
+        :loading="loading"
+    ></v-autocomplete>
+  </v-container>
 </template>
 
 <script>
@@ -21,40 +20,24 @@ export default {
   data() {
     return {
       seletedProvider: this.$route.params.id || null,
-      providers: getProviders() || [],
+      providers: [],
+      loading: false,
     };
   },
-
+  async mounted() {
+    this.loading = true;
+    getProviders().then((providers) => {
+      this.providers = providers;
+      this.loading = false;
+    });
+  },
   watch: {
     seletedProvider(newVal) {
-      this.$router.push({name: "provider", params: {id: newVal}});
+      if (newVal) {
+        this.$router.push({name: "provider", params: {id: newVal}}).catch(() => {
+        });
+      }
     },
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.content {
-  min-height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: firebrick;
-  gap: 20px;
-
-  label {
-    color: white;
-    font-weight: bold;
-  }
-
-  select {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1.2rem;
-    outline: none;
-  }
-}
-</style>

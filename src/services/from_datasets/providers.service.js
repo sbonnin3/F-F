@@ -92,10 +92,20 @@ const providers = [
 ]
 
 
-exports.getProviders = () => {
-    return providers;
+async function getProviders() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(providers)
+        }, 1000)
+    })
 }
 
-exports.getProvider = (id) => {
-    return providers.find(provider => provider._id === id);
+async function getProvider(id) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(providers.find(provider => provider._id === id))
+        }, 1000)
+    })
 }
+
+module.exports = {getProviders, getProvider}

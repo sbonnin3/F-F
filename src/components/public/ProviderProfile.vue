@@ -70,7 +70,8 @@ export default {
   data() {
     return {
       providerData: null,
-      providerPosts: null
+      providerPosts: null,
+      loading: false,
     };
   },
   methods: {
@@ -81,17 +82,19 @@ export default {
         window.open(to, "_blank");
       }
     },
-    getProviderData(id) {
-      this.providerData = getProvider(Number(id));
-      this.providerPosts = getPosts(Number(id));
-    }
+    async getProviderData(id) {
+      this.loading = true;
+      this.providerData = await getProvider(id);
+      this.providerPosts = await getPosts(id);
+      this.loading = false;
+    },
   },
-  created() {
-    this.getProviderData(this.id);
+  async mounted() {
+    await this.getProviderData(this.id);
   },
   watch: {
-    id(newVal) {
-      this.getProviderData(newVal);
+    async id(newVal) {
+      await this.getProviderData(newVal);
     }
   }
 };
