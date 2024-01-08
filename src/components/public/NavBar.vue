@@ -2,7 +2,10 @@
   <nav>
     <div class="brand">
       <router-link :to="{ name: 'home' }">
-        <img src="@/assets/images/logo_f-f_white.png" alt="logo de l'événement" />
+        <img
+          alt="logo de l'événement"
+          src="@/assets/images/logo_f-f_white.png"
+        />
       </router-link>
     </div>
     <div class="hamburger" @click="toggleMenu">
@@ -10,37 +13,40 @@
         {{ isMenuOpen ? "mdi-close" : "mdi-menu" }}
       </v-icon>
     </div>
-    <div class="nav-links" :class="{ open: isMenuOpen }">
-      <router-link :to="{name: 'home'}" :exact="true">
+    <div :class="{ open: isMenuOpen }" class="nav-links">
+      <router-link :exact="true" :to="{ name: 'home' }">
         <v-icon>mdi-home</v-icon>
       </router-link>
-      <router-link v-for="(link, id) in links" :key="id" :to="link.to" :exact="link.exact || false">
+      <router-link
+        v-for="(link, id) in links"
+        :key="id"
+        :exact="link.exact || false"
+        :to="link.to"
+      >
         {{ $t(link.title) }}
       </router-link>
-      <router-link v-if="!$store.state.isLogged" :to="{name: 'login'}">{{ $t('public.navigation.login') }}</router-link>
-      <router-link v-if="$store.state.isLogged" :to="{name: 'logout'}">{{ $t('public.navigation.logout') }}</router-link>
-
-      <span class="lang-changer">
-        <v-icon>mdi-translate</v-icon>
-        <select v-model="$i18n.locale" aria-label="sélection de la langue de l'application">
-          <option v-for="lang in $i18n.availableLocales" :key="lang" :value="lang">
-            {{ getFlagEmoji(lang) }}
-          </option>
-        </select>
-      </span>
+      <router-link v-if="!$store.state.isLogged" :to="{ name: 'login' }"
+        >{{ $t("public.navigation.login") }}
+      </router-link>
+      <router-link v-if="$store.state.isLogged" :to="{ name: 'logout' }"
+        >{{ $t("public.navigation.logout") }}
+      </router-link>
+      <LanguageSelector/>
     </div>
   </nav>
 </template>
 
 <script>
+import LanguageSelector from "@/components/LanguageSelector.vue";
+
 export default {
+  components: { LanguageSelector },
   props: {
-    userRole:{ String
-    },
+    userRole: { String },
     links: {
       type: Array,
       required: true,
-    }
+    },
   },
   data() {
     return {
@@ -51,12 +57,6 @@ export default {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
-    getFlagEmoji(lang) {
-      if (lang === "en") lang = "gb";
-
-      const codePoints = lang.toUpperCase().split("").map((char) => 127397 + char.charCodeAt());
-      return String.fromCodePoint(...codePoints);
-    },
   },
   watch: {
     $route() {
@@ -66,7 +66,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 nav {
   position: fixed;
   top: 0;
@@ -136,50 +136,29 @@ nav {
       }
     }
 
-    .lang-changer {
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-
-      select {
-        background-color: transparent;
-        border: none;
-        color: white;
-        font-size: 1rem;
-        cursor: pointer;
-      }
-
-      i {
-        font-size: 1.3rem;
-      }
-
-      border: 1px solid white;
-      padding: 5px;
-    }
     z-index: 1001;
   }
 
-  .loginButton{
-    font-family: 'Arial', sans-serif;
-    font-size:1.3rem;
+  .loginButton {
+    font-family: "Arial", sans-serif;
+    font-size: 1.3rem;
     border: none;
     background: none;
     cursor: pointer;
     margin: 0;
-    padding : 6px 0 6px 0;
-    color:white;
+    padding: 6px 0 6px 0;
+    color: white;
     border-bottom: transparent 3px solid;
     transition: all 0.3s ease-in-out;
 
-    &:hover{
+    &:hover {
       border-bottom: yellow 3px solid;
     }
   }
 
-  #role{
-    color:yellow;
-    font-size:1.3rem;
+  #role {
+    color: yellow;
+    font-size: 1.3rem;
   }
 
   @media screen and (max-width: 1200px) {

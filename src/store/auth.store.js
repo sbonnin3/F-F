@@ -38,7 +38,7 @@ const authStore = {
     async setLocale(store, locale) {
       // set locale calling the API if the user is logged
       if (store.state.isLogged) {
-        await Users.setLocale(store.state.user.id, locale);
+        await Users.setLocale(store.state.user._id, locale);
       }
       store.commit("setLocale", locale);
     },

@@ -14,6 +14,6 @@ function getLastLocaleOrDefault() {
 
 export default new VueI18n({
     locale: getLastLocaleOrDefault(),
-    fallbackLocale: 'fr',
+    fallbackLocale: 'en',
     messages: locales,
 })

@@ -20,14 +20,20 @@
         <v-icon>{{ link.icon }}</v-icon>
         <div class="link-text">{{ $t(link.title) }}</div>
       </router-link>
-      <router-link to="/logout">Logout</router-link>
+      <router-link to="/logout">{{
+        $t("public.navigation.logout")
+      }}</router-link>
+      <LanguageSelector/>
     </div>
   </nav>
 </template>
 
 <script>
+import LanguageSelector from "@/components/LanguageSelector.vue";
+
 export default {
   name: "SideBar",
+  components: { LanguageSelector },
   props: {
     links: {
       type: Array,
