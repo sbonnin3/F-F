@@ -12,8 +12,8 @@
           </v-card-title>
           <v-card-text>
             <v-form>
-              <p class="display-3 blue--text">{{ $store.state.user.firstname }} {{ $store.state.user.lastname }}</p>
-              <p>{{ $store.state.user.email }}</p>
+              <p class="display-3 blue--text">{{ $store.state.auth.user.firstname }} {{ $store.state.auth.user.lastname }}</p>
+              <p>{{ $store.state.auth.user.email }}</p>
               <v-btn
                   text
                   type="button"

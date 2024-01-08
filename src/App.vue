@@ -9,15 +9,14 @@
 export default {
   name: 'App',
   mounted() {
-    const userLocale = localStorage.getItem('user.locale')
-    if (userLocale) {
-      this.$i18n.locale = userLocale
-    }
-    document.documentElement.lang = this.$i18n.locale
+    const userLocale = this.$store.state.auth.user.locale || localStorage.getItem('user.locale') || 'fr'
+    this.$store.commit('setLocale', userLocale)
+    this.$i18n.locale = userLocale
+    document.documentElement.lang = userLocale
   },
   watch: {
     '$i18n.locale': function (newVal) {
-      localStorage.setItem('user.locale', newVal)
+      this.$store.dispatch('setLocale', newVal)
       document.documentElement.lang = newVal
     }
   },

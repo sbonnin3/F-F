@@ -71,8 +71,8 @@ export default {
       })
           .then(() => {
             this.loading = false;
-            if (this.$store.state.user) {
-              switch (this.$store.state.user.role) {
+            if (this.$store.state.auth.user) {
+              switch (this.$store.state.auth.user.role) {
                 case 'ROLE_ADMIN':
                   this.$router.push('/dashboard');
                   break;
