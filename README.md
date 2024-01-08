@@ -15,7 +15,7 @@ This project was made into the context of the **_Semester 4 tutored project_** a
 [//]: # (TODO: Place links here)
 - [**_Back-end repository_**]()
 - [**_API documentation_**]()
-- [**_Project demo_**]()
+- [**_Project demo_**](https://f-f-three.vercel.app/)
 
 ### Project technologies and tools
 - **_Vue.js_** for the front-end
