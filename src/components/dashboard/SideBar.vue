@@ -20,10 +20,12 @@
         <v-icon>{{ link.icon }}</v-icon>
         <div class="link-text">{{ $t(link.title) }}</div>
       </router-link>
-      <router-link to="/logout">{{
-        $t("public.navigation.logout")
-      }}</router-link>
-      <LanguageSelector/>
+      <router-link to="/logout"
+        >{{ $t("public.navigation.logout") }}
+      </router-link>
+      <div class="language">
+        <LanguageSelector />
+      </div>
     </div>
   </nav>
 </template>
@@ -83,6 +85,7 @@ nav {
 
   .nav-links {
     font-size: 1.3rem;
+    position: relative;
 
     a {
       color: white;
@@ -116,9 +119,19 @@ nav {
       &.router-link-exact-active {
         background-color: yellow;
         color: black;
+
         & i {
           color: black;
         }
+      }
+    }
+
+    .language {
+      position: relative;
+
+      .lang-changer {
+        position: absolute;
+        right: 0;
       }
     }
   }

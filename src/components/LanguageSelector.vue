@@ -1,5 +1,5 @@
 <template>
-  <span class="lang-changer">
+  <div class="lang-changer">
     <v-icon>mdi-translate</v-icon>
     <select
       v-model="$i18n.locale"
@@ -9,7 +9,7 @@
         {{ getFlagEmoji(lang) }}
       </option>
     </select>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -34,6 +34,8 @@ export default {
   display: flex;
   align-items: center;
   gap: 5px;
+
+  max-width: 60px;
 
   select {
     min-width: 20px;

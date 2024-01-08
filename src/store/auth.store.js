@@ -2,11 +2,11 @@ import Users from "@/services/from_datasets/users.service";
 
 const authStore = {
   state: {
-    isLogged: false,
+    isLogged: !!localStorage.getItem("user"),
     user: JSON.parse(localStorage.getItem("user")) || {
       role: "DEFAULT",
     },
-    token: null,
+    token: localStorage.getItem("user.token") || null,
   },
   mutations: {
     removeUser(state) {

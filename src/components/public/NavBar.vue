@@ -25,13 +25,13 @@
       >
         {{ $t(link.title) }}
       </router-link>
-      <router-link v-if="!$store.state.isLogged" :to="{ name: 'login' }"
-        >{{ $t("public.navigation.login") }}
-      </router-link>
-      <router-link v-if="$store.state.isLogged" :to="{ name: 'logout' }"
+      <router-link v-if="$store.state.auth.isLogged" :to="{ name: 'logout' }"
         >{{ $t("public.navigation.logout") }}
       </router-link>
-      <LanguageSelector/>
+      <router-link v-else :to="{ name: 'login' }"
+        >{{ $t("public.navigation.login") }}
+      </router-link>
+      <LanguageSelector />
     </div>
   </nav>
 </template>

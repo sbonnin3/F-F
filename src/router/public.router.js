@@ -58,6 +58,11 @@ const publicRoutes = [
                 ],
             },
             {
+                path: '/myaccount',
+                name: 'myAccount',
+                component: () => import('@/views/MyAccount.vue')
+            },
+            {
                 path: '/login',
                 name: 'login',
                 component: () => import('@/views/Login.vue')

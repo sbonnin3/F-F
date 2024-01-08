@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import auth from "./auth.store"
+import users from "./users.store"
 
 import Roles from "@/services/from_datasets/roles.service";
 
@@ -25,5 +26,6 @@ export default new Vuex.Store({
   },
   modules: {
     auth,
+    users
   },
 });
