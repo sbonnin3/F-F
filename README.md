@@ -30,7 +30,7 @@ This project was made into the context of the **_Semester 4 tutored project_** a
 ### Vue plugins
 - **_vue-router_** for routing (see `src/router`)
 - **_vuex_** for state management (see `src/store`)
-- **_vue-i18n_** for internationalization (config in `src/i18n.js`)
+- **_vue-i18n_** for internationalization (config in `src/i18n.plugin.js`)
 - **_vue-axios_** for HTTP requests
 - **_three.js_** for 3D rendering
 
