@@ -30,9 +30,14 @@ const roles = [
         name: "ROLE_ADMIN",
         menuItems: [
             {
-                to: {name: "about"},
-                title: "public.navigation.about",
-                icon: "account"
+                to: {name: "dashboard"},
+                title: "dashboard.navigation.dashboard",
+                icon: "mdi-view-dashboard"
+            },
+            {
+                to: {name: "my-profile"},
+                title: "dashboard.navigation.myProfile",
+                icon: "mdi-"
             }
         ]
     }

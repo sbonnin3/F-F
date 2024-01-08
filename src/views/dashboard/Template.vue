@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="dashboard-container">
     <SideBar
       :links="navLinks"
     />
-    <main>
+    <v-main>
       <router-view></router-view>
-    </main>
+    </v-main>
   </div>
 </template>
 <script>
@@ -21,3 +21,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+</style>

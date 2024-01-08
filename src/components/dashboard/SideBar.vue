@@ -2,14 +2,22 @@
   <nav>
     <div class="brand">
       <router-link to="/dashboard">
-        <img alt="logo de l'application" src="@/assets/images/logo_f-f_white.png"/>
+        <img
+          alt="logo de l'application"
+          src="@/assets/images/logo_f-f_white.png"
+        />
       </router-link>
 
       <div class="line"></div>
     </div>
     <div class="nav-links">
-      <router-link v-for="(link, id) in links" :key="id" :exact="link.exact || false" :to="link.to">
-        <div class="link-icon material-symbols">{{ link.icon }}</div>
+      <router-link
+        v-for="(link, id) in links"
+        :key="id"
+        :exact="link.exact || false"
+        :to="link.to"
+      >
+        <v-icon>{{ link.icon }}</v-icon>
         <div class="link-text">{{ $t(link.title) }}</div>
       </router-link>
       <router-link to="/logout">Logout</router-link>
@@ -24,10 +32,9 @@ export default {
     links: {
       type: Array,
       required: true,
-    }
-  }
+    },
+  },
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -44,9 +51,16 @@ nav {
 
     min-height: 120px;
 
-    img {
-      width: 120px;
-      margin: auto;
+    a {
+      display: block;
+      width: 100%;
+
+      img {
+        display: block;
+        width: 120px;
+        inset: 0;
+        margin: auto;
+      }
     }
 
     .line {
@@ -62,10 +76,12 @@ nav {
   }
 
   .nav-links {
-    color: white;
-    text-decoration: none;
     font-size: 1.3rem;
+
     a {
+      color: white;
+      text-decoration: none;
+
       display: flex;
       align-items: center;
       padding: 10px 0 10px 20px;
@@ -79,9 +95,10 @@ nav {
         background-color: rgba(255, 255, 255, 0.2);
       }
 
-      .link-icon {
+      i {
         margin-right: 10px;
         min-width: 24px;
+        color: white;
       }
 
       .link-text {
@@ -93,7 +110,9 @@ nav {
       &.router-link-exact-active {
         background-color: yellow;
         color: black;
-
+        & i {
+          color: black;
+        }
       }
     }
   }

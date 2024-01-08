@@ -3,7 +3,7 @@ const dashboardRoutes = [{
     component: () => import('@/views/dashboard/Template.vue'),
     children: [
         {path: '', name: 'dashboard'},
-        {path: 'account', name: 'dashboard.account'},
+        {path: 'my-profile', name: 'myProfile'},
     ]
 }];
 
