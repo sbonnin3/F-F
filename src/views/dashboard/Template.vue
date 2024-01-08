@@ -25,5 +25,6 @@ export default {
 <style scoped>
 main {
   margin-left: 350px;
+  margin-top: 0;
 }
 </style>
