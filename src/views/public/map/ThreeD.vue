@@ -1,4 +1,4 @@
-<template class="full">
+<template>
   <div>
     <div class="carte" ref="container"></div>
     <div class="menu">
@@ -477,12 +477,8 @@ export default {
 
 .carte {
   flex: 1;
-  overflow:auto;
-
-}
-
-.full {
-  overflow:auto;
+  max-height: calc(100vh - 91px);
+  overflow: hidden;
 }
 
 .menu {
