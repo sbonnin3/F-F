@@ -6,7 +6,7 @@
       <button @click="toggleAll" class="toggle-button" :class="{ 'active': isAllChecked }">
         <div class="slider"></div>
       </button>
-      <span>Tout</span> <!-- Ajout du texte à côté du bouton -->
+      <span>Tout</span>
       <br class="espace-supplementaire">
       <label>
         <input type="checkbox" v-model="chek_toilettes" @change="faireQuelqueChose"> Toilettes
@@ -20,8 +20,11 @@
       <label>
         <input type="checkbox" v-model="chek_concerts" @change="faireQuelqueChose"> Concerts
       </label>
-      <!-- Bouton Reset Position -->
       <button @click="resetRotationAndPosition" class="reset-button">Reset Position</button>
+    </div>
+    <div class="building-info" v-if="showBuildingInfo" @click="hideBuildingInfo">
+      <h3>{{ buildingInfo.title }}</h3>
+      <p>{{ buildingInfo.description }}</p>
     </div>
   </div>
 </template>
@@ -41,6 +44,13 @@ export default {
   name: 'Carte',
   data() {
     return {
+      showBuildingInfo: false,
+
+      buildingInfo: {
+        title: '',
+        description: '',
+      },
+
       hoveredObject: null,
 
       routeObject: null,
@@ -50,8 +60,8 @@ export default {
       restaurantsObject: null,
       concertsObject: null,
 
-      rotationX: 0, // Angle de rotation autour de l'axe X
-      rotationY: 0, // Angle de rotation autour de l'axe Y
+      rotationX: 0,
+      rotationY: 0,
 
       camera: null,
 
@@ -66,14 +76,16 @@ export default {
       startMouseY: 0,
       currentMouseX: 0,
       currentMouseY: 0,
+
+      originalColors: new Map(), // Ajoutez cette ligne pour stocker les couleurs d'origine
     }
   },
   mounted() {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.camera = camera; // Ajoutez cette ligne pour assigner la caméra à la variable `camera`
+    this.camera = camera;
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight); // Ajustez la taille ici
+    renderer.setSize(window.innerWidth, window.innerHeight);
     this.$refs.container.appendChild(renderer.domElement);
     this.rotationX = 1.57; // Réinitialisez les angles de rotation
     this.rotationY = 0;
@@ -112,7 +124,7 @@ export default {
       scene.add(this.concertsObject);
     })
 
-    const light = new THREE.PointLight(0xffffffff, 30)
+    const light = new THREE.PointLight(0xffffffff, 100)
     scene.add(light)
     
     window.addEventListener('touchstart', this.debutGlissement);
@@ -200,37 +212,83 @@ export default {
         // ... autres objets
       ].filter(obj => obj));
 
-      // Vérifiez s'il y a des intersections
       if (intersects.length > 0) {
-    const newHoveredObject = intersects[0].object;
+        const newHoveredObject = intersects[0].object;
 
-    // Vérifiez si l'objet survolé a changé
-    if (newHoveredObject !== this.hoveredObject) {
-      // Réinitialisez la couleur de l'objet précédemment survolé
-      if (this.hoveredObject && this.hoveredObject.material) {
+        if (newHoveredObject !== this.hoveredObject) {
+          if (this.hoveredObject && this.hoveredObject.material) {
+            // Restaurez la couleur d'origine
+            this.hoveredObject.material.color.set(this.originalColors.get(this.hoveredObject) || 0xffffff);
+          }
+
+          this.hoveredObject = newHoveredObject;
+
+          if (this.hoveredObject && this.hoveredObject.material) {
+            // Mémorisez la couleur d'origine si elle n'est pas déjà enregistrée
+            if (!this.originalColors.has(this.hoveredObject)) {
+              this.originalColors.set(this.hoveredObject, this.hoveredObject.material.color.getHex());
+            }
+
+            // Changez la couleur de l'objet survolé
+            this.hoveredObject.material.color.set(0xff0000);
+          }
+        }
+      } else {
+        if (this.hoveredObject && this.hoveredObject.material) {
+          // Restaurez la couleur d'origine
+          this.hoveredObject.material.color.set(this.originalColors.get(this.hoveredObject) || 0xffffff);
+          this.hoveredObject = null;
+        }
+      }
+      if (event.type === 'click' && intersects.length > 0) {
+        const clickedObject = intersects[0].object;
+
+        // Vous pouvez maintenant traiter l'objet cliqué
+        if (clickedObject === this.batimentsObject) {
+          // Afficher les informations du bâtiment
+          this.showBuildingInfo = true;
+          this.buildingInfo.title = "Nom du bâtiment";
+          this.buildingInfo.description = "Description du bâtiment.";
+          // ... autres propriétés ...
+        }
+      }
+      if (intersects.length > 0) {
+        const newHoveredObject = intersects[0].object;
+
+        // Vérifiez si l'objet survolé a changé
+        if (newHoveredObject !== this.hoveredObject) {
+          // Réinitialisez la couleur de l'objet précédemment survolé
+          if (this.hoveredObject && this.hoveredObject.material) {
+            this.hoveredObject.material.color.set(0xffffff);
+          }
+
+          // Mettez à jour l'objet survolé
+          this.hoveredObject = newHoveredObject;
+
+          // Changez la couleur de l'objet survolé
+          if (this.hoveredObject && this.hoveredObject.material) {
+            this.hoveredObject.material.color.set(0xff0000);
+          }
+        }
+      } else {
+        // Aucun objet survolé, réinitialisez la couleur
+        if (this.hoveredObject && this.hoveredObject.material) {
+          this.hoveredObject.material.color.set(0xffffff);
+          this.hoveredObject = null;
+        }
+      }
+
+      // Gestion de l'événement mouseleave
+      if (event.type === 'mouseleave' && this.hoveredObject) {
         this.hoveredObject.material.color.set(0xffffff);
+        this.hoveredObject = null;
       }
+    };
 
-      // Mettez à jour l'objet survolé
-      this.hoveredObject = newHoveredObject;
-
-      // Changez la couleur de l'objet survolé
-      if (this.hoveredObject && this.hoveredObject.material) {
-        this.hoveredObject.material.color.set(0xff0000);
-      }
-    }
-  } else {
-    // Aucun objet survolé, réinitialisez la couleur
-    if (this.hoveredObject && this.hoveredObject.material) {
-      this.hoveredObject.material.color.set(0xffffff);
-      this.hoveredObject = null;
-    }
-  }
-};
-
-    // Ajoutez des écouteurs d'événements pour gérer le survol
     window.addEventListener('mousemove', handleHover);
+    window.addEventListener('mouseleave', handleHover); // Ajoutez cet écouteur pour gérer le mouseleave
     window.addEventListener('touchmove', handleHover);
+    window.addEventListener('touchend', handleHover); // Ajoutez cet écouteur pour gérer le mouseleave
   },
   watch: {
     chek_toilettes() {
@@ -248,6 +306,9 @@ export default {
   },
 
   methods: {
+    hideBuildingInfo() {
+      this.showBuildingInfo = false;
+    },
     updateToggleAll() {
       this.isAllChecked = this.chek_toilettes && this.chek_batiments && this.chek_restaurants && this.chek_concerts;
     },
@@ -411,14 +472,12 @@ export default {
 }
 
 .container {
-  background-color: black;
-  border: 1px solid red; /* Ajout temporaire pour le débogage */
-  overflow: hidden;
+  background-color: black;  
 }
-
 
 .carte {
   flex: 1;
+  max-height: calc(100vh - 91px);
   overflow: hidden;
 }
 
