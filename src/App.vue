@@ -13,6 +13,8 @@ export default {
     this.$store.commit('setLocale', userLocale)
     this.$i18n.locale = userLocale
     document.documentElement.lang = userLocale
+
+    this.$store.dispatch("getNavLinks")
   },
   watch: {
     '$i18n.locale': function (newVal) {

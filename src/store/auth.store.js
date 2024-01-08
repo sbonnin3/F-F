@@ -3,7 +3,7 @@ import Users from "@/services/from_datasets/users.service";
 const authStore = {
   state: {
     isLogged: false,
-    user: {
+    user: JSON.parse(localStorage.getItem("user")) || {
       role: "DEFAULT",
     },
     token: null,
@@ -13,11 +13,14 @@ const authStore = {
       state.isLogged = false;
       state.user = { role: "DEFAULT" };
       state.token = null;
+      localStorage.clear();
     },
     setUser(state, { user, token }) {
       state.isLogged = true;
       state.user = user;
+      localStorage.setItem("user", JSON.stringify(user));
       state.token = token;
+      localStorage.setItem("user.token", token);
     },
     setLocale(state, locale) {
       // set locale without calling the API
@@ -42,7 +45,7 @@ const authStore = {
       }
       store.commit("setLocale", locale);
     },
-  },
+  }
 };
 
 export default authStore;
