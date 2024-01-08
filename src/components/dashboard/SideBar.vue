@@ -51,6 +51,9 @@ nav {
   width: 350px;
   height: 100vh;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   .brand {
     position: relative;
@@ -116,7 +119,7 @@ nav {
         text-overflow: ellipsis;
       }
 
-      &.router-link-exact-active {
+      &.active {
         background-color: yellow;
         color: black;
 

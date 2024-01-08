@@ -32,7 +32,8 @@ const roles = [
             {
                 to: {name: "dashboard"},
                 title: "dashboard.navigation.dashboard",
-                icon: "mdi-view-dashboard"
+                icon: "mdi-view-dashboard",
+                exact: true
             },
             {
                 to: {name: "myProfile"},
@@ -43,6 +44,23 @@ const roles = [
                 to: {name: "myAccount"},
                 title: "dashboard.navigation.myAccount",
                 icon: "mdi-account"
+            }
+        ]
+    },
+    {
+        _id: 3,
+        name: "ROLE_PROVIDER",
+        menuItems: [
+            {
+                to: {name: "dashboard"},
+                title: "dashboard.navigation.dashboard",
+                icon: "mdi-view-dashboard",
+                exact: true
+            },
+            {
+                to: {name: "posts"},
+                title: "dashboard.navigation.posts",
+                icon: "mdi-post"
             }
         ]
     }

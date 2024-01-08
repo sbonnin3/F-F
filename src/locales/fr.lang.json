@@ -40,13 +40,12 @@
       "email": "Email",
       "password": "Mot de passe",
       "loginSubmit": "Se connecter",
-      "closeWindow": "Fermer",
       "loginSuccess": "Connexion réussie",
-      "welcome": "Bienvenue {name}",
-      "loginErrorTitle": "Erreur de connexion",
-      "loginError": "Une erreur est survenue lors de la connexion, veuillez réessayer.",
-      "logoutAsk": "Voulez-vous vous déconnecter ?",
-      "logoutConfirm": "Se déconnecter"
+      "required": "Veuillez remplir le champs {field}",
+      "invalid": "Le champs {field} est invalide",
+      "logout": "Se déconnecter",
+      "cancel": "Annuler",
+      "logoutSubmit": "Se déconnecter"
     }
   },
   "dashboard": {

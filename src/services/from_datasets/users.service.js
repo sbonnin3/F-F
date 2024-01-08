@@ -7,6 +7,15 @@ const users = [
     password: "admin",
     role: "ROLE_ADMIN",
   },
+  {
+    _id: 2,
+    firstname: "Jane",
+    lastname: "DOE",
+    email: "jdoe@provider.com",
+    password: "jdoe",
+    role: "ROLE_PROVIDER",
+    providerId: 1
+  }
 ];
 
 async function getUser(email, password) {

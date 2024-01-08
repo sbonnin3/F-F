@@ -40,11 +40,12 @@
       "email": "Email",
       "password": "Password",
       "loginSubmit": "Submit",
-      "closeWindow": "Close",
       "loginSuccess": "You are now logged in.",
-      "welcome": "Welcome, {name}!",
-      "loginErrorTitle": "Error",
-      "loginError": "An error occurred while logging in. Please try again."
+      "required": "{field} is required",
+      "invalid": "{field} must be valid",
+      "logout": "Logout",
+      "cancel": "Cancel",
+      "logoutSubmit": "OK, Logout"
     }
   },
   "dashboard": {
@@ -58,7 +59,18 @@
       "reservations": "Reservations",
       "planning": "Planning",
       "coursesCalendar": "Courses",
-      "introductionsCalendar": "Introductions"
+      "introductionsCalendar": "Introductions",
+      "posts": "Posts"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "providers": {
+      "posts": {
+        "create": "Create a post",
+        "listTitle": "Your posts"
+      }
     }
   }
 }

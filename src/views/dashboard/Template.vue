@@ -23,9 +23,7 @@ export default {
 </script>
 
 <style scoped>
-.dashboard-container {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
+main {
+  margin-left: 350px;
 }
 </style>

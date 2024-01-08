@@ -7,7 +7,7 @@
         >
           <v-card-title>
             <h1 class="title">
-              Login
+              {{ $t('public.loginForms.login') }}
             </h1>
           </v-card-title>
           <v-card-text>
@@ -15,7 +15,7 @@
               <v-text-field
                   v-model="email"
                   :rules="emailRules"
-                  label="Email"
+                  :label="$t('public.loginForms.email')"
                   outlined
               ></v-text-field>
               <v-text-field
@@ -24,7 +24,7 @@
                   :type="showPassword ? 'text' : 'password'"
                   :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append="showPassword = !showPassword"
-                  label="Password"
+                  :label="$t('public.loginForms.password')"
                   outlined
               ></v-text-field>
               <v-btn
@@ -32,7 +32,7 @@
                   color="primary"
                   type="submit"
               >
-                Login
+              {{ $t('public.loginForms.loginSubmit') }}
               </v-btn>
             </v-form>
           </v-card-text>
@@ -50,12 +50,12 @@ export default {
     return {
       email: '',
       emailRules: [
-        (v) => !!v || 'Email is required',
-        (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
+        (v) => !!v || this.$t('public.loginForms.required', { field: this.$t('public.loginForms.email') }),
+        (v) => /.+@.+\..+/.test(v) || this.$t('public.loginForms.invalid', { field: this.$t('public.loginForms.email') }),
       ],
       password: '',
       passwordRules: [
-        (v) => !!v || 'Password is required',
+        (v) => !!v || this.$t('public.loginForms.required', { field: this.$t('public.loginForms.password') }),
       ],
       showPassword: false,
       loading: false,
@@ -76,6 +76,9 @@ export default {
                 case 'ROLE_ADMIN':
                   this.$router.push('/dashboard');
                   break;
+                case 'ROLE_PROVIDER':
+                  this.$router.push('/dashboard');
+                  break;
                 default:
                   this.$router.push('/');
               }
@@ -90,4 +93,3 @@ export default {
 }
 
 </script>
-  

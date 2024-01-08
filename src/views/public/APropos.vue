@@ -1,10 +1,5 @@
 <template class="page">
   <div class="content">
-    <!--
-    <div class="background">
-      <h1> A propos : Notre événement </h1>
-    </div>
-    -->
     <div class="titre text-center mt-12 mb-10">
       <!-- Tailles de police réactives pour le titre principal -->
       <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight">Plus d'information sur notre événement</h1>
