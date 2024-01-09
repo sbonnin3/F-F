@@ -478,6 +478,7 @@ export default {
 .carte {
   flex: 1;
   max-height: calc(100vh - 91px);
+  max-height: calc(100dvh - 91px);
   overflow: hidden;
 }
 
