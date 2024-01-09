@@ -66,6 +66,9 @@ const providers = [
     ],
     services: {
       posts: true,
+      ticketing: true,
+      goodies: true,
+      mapPlacement: true,
     },
   },
   {
