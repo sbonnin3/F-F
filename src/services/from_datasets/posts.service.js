@@ -37,4 +37,19 @@ async function getPosts(providerId) {
   });
 }
 
-module.exports = { getPosts };
+async function createPost(payload) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(posts.push({
+        _id: posts.length + 1,
+        providerId: payload.providerId,
+        origin: "fastandfabulous",
+        title: payload.title,
+        datetime: new Date().toISOString(),
+        content: payload.content,
+      }))
+    });
+  }, 1000);
+}
+
+module.exports = { getPosts, createPost };

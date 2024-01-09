@@ -1,7 +1,17 @@
 <template>
   <v-container>
-    <v-btn color="primary">{{ $t("dashboard.providers.posts.create") }}</v-btn>
-    <!--                TODO : Create a post -->
+    <v-btn color="primary" :to="{name: 'newPost'}">{{ $t("dashboard.providers.posts.create.title") }}</v-btn>
+    <!-- TODO : Create a post -->
+    <v-btn
+        style="inset: 40px 40px auto auto; position: absolute"
+        icon large
+        color="primary"
+        :to="{name: 'posts'}"
+        :loading="reloading"
+        @click.prevent="reloading = true; $store.dispatch('getProvidersPosts').then(() => reloading = false)"
+    >
+      <v-icon>mdi-refresh</v-icon>
+    </v-btn>
 
     <br /><br />
 
@@ -14,21 +24,21 @@
         <v-btn icon @click="window = 0">
           <v-icon>mdi-arrow-collapse-up</v-icon>
         </v-btn>
-        <v-item v-for="n in posts.length" :key="n" v-slot="{ active, toggle }">
+        <v-item v-for="n in providersPosts.length" :key="n" v-slot="{ active, toggle }">
           <div>
             <v-btn :input-value="active" icon @click="toggle">
               <v-icon>mdi-record</v-icon>
             </v-btn>
           </div>
         </v-item>
-        <v-btn icon @click="window = posts.length - 1">
+        <v-btn icon @click="window = providersPosts.length - 1">
           <v-icon>mdi-arrow-collapse-down</v-icon>
         </v-btn>
       </v-item-group>
 
       <v-col>
         <v-window v-model="window" class="elevation-2" vertical>
-          <v-window-item v-for="post in posts" :key="post.id">
+          <v-window-item v-for="post in providersPosts" :key="post.id">
             <v-card>
               <v-card-title>
                 <h3>{{ post.title }}</h3>
@@ -59,18 +69,21 @@
 </template>
 
 <script>
-import Posts from "@/services/from_datasets/posts.service";
+import {mapState} from "vuex";
 
 export default {
   name: "PostsList",
   data() {
     return {
-      posts: [],
       window: 0,
+      reloading: false,
     };
   },
+  computed: mapState({
+    providersPosts: state => state.posts.providersPosts,
+  }),
   async mounted() {
-    this.posts = await Posts.getPosts(this.$store.state.auth.user.providerId);
+    await this.$store.dispatch("getProvidersPosts")
   },
 };
 </script>

@@ -7,7 +7,7 @@ const dashboardRoutes = [
       { path: "my-profile", name: "myProfile" },
       {
         path: "providers",
-        name: "providers",
+        name: "providersDashboard",
         component: () => import("@/views/PassALevel.vue"),
         children: [
           {
@@ -22,6 +22,7 @@ const dashboardRoutes = [
               {
                 path: "new",
                 name: "newPost",
+                component: () => import("@/views/dashboard/posts/PublishPost.vue"),
               }
             ],
           },

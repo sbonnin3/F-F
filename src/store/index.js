@@ -3,6 +3,7 @@ import Vuex from "vuex";
 
 import auth from "./auth.store"
 import users from "./users.store"
+import posts from "./posts.store"
 
 import Roles from "@/services/from_datasets/roles.service";
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
   },
   modules: {
     auth,
-    users
+    users,
+    posts
   },
 });
