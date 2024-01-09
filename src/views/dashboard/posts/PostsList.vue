@@ -53,8 +53,7 @@
                 <v-btn color="success" :to="{name: 'editPost', params: {postId: post._id}}"
                   >{{ $t("dashboard.actions.edit") }}
                 </v-btn>
-                <!--                TODO : Edit a post -->
-                <v-btn color="error"
+                <v-btn color="error" @click="deletePost(post._id)"
                   >{{ $t("dashboard.actions.delete") }}
                 </v-btn>
                 <!--                TODO : Delete a post -->
@@ -84,5 +83,11 @@ export default {
   async mounted() {
     await this.$store.dispatch("getProviderPosts")
   },
+  methods: {
+    async deletePost(postId) {
+      await this.$store.dispatch("deletePost", postId)
+      await this.$store.dispatch("getProviderPosts")
+    }
+  }
 };
 </script>

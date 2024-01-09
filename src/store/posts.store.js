@@ -19,6 +19,9 @@ const postsStore = {
         },
         async editPost(store, payload) {
             await Posts.editPost(payload);
+        },
+        async deletePost(store, postId) {
+            await Posts.deletePost(postId);
         }
     }
 }

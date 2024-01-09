@@ -64,4 +64,14 @@ async function editPost(payload) {
     });
 }
 
-module.exports = {getPosts, createPost, editPost};
+async function deletePost(postId) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const index = posts.findIndex((post) => post._id === postId);
+            posts.splice(index, 1);
+            resolve();
+        }, 1000);
+    });
+}
+
+module.exports = {getPosts, createPost, editPost, deletePost};
