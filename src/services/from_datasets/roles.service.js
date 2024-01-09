@@ -40,11 +40,6 @@ const roles = [
                 exact: true
             },
             {
-                to: {name: "myProfile"},
-                title: "dashboard.navigation.myProfile",
-                icon: "mdi-account-file-text"
-            },
-            {
                 to: {name: "myAccount"},
                 title: "dashboard.navigation.myAccount",
                 icon: "mdi-account"
@@ -65,7 +60,27 @@ const roles = [
                 to: {name: "posts"},
                 title: "dashboard.navigation.posts",
                 icon: "mdi-post"
-            }
+            },
+            {
+                to: {},
+                title: "dashboard.navigation.map",
+                icon: "mdi-map"
+            },
+            {
+                to: {},
+                title: "dashboard.navigation.ticketing",
+                icon: "mdi-ticket-confirmation"
+            },
+            {
+                to: {},
+                title: "dashboard.navigation.goodies",
+                icon: "mdi-shopping"
+            },
+            {
+                to: {name: "myProfile"},
+                title: "dashboard.navigation.myProfile",
+                icon: "mdi-account-file-text"
+            },
         ]
     }
 ];

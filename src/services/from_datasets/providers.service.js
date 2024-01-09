@@ -22,6 +22,9 @@ const providers = [
     ],
     services: {
       posts: true,
+      ticketing: true,
+      goodies: true,
+      mapPlacement: true,
     },
   },
   {
@@ -66,9 +69,6 @@ const providers = [
     ],
     services: {
       posts: true,
-      ticketing: true,
-      goodies: true,
-      mapPlacement: true,
     },
   },
   {

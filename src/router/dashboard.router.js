@@ -22,7 +22,6 @@ const dashboardRoutes = [
           },
         ],
       },
-      { path: "my-profile", name: "myProfile" },
       {
         path: "providers",
         name: "providersDashboard",
@@ -52,6 +51,7 @@ const dashboardRoutes = [
               },
             ],
           },
+          { path: "my-profile", name: "myProfile" },
         ],
       },
     ],

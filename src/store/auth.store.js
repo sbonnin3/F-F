@@ -1,4 +1,5 @@
 import Users from "@/services/from_datasets/users.service";
+import Providers from "@/services/from_datasets/providers.service";
 
 const authStore = {
   state: {
@@ -35,6 +36,9 @@ const authStore = {
     },
     async login(store, { email, password }) {
       const user = await Users.getUser(email, password);
+      if (user.role === "ROLE_PROVIDER") {
+        user.provider = await Providers.getProvider(user.providerId);
+      }
       store.commit("setUser", { user, token: "token" });
       store.dispatch("getNavLinks");
     },
@@ -45,7 +49,7 @@ const authStore = {
       }
       store.commit("setLocale", locale);
     },
-  }
+  },
 };
 
 export default authStore;
