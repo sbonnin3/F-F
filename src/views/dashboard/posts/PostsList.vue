@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <v-btn color="primary" :to="{name: 'newPost'}">{{ $t("dashboard.providers.posts.create.title") }}</v-btn>
-    <!-- TODO : Create a post -->
     <v-btn
         style="inset: 40px 40px auto auto; position: absolute"
         icon large
