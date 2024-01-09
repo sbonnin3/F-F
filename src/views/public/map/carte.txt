@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="carte" ref="container"></div>
-    <div v-if="showObjectName" class="object-name">{{ objectName }}</div>
     <div class="menu">
       <h2>Menu</h2>
       <button @click="toggleAll" class="toggle-button" :class="{ 'active': isAllChecked }">
@@ -51,10 +50,7 @@ export default {
         title: '',
         description: '',
       },
-      
-      showObjectName: false,
-      objectName: '',
-      
+
       hoveredObject: null,
 
       routeObject: null,
@@ -147,22 +143,6 @@ export default {
     window.addEventListener('mouseup', this.finGlissement);
     window.addEventListener('keydown', this.gererTouchesClavier); // Déplacez cette ligne en dehors de la boucle de rendu
 
-    window.addEventListener('mousemove', (event) => {
-      event.preventDefault();
-
-      const mouse = new THREE.Vector2();
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-      const raycaster = new THREE.Raycaster();
-      raycaster.setFromCamera(mouse, this.camera);
-
-      if (this.hoveredObject) {
-      this.objectName = this.hoveredObject.name;
-      this.showObjectName = true;
-    } else {
-      this.showObjectName = false;
-    }
-    });
     const loop = () => {
       requestAnimationFrame(loop);
       
@@ -312,7 +292,7 @@ export default {
         this.hoveredObject = null;
       }
     };
-    
+
     window.addEventListener('mousemove', handleHover);
     window.addEventListener('mouseleave', handleHover); // Ajoutez cet écouteur pour gérer le mouseleave
     window.addEventListener('touchmove', handleHover);
@@ -536,13 +516,4 @@ export default {
   content: " ";
 }
 
-.object-name {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 5px;
-}
 </style>
