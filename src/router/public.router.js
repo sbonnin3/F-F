@@ -15,24 +15,8 @@ const publicRoutes = [
             },
             {
                 path: "map",
-                component: () => import("@/views/public/map/MapTemplate.vue"),
-                children: [
-                    {
-                        path: "",
-                        name: "map",
-                        component: () => import("@/views/public/map/Carte.vue"),
-                    },
-                    {
-                        path: "3D",
-                        name: "map3D",
-                        component: () => import("@/views/public/map/ThreeD.vue"),
-                    },
-                    {
-                        path: "streetview",
-                        name: "mapStreetview",
-                        component: () => import("@/views/public/map/StreetView.vue"),
-                    },
-                ],
+                name: "map",
+                component: () => import("@/views/public/map/ThreeD.vue"),
             },
             {
                 path: "activities",
