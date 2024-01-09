@@ -81,6 +81,11 @@ const roles = [
                 title: "dashboard.navigation.myProfile",
                 icon: "mdi-account-file-text"
             },
+            {
+                to: {name: "myAccount"},
+                title: "dashboard.navigation.myAccount",
+                icon: "mdi-account"
+            }
         ]
     }
 ];

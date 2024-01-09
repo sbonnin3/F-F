@@ -55,11 +55,6 @@
       "notifications": "Notifications",
       "myProfile": "My Profile",
       "myAccount": "My Account",
-      "orders": "Orders",
-      "reservations": "Reservations",
-      "planning": "Planning",
-      "coursesCalendar": "Courses",
-      "introductionsCalendar": "Introductions",
       "posts": "Posts"
     },
     "actions": {
