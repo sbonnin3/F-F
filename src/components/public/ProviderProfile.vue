@@ -22,18 +22,6 @@
       </div>
     </div>
     <div class="profile__body">
-      <aside v-if="providerData.services" class="services">
-        <h3>{{ $t('public.providers.services') }}</h3>
-        <ul>
-          <li
-              v-for="(service, id) in providerData.services"
-              :key="id"
-              @click="$router.push(service.to)"
-          >
-            {{ service.name }}
-          </li>
-        </ul>
-      </aside>
       <div class="profile__page">
         <div class="desc">
           <h3>{{ $t('public.providers.providerDescription') }}</h3>
@@ -41,7 +29,7 @@
             {{ providerData.description }}
           </p>
         </div>
-        <div v-if="providerPosts.length > 0" class="posts">
+        <div v-if="providerData.services.posts" class="posts">
           <h3>{{ $t('public.providers.posts') }}</h3>
           <div class="elements">
             <article v-for="post in providerPosts" :key="post._id">
