@@ -3,7 +3,25 @@ const dashboardRoutes = [
     path: "/dashboard",
     component: () => import("@/views/dashboard/Template.vue"),
     children: [
-      { path: "", name: "dashboard" },
+      {
+        path: "",
+        name: "dashboard",
+        component: () => import("@/views/dashboard/dashboards/Template.vue"),
+        children: [
+          {
+            path: "admin",
+            name: "dashboard.ROLE_ADMIN",
+            component: () =>
+              import("@/views/dashboard/dashboards/AdminDasboard.vue"),
+          },
+          {
+            path: "provider",
+            name: "dashboard.ROLE_PROVIDER",
+            component: () =>
+              import("@/views/dashboard/dashboards/ProviderDashboard.vue"),
+          },
+        ],
+      },
       { path: "my-profile", name: "myProfile" },
       {
         path: "providers",
@@ -30,8 +48,7 @@ const dashboardRoutes = [
                 path: "edit/:postId",
                 name: "editPost",
                 props: true,
-                component: () =>
-                  import("@/views/dashboard/posts/EditPost.vue"),
+                component: () => import("@/views/dashboard/posts/EditPost.vue"),
               },
             ],
           },

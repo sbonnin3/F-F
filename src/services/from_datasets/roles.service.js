@@ -34,7 +34,7 @@ const roles = [
         name: "ROLE_ADMIN",
         menuItems: [
             {
-                to: {name: "dashboard"},
+                to: {name: "dashboard.ROLE_ADMIN"},
                 title: "dashboard.navigation.dashboard",
                 icon: "mdi-view-dashboard",
                 exact: true
@@ -56,7 +56,7 @@ const roles = [
         name: "ROLE_PROVIDER",
         menuItems: [
             {
-                to: {name: "dashboard"},
+                to: {name: "dashboard.ROLE_PROVIDER"},
                 title: "dashboard.navigation.dashboard",
                 icon: "mdi-view-dashboard",
                 exact: true

@@ -74,10 +74,10 @@ export default {
             if (this.$store.state.auth.user) {
               switch (this.$store.state.auth.user.role) {
                 case 'ROLE_ADMIN':
-                  this.$router.push('/dashboard');
+                  this.$router.push({name: 'dashboard.ROLE_ADMIN'});
                   break;
                 case 'ROLE_PROVIDER':
-                  this.$router.push('/dashboard');
+                  this.$router.push({name: 'dashboard.ROLE_PROVIDER'});
                   break;
                 default:
                   this.$router.push('/');
