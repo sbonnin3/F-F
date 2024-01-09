@@ -17,13 +17,22 @@ const dashboardRoutes = [
               {
                 path: "",
                 name: "posts",
-                component: () => import("@/views/dashboard/posts/PostsList.vue"),
+                component: () =>
+                  import("@/views/dashboard/posts/PostsList.vue"),
               },
               {
                 path: "new",
                 name: "newPost",
-                component: () => import("@/views/dashboard/posts/PublishPost.vue"),
-              }
+                component: () =>
+                  import("@/views/dashboard/posts/PublishPost.vue"),
+              },
+              {
+                path: "edit/:postId",
+                name: "editPost",
+                props: true,
+                component: () =>
+                  import("@/views/dashboard/posts/EditPost.vue"),
+              },
             ],
           },
         ],

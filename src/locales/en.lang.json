@@ -77,6 +77,14 @@
           "titleInputRequired": "Title is required",
           "contentInput": "Content",
           "contentInputRequired": "Content is required"
+        },
+        "edit": {
+          "title": "Edit post - {title}",
+          "submit": "Save",
+          "titleInput": "Title",
+          "titleInputRequired": "Title is required",
+          "contentInput": "Content",
+          "contentInputRequired": "Content is required"
         }
       }
     }

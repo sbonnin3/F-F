@@ -2,21 +2,24 @@ import Posts from "@/services/from_datasets/posts.service"
 
 const postsStore = {
     state: {
-        providersPosts: [],
+        providerPosts: [],
     },
     mutations: {
-        setProvidersPosts(state, posts) {
-            state.providersPosts = posts;
+        setProviderPosts(state, posts) {
+            state.providerPosts = posts;
         }
     },
     actions: {
-        async getProvidersPosts(store) {
+        async getProviderPosts(store) {
             const posts = await Posts.getPosts(store.rootState.auth.user.providerId);
-            store.commit("setProvidersPosts", posts);
+            store.commit("setProviderPosts", posts);
         },
         async createPost(store, payload) {
             await Posts.createPost(payload);
         },
+        async editPost(store, payload) {
+            await Posts.editPost(payload);
+        }
     }
 }
 

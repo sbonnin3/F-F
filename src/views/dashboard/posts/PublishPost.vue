@@ -38,7 +38,7 @@ export default {
         })
         .then(() => {
           this.publishing = false;
-          this.$store.dispatch("getProvidersPosts")
+          this.$store.dispatch("getProviderPosts")
           this.$router.push({ name: "posts" });
         })
         .catch(() => {

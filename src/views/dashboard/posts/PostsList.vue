@@ -7,7 +7,7 @@
         color="primary"
         :to="{name: 'posts'}"
         :loading="reloading"
-        @click.prevent="reloading = true; $store.dispatch('getProvidersPosts').then(() => reloading = false)"
+        @click.prevent="reloading = true; $store.dispatch('getProviderPosts').then(() => reloading = false)"
     >
       <v-icon>mdi-refresh</v-icon>
     </v-btn>
@@ -23,21 +23,21 @@
         <v-btn icon @click="window = 0">
           <v-icon>mdi-arrow-collapse-up</v-icon>
         </v-btn>
-        <v-item v-for="n in providersPosts.length" :key="n" v-slot="{ active, toggle }">
+        <v-item v-for="n in providerPosts.length" :key="n" v-slot="{ active, toggle }">
           <div>
             <v-btn :input-value="active" icon @click="toggle">
               <v-icon>mdi-record</v-icon>
             </v-btn>
           </div>
         </v-item>
-        <v-btn icon @click="window = providersPosts.length - 1">
+        <v-btn icon @click="window = providerPosts.length - 1">
           <v-icon>mdi-arrow-collapse-down</v-icon>
         </v-btn>
       </v-item-group>
 
       <v-col>
         <v-window v-model="window" class="elevation-2" vertical>
-          <v-window-item v-for="post in providersPosts" :key="post.id">
+          <v-window-item v-for="post in providerPosts" :key="post.id">
             <v-card>
               <v-card-title>
                 <h3>{{ post.title }}</h3>
@@ -50,7 +50,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="success"
+                <v-btn color="success" :to="{name: 'editPost', params: {postId: post._id}}"
                   >{{ $t("dashboard.actions.edit") }}
                 </v-btn>
                 <!--                TODO : Edit a post -->
@@ -79,10 +79,10 @@ export default {
     };
   },
   computed: mapState({
-    providersPosts: state => state.posts.providersPosts,
+    providerPosts: state => state.posts.providerPosts,
   }),
   async mounted() {
-    await this.$store.dispatch("getProvidersPosts")
+    await this.$store.dispatch("getProviderPosts")
   },
 };
 </script>
