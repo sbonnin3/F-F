@@ -1,12 +1,12 @@
 <template>
   <div class="posts">
-    <v-container v-if="$store.state.auth.user.provider.services.posts">
-      <h1>{{ $t("dashboard.navigation.posts") }}</h1>
+    <v-container v-if="$store.state.auth.user.provider.services.mapPlacement">
+      <h1>{{ $t("dashboard.navigation.map") }}</h1>
       <router-view></router-view>
     </v-container>
     <v-container v-else>
       <PleaseSuscribeToService
-        :service="$t('dashboard.navigation.posts')"
+        :service="$t('dashboard.navigation.map')"
         :link-to-suscribe="{ name: 'dashboard.ROLE_PROVIDER' }"
       ></PleaseSuscribeToService>
     </v-container>

@@ -51,11 +51,16 @@
   "dashboard": {
     "navigation": {
       "dashboard": "Dashboard",
-      "stats": "Stats",
-      "notifications": "Notifications",
+      "map": "Map",
+      "ticketing": "Ticketing",
+      "goodies": "Goodies",
       "myProfile": "My Profile",
       "myAccount": "My Account",
-      "posts": "Posts"
+      "posts": "Posts",
+      "providers": "Providers",
+      "users": "Users",
+      "roles": "Roles and Menus",
+      "translations": "Translations"
     },
     "actions": {
       "edit": "Edit",

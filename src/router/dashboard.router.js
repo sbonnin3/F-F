@@ -1,3 +1,5 @@
+import adminRouter from "./admin.dashboard.router";
+
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -24,7 +26,6 @@ const dashboardRoutes = [
       },
       {
         path: "providers",
-        name: "providersDashboard",
         component: () => import("@/views/PassALevel.vue"),
         children: [
           {
@@ -33,7 +34,7 @@ const dashboardRoutes = [
             children: [
               {
                 path: "",
-                name: "posts",
+                name: "providers.posts",
                 component: () =>
                   import("@/views/dashboard/posts/PostsList.vue"),
               },
@@ -51,8 +52,31 @@ const dashboardRoutes = [
               },
             ],
           },
+          {
+            path: "map",
+            name: "providers.map",
+            component: () => import("@/views/dashboard/map/Template.vue"),
+            children: [],
+          },
+          {
+            path: "ticketing",
+            name: "providers.ticketing",
+            component: () => import("@/views/dashboard/ticketing/Template.vue"),
+            children: [],
+          },
+          {
+            path: "goodies",
+            name: "providers.goodies",
+            component: () => import("@/views/dashboard/goodies/Template.vue"),
+            children: [],
+          },
           { path: "my-profile", name: "myProfile" },
         ],
+      },
+      {
+        path: "admin",
+        component: () => import("@/views/PassALevel.vue"),
+        children: [...adminRouter],
       },
     ],
   },

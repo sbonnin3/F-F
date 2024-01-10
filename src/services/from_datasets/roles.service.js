@@ -40,6 +40,26 @@ const roles = [
                 exact: true
             },
             {
+                to: {name: "providers.admin"},
+                title: "dashboard.navigation.providers",
+                icon: "mdi-badge-account-horizontal"
+            },
+            {
+                to: {name: "users.admin"},
+                title: "dashboard.navigation.users",
+                icon: "mdi-account-multiple"
+            },
+            {
+                to: {name: "roles.admin"},
+                title: "dashboard.navigation.roles",
+                icon: "mdi-lock"
+            },
+            {
+                to: {name: "translations.admin"},
+                title: "dashboard.navigation.translations",
+                icon: "mdi-translate"
+            },
+            {
                 to: {name: "myAccount"},
                 title: "dashboard.navigation.myAccount",
                 icon: "mdi-account"
@@ -57,22 +77,22 @@ const roles = [
                 exact: true
             },
             {
-                to: {name: "posts"},
+                to: {name: "providers.posts"},
                 title: "dashboard.navigation.posts",
                 icon: "mdi-post"
             },
             {
-                to: {},
+                to: {name: "providers.map"},
                 title: "dashboard.navigation.map",
                 icon: "mdi-map"
             },
             {
-                to: {},
+                to: {name: "providers.ticketing"},
                 title: "dashboard.navigation.ticketing",
                 icon: "mdi-ticket-confirmation"
             },
             {
-                to: {},
+                to: {name: "providers.goodies"},
                 title: "dashboard.navigation.goodies",
                 icon: "mdi-shopping"
             },
