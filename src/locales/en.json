@@ -65,6 +65,15 @@
       "resto": "Restaurants",
       "scene": "Scenes",
       "showAll": "Show all"
+    },
+    "accountForms": {
+      "firstname": "Firstname",
+      "lastname": "Lastname",
+      "email-address": "Email address",
+      "role": "Role",
+      "user-default-language": "User default language",
+      "submit": "Update account",
+      "are-you-sure": "Are you sure you want to update"
     }
   },
   "dashboard": {
@@ -73,10 +82,10 @@
       "map": "Map",
       "ticketing": "Ticketing",
       "goodies": "Goodies",
-      "myProfile": "My Profile",
+"myProfile": "My Profile",
       "myAccount": "My Account",
       "posts": "Posts",
-      "providers": "Providers",
+"providers": "Providers",
       "users": "Users",
       "roles": "Roles and Menus",
       "translations": "Translations"

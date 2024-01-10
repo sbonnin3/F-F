@@ -65,6 +65,14 @@
       "resto": "Restaurants",
       "scene": "Concerts",
       "reset-position": "Recentrer"
+    },
+    "accountForms": {
+      "firstname": "Prénom",
+      "lastname": "Nom",
+      "email-address": "Adresse email",
+      "role": "Rôle",
+      "user-default-language": "Langue par défaut",
+      "submit": "Mettre à jour"
     }
   },
   "dashboard": {
@@ -73,10 +81,10 @@
       "map": "Carte interactive",
       "ticketing": "Billetterie",
       "goodies": "Boutique",
-      "myProfile": "Mon profil prestataire",
+"myProfile": "Mon profil prestataire",
       "myAccount": "Mon compte",
       "posts": "Posts",
-      "providers": "Prestataires",
+"providers": "Prestataires",
       "users": "Utilisateurs",
       "roles": "Roles et Menus",
       "translations": "Traductions"

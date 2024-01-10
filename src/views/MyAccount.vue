@@ -91,9 +91,8 @@ export default {
   methods: {
     async updateAccount() {
       this.isUpdating = true;
-      if (confirm(this.$t('public.accountForms.are-you-sure'))) {
         await this.$store.dispatch("updateAccount", this.user);
-      }
+      
       this.isUpdating = false;
     },
   },
