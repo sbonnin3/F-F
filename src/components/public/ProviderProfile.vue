@@ -55,6 +55,7 @@ export default {
       required: true,
     }
   },
+  // TODO: add prop for minimal display with a button to see more
   data() {
     return {
       providerData: null,
