@@ -3,25 +3,25 @@
     <div class="carte" ref="container"></div>
     <div v-if="showObjectName" class="object-name">{{ objectName }}</div>
     <div class="menu">
-      <h2>{{ $t('public.map.menu') }}</h2>
+      <h2>Menu</h2>
       <button @click="toggleAll" class="toggle-button" :class="{ 'active': isAllChecked }">
         <div class="slider"></div>
       </button>
-      <span>{{ $t('public.map.showAll') }}</span>
+      <span>Tout</span>
       <br class="espace-supplementaire">
       <label>
-        <input type="checkbox" v-model="chek_toilettes" @change="faireQuelqueChose"> {{ $t('public.map.bathrooms') }}
+        <input type="checkbox" v-model="chek_toilettes" @change="faireQuelqueChose"> Toilettes
       </label>
       <label>
-        <input type="checkbox" v-model="chek_batiments" @change="faireQuelqueChose"> {{ $t('public.map.buildings') }}
+        <input type="checkbox" v-model="chek_batiments" @change="faireQuelqueChose"> Bâtiments
       </label>
       <label>
-        <input type="checkbox" v-model="chek_restaurants" @change="faireQuelqueChose"> {{ $t('public.map.resto') }}
+        <input type="checkbox" v-model="chek_restaurants" @change="faireQuelqueChose"> Restaurants
       </label>
       <label>
-        <input type="checkbox" v-model="chek_concerts" @change="faireQuelqueChose"> {{ $t('public.map.scene') }}
+        <input type="checkbox" v-model="chek_concerts" @change="faireQuelqueChose"> Concerts
       </label>
-      <button @click="resetRotationAndPosition" class="reset-button">{{ $t('public.map.reset-position') }}</button>
+      <button @click="resetRotationAndPosition" class="reset-button">Reset Position</button>
     </div>
     <div class="building-info" v-if="showBuildingInfo" @click="hideBuildingInfo">
       <h3>{{ buildingInfo.title }}</h3>
