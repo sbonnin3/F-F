@@ -35,7 +35,15 @@
         "restaurationTitle": "Dining and relaxation areas",
         "restauration": "Dining areas will be available to allow you to recharge your batteries and enjoy the day comfortably."
       },
-      "endOfPage": "Join us for a memorable day at the heart of automotive action and passion. Fast&Fabulous at Circuit Paul Ricard is more than an event, it is an experience to be lived to the fullest!"
+      "endOfPage": "Join us for a memorable day at the heart of automotive action and passion. Fast&Fabulous at Circuit Paul Ricard is more than an event, it is an experience to be lived to the fullest!",
+      "a-day": "An unforgettable day for everyone",
+      "a-day-long": "Our aim is to create an unforgettable atmosphere, where the thrill of speed mingles with the excitement of competition. Breathtaking races, interactive activities and moments of relaxation are carefully planned to guarantee a complete experience. Whether you come with family, friends or solo, the Grand Prix at Circuit Paul Ricard is the ideal place to share your passion and create lasting memories.",
+      "about-gp-paul-ricard": "About the Grand Prix at Circuit Paul Ricard",
+      "about-gp-paul-ricard-long": "The Grand Prix at Circuit Paul Ricard - an event where passion for cars and the desire for unique experiences meet. Located in the south of France, the Circuit Paul Ricard is renowned for its impressive 5.8-kilometer track, featuring technical corners and long straights, providing the perfect terrain for speed enthusiasts. Our event is for everyone: from classic car enthusiasts to fans of cutting-edge motorsport technology.",
+      "en-savoir-plus": "Learn more",
+      "more-info": "More about our event",
+      "our-philosophy": "Our Philosophy: Passion and Variety",
+      "our-philosophy-long": "Passion for cars and motorsport is at the heart of our event. We believe that every visitor, whether amateur or expert, deserves an exceptional experience. That's why our Grand Prix offers a variety of activities - from go-karting to driving lessons - so that there's something for everyone."
     },
     "loginForms": {
       "login": "Login",
@@ -50,13 +58,13 @@
       "logoutSubmit": "OK, Logout"
     },
     "map": {
-      "menu": "Menu",
-      "showAll": "Tout",
-      "bathrooms": "Toilettes",
-      "buildings": "Bâtiments",
+      "bathrooms": "Restrooms",
+      "buildings": "Buildings",
+      "menu": "Map settings",
+      "reset-position": "Reset Position",
       "resto": "Restaurants",
-      "scene": "Concerts",
-      "reset-position": "Reset Position"
+      "scene": "Scenes",
+      "showAll": "Show all"
     }
   },
   "dashboard": {

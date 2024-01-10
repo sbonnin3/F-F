@@ -28,16 +28,21 @@
         "kartingForAll": "Karting for everyone: Whether you are a beginner or an experienced driver, take advantage of our karting sessions. A perfect opportunity to feel the adrenaline of a race and why not, to discover future talents.",
         "bateme": "Driving introduction: Experience the thrill of speed as a passenger in a racing car driven by professionals. An unforgettable experience that will give you the thrill of a real race.",
         "animations": "Exhibitions and activities: Discover a range of classic and modern cars, take part in interactive workshops and enjoy activities for the whole family.",
-        "restauration": "Dining and relaxation areas: Dining areas will be available to allow you to recharge your batteries and enjoy the day comfortably."
+        "restauration": "Dining and relaxation areas: Dining areas will be available to allow you to recharge your batteries and enjoy the day comfortably.",
+        "animationsTitle": "Expositions et activités",
+        "batemeTitle": "Bâtèmes de conduite",
+        "grandPrixTitle": "Le Grand Prix",
+        "kartingForAllTitle": "Du karting pour tous",
+        "restaurationTitle": "Espaces de restauration et de détente"
       },
-      "endOfPage": "",
+      "endOfPage": "Rejoignez-nous pour une journée mémorable au cœur de l'action et de la passion automobile. Fast&Fabulous au Circuit Paul Ricard est plus qu'un événement, c'est une expérience à vivre pleinement !",
       "about-gp-paul-ricard": "À propos du Grand Prix au Circuit Paul Ricard",
       "more-info": "Plus d'information sur notre événement",
       "about-gp-paul-ricard-long": "Le Grand Prix au Circuit Paul Ricard - un événement où la passion pour l'automobile et le désir de vivre des expériences uniques se rencontrent. Situé dans le sud de la France, le Circuit Paul Ricard est renommé pour sa piste impressionnante de 5,8 kilomètres, dotée de virages techniques et de longues lignes droites, offrant un terrain parfait pour les amateurs de vitesse. Notre événement s'adresse à tous : des passionnés de voitures classiques aux fans de technologie de pointe dans le sport automobile.",
       "en-savoir-plus": "En savoir plus",
       "our-philosophy": "Notre Philosophie : Passion et Diversité",
       "our-philosophy-long": "La passion pour les voitures et le sport automobile est au cœur de notre événement. Nous croyons que chaque visiteur, qu'il soit un amateur ou un expert, mérite de vivre une expérience exceptionnelle. C'est pourquoi notre Grand Prix propose une variété d'activités - du karting au baptême de pilotage - pour que chacun puisse trouver son bonheur.",
-      "a-day": "Une Journée Inoubliable Pour Tous",
+      "a-day": "Une journée inoubliable pour tous",
       "a-day-long": "Notre objectif est de créer une ambiance inoubliable, où le frisson de la vitesse se mêle à l'excitation de la compétition. Des courses époustouflantes, des activités interactives, et des moments de détente sont soigneusement planifiés pour garantir une expérience complète. Que vous veniez en famille, entre amis ou en solo, le Grand Prix au Circuit Paul Ricard est l'endroit idéal pour partager votre passion et créer des souvenirs mémorables."
     },
     "loginForms": {
@@ -51,6 +56,15 @@
       "logout": "Se déconnecter",
       "cancel": "Annuler",
       "logoutSubmit": "Se déconnecter"
+    },
+    "map": {
+      "menu": "Menu",
+      "showAll": "Tout",
+      "bathrooms": "Toilettes",
+      "buildings": "Bâtiments",
+      "resto": "Restaurants",
+      "scene": "Concerts",
+      "reset-position": "Recentrer"
     }
   },
   "dashboard": {
