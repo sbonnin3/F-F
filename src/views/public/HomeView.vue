@@ -113,7 +113,7 @@
         <h2
           class="display-1"
         >
-          Plus d'information sur notre événement
+          {{ $t('public.home.more-info') }}
         </h2>
       </div>
 
@@ -121,20 +121,13 @@
         <!-- Left side: Text and button -->
         <v-col class="flex-1">
           <h2 class="text-4xl font-bold text-gray-800 mb-3">
-            À propos du Grand Prix au Circuit Paul Ricard
+            {{ $t('public.home.about-gp-paul-ricard') }}
           </h2>
           <p class="text-lg leading-relaxed text-gray-600">
-            Le Grand Prix au Circuit Paul Ricard - un événement où la passion
-            pour l'automobile et le désir de vivre des expériences uniques se
-            rencontrent. Situé dans le sud de la France, le Circuit Paul Ricard
-            est renommé pour sa piste impressionnante de 5,8 kilomètres, dotée
-            de virages techniques et de longues lignes droites, offrant un
-            terrain parfait pour les amateurs de vitesse. Notre événement
-            s'adresse à tous : des passionnés de voitures classiques aux fans de
-            technologie de pointe dans le sport automobile.
+            {{ $t('public.home.about-gp-paul-ricard-long') }}
           </p>
           <v-btn class="mt-4" color="blue" dark @click="enSavoirPlus"
-            >En savoir plus
+            >{{ $t('public.home.en-savoir-plus') }}
           </v-btn>
         </v-col>
 
@@ -162,15 +155,10 @@
         <!-- Right side: Text -->
         <v-col class="flex-1">
           <h2 class="text-4xl font-bold text-gray-800 mb-3">
-            Notre Philosophie : Passion et Diversité
+            {{ $t('public.home.our-philosophy') }}
           </h2>
           <p class="text-lg leading-relaxed text-gray-600">
-            La passion pour les voitures et le sport automobile est au cœur de
-            notre événement. Nous croyons que chaque visiteur, qu'il soit un
-            amateur ou un expert, mérite de vivre une expérience exceptionnelle.
-            C'est pourquoi notre Grand Prix propose une variété d'activités - du
-            karting au baptême de pilotage - pour que chacun puisse trouver son
-            bonheur.
+            {{ $t('public.home.our-philosophy-long') }}
           </p>
         </v-col>
       </v-row>
@@ -180,16 +168,10 @@
         <!-- Left side: Text -->
         <v-col class="flex-1">
           <h2 class="text-4xl font-bold text-gray-800 mb-3">
-            Une Journée Inoubliable Pour Tous
+            {{ $t('public.home.a-day') }}
           </h2>
           <p class="text-lg leading-relaxed text-gray-600">
-            Notre objectif est de créer une ambiance inoubliable, où le frisson
-            de la vitesse se mêle à l'excitation de la compétition. Des courses
-            époustouflantes, des activités interactives, et des moments de
-            détente sont soigneusement planifiés pour garantir une expérience
-            complète. Que vous veniez en famille, entre amis ou en solo, le
-            Grand Prix au Circuit Paul Ricard est l'endroit idéal pour partager
-            votre passion et créer des souvenirs mémorables.
+            {{ $t('public.home.a-day-long') }}
           </p>
         </v-col>
 

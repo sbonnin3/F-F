@@ -24,8 +24,7 @@
               <v-text-field
                 v-model="user.firstname"
                 :disabled="isUpdating"
-                label="Firstname"
-                placeholder="John"
+                :label="$t('public.accountForms.firstname')"
               ></v-text-field>
             </v-col>
 
@@ -33,8 +32,7 @@
               <v-text-field
                 v-model="user.lastname"
                 :disabled="isUpdating"
-                label="Lastname"
-                placeholder="DOE"
+                :label="$t('public.accountForms.lastname')"
               ></v-text-field>
             </v-col>
 
@@ -42,8 +40,7 @@
               <v-text-field
                 v-model="user.email"
                 :disabled="isUpdating"
-                label="Email address"
-                placeholder="johndoe@gmail.com"
+                :label="$t('public.accountForms.email-address')"
                 type="email"
               ></v-text-field>
             </v-col>
@@ -52,7 +49,7 @@
               <v-text-field
                 v-model="user.role"
                 disabled
-                label="Role"
+                :label="$t('public.accountForms.role')"
               ></v-text-field>
             </v-col>
 
@@ -60,7 +57,7 @@
               <v-select
                 v-model="$i18n.locale"
                 :items="$i18n.availableLocales"
-                label="User default language"
+                :label="$t('public.accountForms.user-default-language')"
               ></v-select>
             </v-col>
           </v-row>
@@ -73,7 +70,7 @@
         <v-spacer></v-spacer>
 
         <v-btn :loading="isUpdating" color="green" text @click="updateAccount"
-          >Update account
+          >{{ $t('public.accountForms.submit') }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -94,7 +91,7 @@ export default {
   methods: {
     async updateAccount() {
       this.isUpdating = true;
-      if (confirm("Are you sure you want to update your account?")) {
+      if (confirm(this.$t('public.accountForms.are-you-sure'))) {
         await this.$store.dispatch("updateAccount", this.user);
       }
       this.isUpdating = false;

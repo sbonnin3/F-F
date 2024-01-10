@@ -48,6 +48,15 @@
       "logout": "Logout",
       "cancel": "Cancel",
       "logoutSubmit": "OK, Logout"
+    },
+    "map": {
+      "menu": "Menu",
+      "showAll": "Tout",
+      "bathrooms": "Toilettes",
+      "buildings": "Bâtiments",
+      "resto": "Restaurants",
+      "scene": "Concerts",
+      "reset-position": "Reset Position"
     }
   },
   "dashboard": {
