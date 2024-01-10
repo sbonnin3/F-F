@@ -11,10 +11,7 @@ This project was made into the context of the **_Semester 4 tutored project_** a
 - [**Manon GRANDMOUGIN**](https://github.com/Manonnnnnn)
 
 ### Project links
-
-[//]: # (TODO: Place links here)
-- [**_Back-end repository_**]()
-- [**_API documentation_**]()
+- [**_Back-end repository_**](https://github.com/tgoussot/API_Fast_Fabulous)
 - [**_Project demo_**](https://f-f-three.vercel.app/)
 
 ### Project technologies and tools

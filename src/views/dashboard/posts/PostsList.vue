@@ -56,7 +56,6 @@
                 <v-btn color="error" @click="deletePost(post._id)"
                   >{{ $t("dashboard.actions.delete") }}
                 </v-btn>
-                <!--                TODO : Delete a post -->
               </v-card-actions>
             </v-card>
           </v-window-item>
