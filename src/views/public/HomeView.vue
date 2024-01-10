@@ -9,20 +9,22 @@
     </div>
 
     <v-container>
-      <v-banner>
+      <div class="titre text-center mt-12 mb-10">
         <h2 class="display-1">{{ $t("public.home.secondHeader") }}</h2>
-      </v-banner>
+      </div>
       <v-container>
         <p class="body-1">
           {{ $t("public.home.leCircuitPaulRicardEstRaviDaccueillir") }}
         </p>
       </v-container>
 
-      <v-banner>
-        <h2 class="display-1">
+      <div class="titre text-center mt-12 mb-10">
+        <h2
+          class="display-1"
+        >
           {{ $t("public.home.pointsForts.header") }}
         </h2>
-      </v-banner>
+      </div>
       <v-container>
         <v-expansion-panels>
           <v-expansion-panel>
@@ -108,12 +110,11 @@
     <v-container>
       <!-- Section 1 -->
       <div class="titre text-center mt-12 mb-10">
-        <h1
-          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight"
+        <h2
+          class="display-1"
         >
           Plus d'information sur notre événement
-        </h1>
-        <v-divider class="my-8"></v-divider>
+        </h2>
       </div>
 
       <v-row class="mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -133,8 +134,8 @@
             technologie de pointe dans le sport automobile.
           </p>
           <v-btn class="mt-4" color="blue" dark @click="enSavoirPlus"
-            >En savoir plus</v-btn
-          >
+            >En savoir plus
+          </v-btn>
         </v-col>
 
         <!-- Right side: Image -->
@@ -240,6 +241,4 @@ img {
   height: 100%;
   object-fit: cover;
 }
-
-
 </style>
