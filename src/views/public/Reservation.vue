@@ -5,60 +5,60 @@
       <h2>Choisissez votre activité</h2>
       <select v-model="selectedActivity">
         <option disabled value="">Sélectionnez une activité</option>
-        <option v-for="activity in activities" :key="activity" :value="activity">{{ activity }}</option>
+        <option v-for="activity in activities" :key="activity.nom" :value="activity.nom">
+          {{ activity.nom }}
+        </option>
       </select>
     </div>
     <div class="date-time-picker" v-if="selectedActivity">
       <h2>Choisissez la date et l'heure</h2>
-      <!-- Section pour choisir la date -->
       <div class="time-slots">
-        <button class="time-slot" v-for="timeSlot in timeSlots" :key="timeSlot" @click="selectTimeSlot(timeSlot)">
+        <button class="time-slot" 
+                v-for="timeSlot in timeSlots" 
+                :key="timeSlot" 
+                @click="selectTimeSlot(timeSlot)">
           {{ timeSlot }}
         </button>
       </div>
     </div>
     <div class="reservation-details" v-if="selectedTimeSlot">
       <h2>Détails de la réservation</h2>
-      <p>Activité sélectionnée : {{ selectedActivity }}</p>
+      <p>Activité sélectionnée : {{ getActivity(selectedActivity).nom }}</p>
+      <p>Description : {{ getActivity(selectedActivity).description }}</p>
       <p>Heure sélectionnée : {{ selectedTimeSlot }}</p>
-      <!-- D'autres détails peuvent être ajoutés ici -->
     </div>
     <div class="button-container">
-    <button class="confirm-button" v-if="selectedActivity && selectedTimeSlot && !reservationConfirmed" @click="confirmReservation">
-      Confirmer la réservation
-    </button>
-    <button class="cancel-button" v-if="reservationConfirmed" @click="cancelReservation">
-      Annuler la réservation
-    </button>
+      <button class="confirm-button" 
+              v-if="selectedActivity && selectedTimeSlot && !reservationConfirmed" 
+              @click="confirmReservation">
+        Confirmer la réservation
+      </button>
+      <button class="cancel-button" 
+              v-if="reservationConfirmed" 
+              @click="cancelReservation">
+        Annuler la réservation
+      </button>
     </div>
-    <transition name="slide-fade">
-      <div v-if="reservationConfirmed && selectedActivity" class="animation-container">
-        <!-- Votre animation ici. Par exemple, une balise <img> si c'est une animation GIF -->
-        <img v-if="reservationConfirmed" :src="getActivityAnimation(selectedActivity)" alt="Animation de l'activité">
-      </div>
-    </transition>
+     <div class="countdown-container" v-if="countdown">
+      <h2>Temps restant avant l'événement :</h2>
+      <p>{{ countdown }}</p>
+    </div>
   </div>
 </template>
 
 <script>
+import ActiviteService from '@/services/from_datasets/activite.service.js';
+
 export default {
-  name: 'ReservationActivité',
+  name: 'ReservationActivite',
   data() {
     return {
       selectedActivity: '',
       selectedTimeSlot: null,
-      activities: [
-        'Tour en bus',
-        'Vol en hélicoptère',
-        'Karting',
-        'Quad',
-        'Concert',
-        'Feu d\'artifice',
-        'Course des pilotes'
-      ],
+      activities: ActiviteService.getAllActivites(),
       timeSlots: this.generateTimeSlots(),
       reservationConfirmed: false,
-    }
+    };
   },
   methods: {
     generateTimeSlots() {
@@ -70,28 +70,24 @@ export default {
     },
     selectTimeSlot(slot) {
       this.selectedTimeSlot = slot;
-      // Ajoutez ici la logique supplémentaire nécessaire pour la réservation
     },
     confirmReservation() {
       this.reservationConfirmed = true;
-      // Déclenchez ici toute autre logique nécessaire pour confirmer la réservation
     },
     cancelReservation() {
       this.reservationConfirmed = false;
-      // Réinitialisez ici toute autre logique nécessaire pour annuler la réservation
+      this.selectedTimeSlot = null;
     },
-    getActivityAnimation(activity) {
-      const animations = {
-        'Feu d/artifice': require('@/assets/animation/feuArtifice.gif'),
-        'Vol en hélicoptère': 'path/to/helicopter-animation.gif',
-        // ... autres activités et leurs animations ...
-      };
-      return animations[activity] || 'default-animation.gif';
+    getActivityAnimation(activityName) {
+      const activity = this.getActivity(activityName);
+      return activity && activity.image || '';
+    },
+    getActivity(activityName) {
+      return this.activities.find(activity => activity.nom === activityName) || {};
     }
   },
 }
 </script>
-
 <style scoped>
 
 .content {
@@ -178,6 +174,21 @@ select {
 
 .confirm-button:hover, .cancel-button:hover {
   background-color: #0056b3;
+}
+
+.animation-container {
+  text-align: center; /* Centrer le contenu horizontalement */
+  display: flex; /* Utiliser flexbox pour centrer */
+  justify-content: center; /* Centrer horizontalement dans le conteneur flex */
+  align-items: center; /* Centrer verticalement dans le conteneur flex */
+  height: 200px; /* Fixer une hauteur pour le conteneur, ajustez selon vos besoins */
+  
+}
+
+.animation-container img {
+  max-width: 100%; /* Limiter la largeur maximale de l'image à celle de son conteneur */
+  max-height: 100%; /* Limiter la hauteur maximale de l'image à celle de son conteneur */
+  object-fit: contain; /* Assurez-vous que tout l'objet rentre dans la boîte assignée */
 }
 
 </style>
