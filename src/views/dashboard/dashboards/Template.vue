@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Dashboard</h1>
+    <h1>{{ $t('dashboard.navigation.dashboard') }}</h1>
     <router-view></router-view>
   </v-container>
 </template>
