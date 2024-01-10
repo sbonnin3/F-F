@@ -16,10 +16,6 @@ const roles = [
                 title: "public.navigation.activities"
             },
             {
-                to: {name: "planning"},
-                title: "public.navigation.planning"
-            },
-            {
                 to: {name: "providers"},
                 title: "public.navigation.providers"
             },

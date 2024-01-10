@@ -24,11 +24,6 @@ const publicRoutes = [
                 component: () => import("@/views/public/Activites.vue"),
             },
             {
-                path: "planning",
-                name: "planning",
-                component: () => import("@/views/public/Planning.vue"),
-            },
-            {
                 path: "providers",
                 name: "providers",
                 component: () => import("@/views/public/Prestataire.vue"),
