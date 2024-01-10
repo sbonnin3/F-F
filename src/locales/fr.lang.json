@@ -1,1 +1,89 @@
-{}
+{
+  "public": {
+    "navigation": {
+      "home": "Accueil",
+      "about": "A Propos",
+      "map": "Carte interactive",
+      "activities": "Activités",
+      "planning": "Planning",
+      "providers": "Nos prestataires",
+      "reservation": "Réservation",
+      "login": "Se connecter",
+      "logout": "Se déconnecter"
+    },
+    "providers": {
+      "services": "Services",
+      "providerDescription": "Description du prestataire",
+      "posts": "Articles",
+      "providerNotFound": "Prestataire non trouvé, veuillez réessayer plus tard.",
+      "searchAccroche": "Recherchez un prestataire"
+    },
+    "home": {
+      "header": "Automobile Grand Prix at Circuit Paul Ricard",
+      "secondHeader": "Enjoy an exceptional day of speed and adrenaline!",
+      "leCircuitPaulRicardEstRaviDaccueillir": "Circuit Paul Ricard is delighted to host the 2024 edition of our Automobile Grand Prix, a thrilling celebration for lovers of speed and mechanical performance. This one-of-a-kind event offers you a full day of breathtaking races, exciting activities and entertainment for all ages.",
+      "pointsForts": {
+        "header": "Highlights of the day",
+        "grandPrix": "The Grand Prix: The main attraction of the day, our Grand Prix promises breathtaking races with some of the best drivers on the circuit. Experience the excitement of speed and competition on one of the most emblematic circuits in France.",
+        "kartingForAll": "Karting for everyone: Whether you are a beginner or an experienced driver, take advantage of our karting sessions. A perfect opportunity to feel the adrenaline of a race and why not, to discover future talents.",
+        "bateme": "Driving introduction: Experience the thrill of speed as a passenger in a racing car driven by professionals. An unforgettable experience that will give you the thrill of a real race.",
+        "animations": "Exhibitions and activities: Discover a range of classic and modern cars, take part in interactive workshops and enjoy activities for the whole family.",
+        "restauration": "Dining and relaxation areas: Dining areas will be available to allow you to recharge your batteries and enjoy the day comfortably."
+      },
+      "endOfPage": "Join us for a memorable day at the heart of automotive action and passion. Fast&Fabulous at Circuit Paul Ricard is more than an event, it is an experience to be lived to the fullest!"
+    },
+    "loginForms": {
+      "login": "Se connecter",
+      "email": "Email",
+      "password": "Mot de passe",
+      "loginSubmit": "Se connecter",
+      "loginSuccess": "Vous êtes connecté",
+      "required": "\"{field}\" est requis",
+      "invalid": "\"{field}\" est invalide",
+      "logout": "Se déconnecter",
+      "cancel": "Annuler",
+      "logoutSubmit": "Se déconnecter"
+    }
+  },
+  "dashboard": {
+    "navigation": {
+      "dashboard": "Tableau de bord",
+      "map": "Carte interactive",
+      "ticketing": "Billetterie",
+      "goodies": "Boutique",
+      "myProfile": "Mon profil prestataire",
+      "myAccount": "Mon compte",
+      "posts": "Posts",
+      "providers": "Prestataires",
+      "users": "Utilisateurs",
+      "roles": "Roles et Menus",
+      "translations": "Traductions"
+    },
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "cancel": "Annuler"
+    },
+    "providers": {
+      "posts": {
+        "listTitle": "Vos articles",
+        "create": {
+          "title": "Créer un article",
+          "submit": "Publier",
+          "titleInput": "Titre de l'article",
+          "titleInputRequired": "Le titre est requis",
+          "contentInput": "Contenu de l'article",
+          "contentInputRequired": "Le contenu est requis"
+        },
+        "edit": {
+          "title": "Edition d'un article - {title}",
+          "submit": "Modifier",
+          "titleInput": "Titre de l'article",
+          "titleInputRequired": "Le titre est requis",
+          "contentInput": "Contenu de l'article",
+          "contentInputRequired": "Le contenu est requis"
+        }
+      }
+    }
+  }
+}

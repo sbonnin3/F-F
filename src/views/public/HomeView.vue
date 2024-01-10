@@ -1,50 +1,214 @@
 <template class="page">
   <div class="content">
     <div class="background">
-      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-50 p-2 sm:p-4 rounded">
-        <div class="text-white text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold">
-          FAST & FABULOUS
-        </div>
+      <div class="titre-ff">
+        <span class="display-2 font-weight-bold"> FAST & FABULOUS </span>
+        <br />
+        <span class="display-1">{{ $t("public.home.header") }}</span>
       </div>
     </div>
 
-    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+    <v-container>
+      <v-banner>
+        <h2 class="display-1">{{ $t("public.home.secondHeader") }}</h2>
+      </v-banner>
+      <v-container>
+        <p class="body-1">
+          {{ $t("public.home.leCircuitPaulRicardEstRaviDaccueillir") }}
+        </p>
+      </v-container>
+
+      <v-banner>
+        <h2 class="display-1">
+          {{ $t("public.home.pointsForts.header") }}
+        </h2>
+      </v-banner>
+      <v-container>
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <template v-slot:actions>
+                <v-icon color="error"> mdi-star-four-points</v-icon>
+              </template>
+              {{ $t("public.home.pointsForts.grandPrixTitle") }}
+            </v-expansion-panel-header>
+            <template v-slot:actions>
+              <v-icon color="error"> mdi-star-four-points</v-icon>
+            </template>
+            <v-expansion-panel-content
+              >{{ $t("public.home.pointsForts.grandPrix") }}
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <template v-slot:actions>
+                <v-icon color="error"> mdi-star-four-points</v-icon>
+              </template>
+              {{ $t("public.home.pointsForts.kartingForAllTitle") }}
+            </v-expansion-panel-header>
+            <template v-slot:actions>
+              <v-icon color="error"> mdi-star-four-points</v-icon>
+            </template>
+            <v-expansion-panel-content
+              >{{ $t("public.home.pointsForts.kartingForAll") }}
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <template v-slot:actions>
+                <v-icon color="error"> mdi-star-four-points</v-icon>
+              </template>
+              {{ $t("public.home.pointsForts.batemeTitle") }}
+            </v-expansion-panel-header>
+            <template v-slot:actions>
+              <v-icon color="error"> mdi-star-four-points</v-icon>
+            </template>
+            <v-expansion-panel-content
+              >{{ $t("public.home.pointsForts.bateme") }}
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <template v-slot:actions>
+                <v-icon color="error"> mdi-star-four-points</v-icon>
+              </template>
+              {{ $t("public.home.pointsForts.animationsTitle") }}
+            </v-expansion-panel-header>
+            <template v-slot:actions>
+              <v-icon color="error"> mdi-star-four-points</v-icon>
+            </template>
+            <v-expansion-panel-content
+              >{{ $t("public.home.pointsForts.animations") }}
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <template v-slot:actions>
+                <v-icon color="error"> mdi-star-four-points</v-icon>
+              </template>
+              {{ $t("public.home.pointsForts.restaurationTitle") }}
+            </v-expansion-panel-header>
+            <template v-slot:actions>
+              <v-icon color="error"> mdi-star-four-points</v-icon>
+            </template>
+            <v-expansion-panel-content
+              >{{ $t("public.home.pointsForts.restauration") }}
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-container>
+
+      <p class="text-center body-1">
+        {{ $t("public.home.endOfPage") }}
+      </p>
+    </v-container>
+    <v-container>
+      <!-- Section 1 -->
       <div class="titre text-center mt-12 mb-10">
-        <!-- Tailles de police réactives pour le titre principal -->
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight">{{ $t('public.home.header') }}</h1>
-        <hr class="my-8 border-gray-600" /> <!-- Séparateur visuel après le titre principal -->
+        <h1
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight"
+        >
+          Plus d'information sur notre événement
+        </h1>
+        <v-divider class="my-8"></v-divider>
       </div>
-      <div class="suite">
-        <div class="text space-y-6">
-          <!-- Tailles de police réactives pour le second titre -->
-          <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4">{{ $t('public.home.secondHeader') }}</h2>
-          <!-- Texte adaptatif pour les différents écrans -->
-          <p class="text-lg sm:text-lg leading-relaxed">{{ $t('public.home.leCircuitPaulRicardEstRaviDaccueillir') }}</p>
-          <hr class="my-6 border-gray-300" /> <!-- Séparateur visuel avant les points forts -->
-          <!-- Tailles de police réactives pour les sous-titres -->
-          <h2 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 my-4">{{ $t('public.home.pointsForts.header') }}</h2>
-          <ul class="list-disc pl-5 space-y-3 text-base sm:text-lg">
-            <li>{{ $t('public.home.pointsForts.grandPrix') }}</li>
-            <li>{{ $t('public.home.pointsForts.kartingForAll') }}</li>
-            <li>{{ $t('public.home.pointsForts.bateme') }}</li>
-            <li>{{ $t('public.home.pointsForts.animations') }}</li>
-            <li>{{ $t('public.home.pointsForts.restauration') }}</li>
-          </ul>
-          <hr class="my-6 border-gray-300" /> <!-- Séparateur visuel avant la conclusion -->
-          <!-- Tailles de police réactives pour la conclusion -->
-          <p class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 mt-6 mb-12 text-center">{{ $t('public.home.endOfPage') }}</p>
-        </div>
-      </div>
+
+      <v-row class="mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Left side: Text and button -->
+        <v-col class="flex-1">
+          <h2 class="text-4xl font-bold text-gray-800 mb-3">
+            À propos du Grand Prix au Circuit Paul Ricard
+          </h2>
+          <p class="text-lg leading-relaxed text-gray-600">
+            Le Grand Prix au Circuit Paul Ricard - un événement où la passion
+            pour l'automobile et le désir de vivre des expériences uniques se
+            rencontrent. Situé dans le sud de la France, le Circuit Paul Ricard
+            est renommé pour sa piste impressionnante de 5,8 kilomètres, dotée
+            de virages techniques et de longues lignes droites, offrant un
+            terrain parfait pour les amateurs de vitesse. Notre événement
+            s'adresse à tous : des passionnés de voitures classiques aux fans de
+            technologie de pointe dans le sport automobile.
+          </p>
+          <v-btn class="mt-4" color="blue" dark @click="enSavoirPlus"
+            >En savoir plus</v-btn
+          >
+        </v-col>
+
+        <!-- Right side: Image -->
+        <v-col class="flex-1">
+          <img
+            alt="Circuit Paul Ricard"
+            class="rounded shadow-lg"
+            src="@/assets/images/dessus_paul_ricard.jpg"
+          />
+        </v-col>
+      </v-row>
+
+      <!-- Section 2 -->
+      <v-row class="mt-10 mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Left side: Image -->
+        <v-col class="flex-1">
+          <img
+            alt="Circuit Paul Ricard"
+            class="rounded shadow-lg"
+            src="@/assets/images/voitures.webp"
+          />
+        </v-col>
+
+        <!-- Right side: Text -->
+        <v-col class="flex-1">
+          <h2 class="text-4xl font-bold text-gray-800 mb-3">
+            Notre Philosophie : Passion et Diversité
+          </h2>
+          <p class="text-lg leading-relaxed text-gray-600">
+            La passion pour les voitures et le sport automobile est au cœur de
+            notre événement. Nous croyons que chaque visiteur, qu'il soit un
+            amateur ou un expert, mérite de vivre une expérience exceptionnelle.
+            C'est pourquoi notre Grand Prix propose une variété d'activités - du
+            karting au baptême de pilotage - pour que chacun puisse trouver son
+            bonheur.
+          </p>
+        </v-col>
+      </v-row>
+
+      <!-- Section 3 -->
+      <v-row class="mt-10 mb-10 mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Left side: Text -->
+        <v-col class="flex-1">
+          <h2 class="text-4xl font-bold text-gray-800 mb-3">
+            Une Journée Inoubliable Pour Tous
+          </h2>
+          <p class="text-lg leading-relaxed text-gray-600">
+            Notre objectif est de créer une ambiance inoubliable, où le frisson
+            de la vitesse se mêle à l'excitation de la compétition. Des courses
+            époustouflantes, des activités interactives, et des moments de
+            détente sont soigneusement planifiés pour garantir une expérience
+            complète. Que vous veniez en famille, entre amis ou en solo, le
+            Grand Prix au Circuit Paul Ricard est l'endroit idéal pour partager
+            votre passion et créer des souvenirs mémorables.
+          </p>
+        </v-col>
+
+        <!-- Right side: Image -->
+        <v-col class="flex-1">
+          <img
+            alt="Circuit Paul Ricard"
+            class="rounded shadow-lg"
+            src="@/assets/images/photo3.png"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
-  </div>
- 
 </template>
 
 <script>
 export default {
-  name: 'HomeView'
-}
-
+  name: "HomeView",
+};
 </script>
 
 <style scoped>
@@ -52,55 +216,30 @@ body {
   margin: 0;
 }
 
+.titre-ff {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+}
+
 .background {
   position: relative;
-  min-height: 100vh;
+  height: calc(100dvh - 90px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('@/assets/images/paul_ricard.JPG');
+  background-image: url("@/assets/images/84328.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.suite{
-  padding-top: 0%;
-  padding-left: 20%;
-  padding-right: 20%;
-  padding-bottom:2%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 1.5;
-  font-size: 20px;
-}
-
-.content {
+img {
   width: 100%;
-  height: 100vh; /* Assurez-vous que la hauteur de votre contenu occupe toute la vue de la fenêtre */
-  /*background: url("@/assets/images/video.gif") center center fixed;     = animation voiture*/
-  background-size: cover;
-  margin: 0;
-  padding: 0;
+  height: 100%;
+  object-fit: cover;
 }
 
-.titre {
-  padding-top: 1%;
-  text-align: center;
-}
 
-.affiche {
-  width: 200px;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  padding-top: 130px;
-  transition: transform 0.3s; /* Ajoute une transition pour un effet de lissage lors du changement de taille */
-}
-
-.affiche:hover {
-  transform: scale(1.2); /* Ajustez la valeur selon vos besoins, 1.2 signifie un grossissement de 20% */
-}
 </style>

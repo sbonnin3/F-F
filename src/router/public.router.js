@@ -9,11 +9,6 @@ const publicRoutes = [
                 component: () => import("@/views/public/HomeView.vue"),
             },
             {
-                path: "about",
-                name: "about",
-                component: () => import("@/views/public/APropos.vue"),
-            },
-            {
                 path: "map",
                 name: "map",
                 component: () => import("@/views/public/map/ThreeD.vue"),

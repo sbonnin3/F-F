@@ -1,13 +1,14 @@
 <template>
   <v-container>
-    <label for="provider-select">{{ $t('public.providers.searchAccroche') }}</label>
     <v-autocomplete
         v-model="seletedProvider"
         :items="providers"
         item-text="name"
         item-value="_id"
-        label="Search"
+        :label="$t('public.providers.searchAccroche')"
         :loading="loading"
+        filled
+        shaped
     ></v-autocomplete>
   </v-container>
 </template>

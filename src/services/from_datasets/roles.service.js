@@ -4,10 +4,6 @@ const roles = [
         name: "DEFAULT",
         menuItems: [
             {
-                to: {name: "about"},
-                title: "public.navigation.about"
-            },
-            {
                 to: {name: "map"},
                 title: "public.navigation.map"
             },
@@ -21,7 +17,7 @@ const roles = [
             },
             {
                 to: {name: "reservation"},
-                title: "Reservation"
+                title: "public.navigation.reservation"
             }
         ]
     },

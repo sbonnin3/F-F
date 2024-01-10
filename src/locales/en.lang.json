@@ -7,12 +7,9 @@
       "activities": "Activities",
       "planning": "Planning",
       "providers": "Providers",
+      "reservation": "Réservation",
       "login": "Login",
       "logout": "Logout"
-    },
-    "map": {
-      "3Dmap": "3D Map",
-      "streetView": "Street View"
     },
     "providers": {
       "services": "Services",
@@ -22,16 +19,21 @@
       "searchAccroche": "Select the profile you want to explore :"
     },
     "home": {
-      "header": "Automobile Grand Prix at Circuit Paul Ricard",
+      "header": "Automobile GP at Circuit Paul Ricard",
       "secondHeader": "Enjoy an exceptional day of speed and adrenaline!",
       "leCircuitPaulRicardEstRaviDaccueillir": "Circuit Paul Ricard is delighted to host the 2024 edition of our Automobile Grand Prix, a thrilling celebration for lovers of speed and mechanical performance. This one-of-a-kind event offers you a full day of breathtaking races, exciting activities and entertainment for all ages.",
       "pointsForts": {
         "header": "Highlights of the day",
-        "grandPrix": "The Grand Prix: The main attraction of the day, our Grand Prix promises breathtaking races with some of the best drivers on the circuit. Experience the excitement of speed and competition on one of the most emblematic circuits in France.",
-        "kartingForAll": "Karting for everyone: Whether you are a beginner or an experienced driver, take advantage of our karting sessions. A perfect opportunity to feel the adrenaline of a race and why not, to discover future talents.",
-        "bateme": "Driving introduction: Experience the thrill of speed as a passenger in a racing car driven by professionals. An unforgettable experience that will give you the thrill of a real race.",
-        "animations": "Exhibitions and activities: Discover a range of classic and modern cars, take part in interactive workshops and enjoy activities for the whole family.",
-        "restauration": "Dining and relaxation areas: Dining areas will be available to allow you to recharge your batteries and enjoy the day comfortably."
+        "grandPrixTitle": "The Grand Prix",
+        "grandPrix": "The main attraction of the day, our Grand Prix promises breathtaking races with some of the best drivers on the circuit. Experience the excitement of speed and competition on one of the most emblematic circuits in France.",
+        "kartingForAllTitle": "Karting for everyone",
+        "kartingForAll": "Whether you are a beginner or an experienced driver, take advantage of our karting sessions. A perfect opportunity to feel the adrenaline of a race and why not, to discover future talents.",
+        "batemeTitle": "Driving introduction",
+        "bateme": "Experience the thrill of speed as a passenger in a racing car driven by professionals. An unforgettable experience that will give you the thrill of a real race.",
+        "animationsTitle": "Exhibitions and activities",
+        "animations": "Discover a range of classic and modern cars, take part in interactive workshops and enjoy activities for the whole family.",
+        "restaurationTitle": "Dining and relaxation areas",
+        "restauration": "Dining areas will be available to allow you to recharge your batteries and enjoy the day comfortably."
       },
       "endOfPage": "Join us for a memorable day at the heart of automotive action and passion. Fast&Fabulous at Circuit Paul Ricard is more than an event, it is an experience to be lived to the fullest!"
     },
