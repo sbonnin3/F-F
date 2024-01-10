@@ -33,7 +33,7 @@ async function getPosts(providerId) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(posts.filter((post) => post.providerId === providerId));
-        }, 1000);
+        }, 500);
     });
 }
 
@@ -48,7 +48,7 @@ async function createPost(payload) {
                 datetime: new Date().toISOString(),
                 content: payload.content,
             }))
-        }, 1000);
+        }, 500);
     });
 }
 
@@ -60,7 +60,7 @@ async function editPost(payload) {
             post.content = payload.content;
             post.datetime = new Date().toISOString();
             resolve();
-        }, 1000);
+        }, 500);
     });
 }
 
@@ -70,7 +70,7 @@ async function deletePost(postId) {
             const index = posts.findIndex((post) => post._id === postId);
             posts.splice(index, 1);
             resolve();
-        }, 1000);
+        }, 500);
     });
 }
 

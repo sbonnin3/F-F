@@ -96,7 +96,7 @@ async function getProviders() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(providers);
-    }, 1000);
+    }, 200);
   });
 }
 
@@ -104,7 +104,7 @@ async function getProvider(id) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(providers.find((provider) => provider._id === id));
-    }, 1000);
+    }, 200);
   });
 }
 
