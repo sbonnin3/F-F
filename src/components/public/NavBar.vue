@@ -58,6 +58,11 @@ export default {
       this.isMenuOpen = !this.isMenuOpen;
     },
   },
+  watch: {
+    $route() {
+      this.isMenuOpen = false;
+    },
+  },
 };
 </script>
 
