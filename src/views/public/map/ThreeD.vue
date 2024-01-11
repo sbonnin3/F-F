@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="carte" ref="container"></div>
+    <div class="carte" id="threeContainer" ref="container"></div>
     <div class="menu-toggle">
       <button :class="{ active: allObjectsVisible }" @click="toggleAllObjects">Tout</button>
       <button :class="{ active: objectVisibility['restaurantsObject'] }" @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
@@ -150,6 +150,10 @@ export default {
     this.animate();
     this.faireQuelqueChose();
     this.updateObjectVisibility();
+    const threeContainer = document.getElementById('threeContainer');
+    if (threeContainer) {
+      threeContainer.addEventListener('wheel', this.handleMouseWheel);
+    }
   },
   computed: {
     allObjectsActivated() {
@@ -302,12 +306,14 @@ export default {
       this.scene.add(directionalLight);
     },
     debutGlissement(event) {
+      event.preventDefault();
       this.isDragging = true;
       this.startMouseX = (event.touches) ? event.touches[0].clientX : event.clientX;
       this.startMouseY = (event.touches) ? event.touches[0].clientY : event.clientY;
     },
 
     glissement(event) {
+      event.preventDefault();
       if (!this.isDragging) return;
 
       const clientX = (event.touches) ? event.touches[0].clientX : event.clientX;
@@ -324,10 +330,13 @@ export default {
     },
 
     finGlissement() {
+      event.preventDefault();
       this.isDragging = false;
     },
 
     handleMouseWheel(event) {
+      event.preventDefault();
+
       const zoomAmount = 0.1;
       if (event.deltaY < 0) {
         this.camera.zoom = Math.min(this.camera.zoom + zoomAmount, this.maxZoom);
@@ -346,7 +355,9 @@ export default {
       }
       this.camera.updateProjectionMatrix();
     },
+    
     handleTouchStart(event) {
+      event.preventDefault();
       if (event.touches.length === 2) {
         this.isPinching = true;
         this.initialPinchDistance = this.getPinchDistance(event);
@@ -354,6 +365,7 @@ export default {
     },
 
     handleTouchMove(event) {
+      event.preventDefault();
       if (this.isPinching && event.touches.length === 2) {
         const currentPinchDistance = this.getPinchDistance(event);
         const zoomFactor = 0.01;
@@ -365,6 +377,7 @@ export default {
     },
 
     handleTouchEnd() {
+      event.preventDefault();
       this.isPinching = false;
       this.initialPinchDistance = 0;
     },
@@ -502,8 +515,11 @@ export default {
     faireQuelqueChose() {
       this.scene.background = new THREE.Color(0xabcdef);
     },
-
     beforeDestroy() {
+      const threeContainer = document.getElementById('threeContainer');
+      if (threeContainer) {
+        threeContainer.removeEventListener('wheel', this.handleMouseWheel);
+      }
       window.removeEventListener('resize', this.onWindowResize);
       window.removeEventListener('mousemove', this.handleMouseMove);
       window.removeEventListener('click', this.handleClick);
