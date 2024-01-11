@@ -2,20 +2,25 @@
   <div>
     <div class="carte" ref="container"></div>
     <div class="menu-toggle">
-      <button @click="toggleAllObjects">Tout</button>
-      <button @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
-      <button @click="toggleObjectVisibility('toilettesObject')">Toilettes</button>
-      <button @click="toggleObjectVisibility('batimentsObject')">Décorations</button>
-      <button @click="toggleObjectVisibility('concertsObject')">Scène</button>
-    </div>
-    <div class="building-info" v-if="showBuildingInfo" @click="hideBuildingInfo">
-      <h3>{{ buildingInfo.title }}</h3>
-      <p>{{ buildingInfo.description }}</p>
+      <button :class="{ active: allObjectsVisible }" @click="toggleAllObjects">Tout</button>
+      <button :class="{ active: objectVisibility['restaurantsObject'] }" @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
+      <button :class="{ active: objectVisibility['toilettesObject'] }" @click="toggleObjectVisibility('toilettesObject')">Toilettes</button>
+      <button :class="{ active: objectVisibility['batimentsObject'] }" @click="toggleObjectVisibility('batimentsObject')">Décorations</button>
+      <button :class="{ active: objectVisibility['concertsObject'] }" @click="toggleObjectVisibility('concertsObject')">Scène</button>
     </div>
     <div class="info-window" v-if="showInfoWindow && currentInfoWindow">
-      <h3>{{ currentInfoWindow.title }}</h3>
-      <p>{{ currentInfoWindow.text }}</p>
-      <img :src="currentInfoWindow.image" />
+      <h2 v-if="currentInfoWindow.title">{{ currentInfoWindow.title }}</h2>
+      <p v-if="currentInfoWindow.text">{{ currentInfoWindow.text }}</p>
+      <img v-if="currentInfoWindow.title === 'Toilettes' && currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image des toilettes" />
+      <div v-if="currentInfoWindow.groups">
+        <div v-for="(group, index) in currentInfoWindow.groups" :key="index">
+          <br/>
+          <h3>{{ group.name }}</h3>
+          <p v-if="group.text">{{ group.text }}</p>
+          <img :src="group.image" :alt="group.name" />
+          <br/>
+        </div>
+      </div>
       <ProviderProfile v-if="currentInfoWindow && currentInfoWindow.providerId" minimal :id="currentInfoWindow.providerId" />
     </div>
   </div>
@@ -58,11 +63,33 @@ export default {
         */
         Toilettes: {
           title: 'Toilettes',
-          image: 'https://cdn-icons-png.flaticon.com/256/185/185547.png',
+          image: 'https://us.123rf.com/450wm/malaha3/malaha32004/malaha3200400190/144852346-mod%C3%A8le-de-signe-de-toilettes-publiques-et-texte-wc-signe-de-porte-aiguille-lieu-public.jpg?ver=6',
           providerId: null
         },
         Quick: {
           providerId: '1'
+        },
+        Concert: {
+          title: 'Concerts',
+          text: "Des concerts au programme de 17h00 jusqu'à 02h00 !",
+          groups: [
+            {
+              name: "Sexion d'Assaut",
+              text: "17h00",
+              image: 'https://www.nikaia.fr/thumbs/1024x562r/2022-02/sexion-site.jpg',
+            },
+            {
+              name: '47ter',
+              text: "20h00",
+              image: 'https://www.arkeaarena.com/app/uploads/2020/09/AA_SI_SQR_WEB-3.jpg',
+            },
+            {
+              name: 'Maitre GIMS',
+              text: "23h00",
+              image: 'https://www.zenithdelille.com/wp-content/uploads/2023/05/gims-1-1-scaled-1600x0-c-default.jpg',
+            },
+          ],
+          providerId: null,
         },
       },
       currentInfoWindow: null,
@@ -126,6 +153,11 @@ export default {
     this.updateObjectVisibility(); // Assurez-vous que la visibilité initiale est correcte
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
   },
+  computed: {
+    allObjectsActivated() {
+      return Object.values(this.objectVisibility).every(status => status);
+    }
+  },
   methods: {
     openAnimation() {
       const rotation = { x: 0, y: 0 };
@@ -155,6 +187,7 @@ export default {
     toggleObjectVisibility(objectKey) {
       this.objectVisibility[objectKey] = !this.objectVisibility[objectKey];
       this.updateObjectVisibility();
+      this.checkAllObjectsState();
     },
 
     toggleAllObjects() {
@@ -163,6 +196,10 @@ export default {
         this.objectVisibility[key] = this.allObjectsVisible;
       });
       this.updateObjectVisibility();
+    },
+
+    checkAllObjectsState() {
+      this.allObjectsVisible = this.allObjectsActivated;
     },
 
     updateObjectVisibility() {
@@ -223,77 +260,44 @@ export default {
       window.removeEventListener('keydown', this.gererTouchesClavier);
 
       if (this.scene) {
-        this.scene.remove(this.routeObject);
-        this.scene.remove(this.plateformeObject);
-        this.scene.remove(this.toilettesObject);
-        this.scene.remove(this.batimentsObject);
-        this.scene.remove(this.restaurantsObject);
-        this.scene.remove(this.concertsObject);
+        // Supprimez tous les objets de la scène
+        while (this.scene.children.length > 0) {
+          const object = this.scene.children[0];
+          this.scene.remove(object);
 
-        this.routeObject.traverse((object) => {
           if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
+            if (object.geometry) {
+              object.geometry.dispose();
             }
-            object.material.dispose();
-          }
-        });
-        this.plateformeObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
+            if (object.material) {
+              if (object.material.isMaterial) {
+                this.cleanMaterial(object.material);
+              } else {
+                // Pour les cas où .material est un tableau de matériaux
+                for (const material of object.material) {
+                  this.cleanMaterial(material);
+                }
+              }
             }
-            object.material.dispose();
           }
-        });
-        this.toilettesObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
-            }
-            object.material.dispose();
-          }
-        });
-        this.batimentsObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
-            }
-            object.material.dispose();
-          }
-        });
-        this.restaurantsObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
-            }
-            object.material.dispose();
-          }
-        });
-        this.concertsObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
-            }
-            object.material.dispose();
-          }
-        });
+        }
 
-        this.scene.traverse((object) => {
-          if (object.isLight) {
-            if (object.target) {
-              object.target.dispose();
-            }
-            object.dispose();
-          }
-        });
+        if (this.renderer) {
+          this.renderer.dispose();
+        }
       }
+    },
+
+    cleanMaterial(material) {
+      material.dispose();
+
+      // Nettoie les textures s'il y en a
+      if (material.map) material.map.dispose();
+      if (material.lightMap) material.lightMap.dispose();
+      if (material.bumpMap) material.bumpMap.dispose();
+      if (material.normalMap) material.normalMap.dispose();
+      if (material.specularMap) material.specularMap.dispose();
+      if (material.envMap) material.envMap.dispose();
     },
     addLights() {
       const ambientLight = new THREE.AmbientLight(0xffffff, 5);
@@ -471,13 +475,15 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  width: 460px;
+  width: auto;
+  max-width: 460px;
   height: 100%;
-  background-color: white;
+  background-color: rgba(200, 200, 200, 0.5);
   overflow: auto;
   padding: 16px;
   padding-top: 100px;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .info-window h3 {
@@ -512,7 +518,7 @@ export default {
   position: fixed;
   bottom: 10px;
   left: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: gray;
   padding: 5px;
   border-radius: 5px;
   display: flex;
@@ -520,5 +526,10 @@ export default {
 }
 .menu-toggle button {
   margin-bottom: 5px;
+  background-color: darkgray; /* Couleur par défaut pour désactivé */
+}
+
+.menu-toggle button.active {
+  background-color: lightgreen; /* Couleur pour activé */
 }
 </style>
