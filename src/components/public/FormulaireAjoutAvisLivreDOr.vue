@@ -2,7 +2,7 @@
   <v-container>
     <v-btn v-if="!isFormOpen" @click="isFormOpen = !isFormOpen">
       <v-icon>mdi-plus</v-icon>
-      Ajouter un avis
+      {{ $t('public.commentsForm.ajouter-un-avis') }}
     </v-btn>
     <v-card
       v-if="isFormOpen"
@@ -11,7 +11,7 @@
       style="margin: auto"
     >
       <v-card-title>
-        <h3>Ajouter un avis</h3>
+        <h3>{{ $t('public.commentsForm.ajouter-un-avis') }}</h3>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -21,7 +21,7 @@
                 v-model="title"
                 dense
                 filled
-                label="Your name"
+                :label="$t('public.commentsForm.your-name')"
                 shaped
               ></v-text-field>
             </v-col>
@@ -30,7 +30,7 @@
                 v-model="author"
                 dense
                 filled
-                label="Title"
+                :label="$t('public.commentsForm.titleInput')"
                 shaped
               ></v-text-field>
             </v-col>
@@ -38,7 +38,7 @@
               <v-textarea
                 v-model="content"
                 dense
-                label="Content"
+                :label="$t('public.commentsForm.contentInput')"
                 outlined
               ></v-textarea>
             </v-col>
@@ -47,7 +47,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="publishComment">Submit</v-btn>
+        <v-btn color="primary" @click="publishComment">{{ $t('public.commentsForm.submit') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
