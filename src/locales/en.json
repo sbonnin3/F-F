@@ -122,7 +122,25 @@
           "contentInput": "Content",
           "contentInputRequired": "Content is required"
         }
+      },
+      "profile": {
+        "url": "Provider Logo URL",
+        "name": "Provider Name",
+        "category": "Provider Category",
+        "description": "Provider Description",
+        "link": {
+          "title": "Title",
+          "remove-link": "Remove Link",
+          "add-link-to-profile": "Add Link to profile"
+        },
+        "cancel": "Cancel",
+        "save": "Save"
       }
+    },
+    "services": {
+      "sorry-not-suscribed": "Sorry, you need to suscribe to this service to access this page.",
+      "go-back": "Go back",
+      "subscribe-to-service": "Subscribe to {0}"
     }
   }
 }

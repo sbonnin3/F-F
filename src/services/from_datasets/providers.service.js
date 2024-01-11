@@ -1,10 +1,9 @@
 const providers = [
   {
     _id: 1,
-    name: "Provider 1",
+    name: "La Saveur Épicée",
     category: "Restaurant",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
+    description: "\"La Saveur Épicée\" est bien plus qu'un simple restaurant, c'est un voyage culinaire où les saveurs exquises du monde se rencontrent dans un cadre chaleureux et élégant. Situé au cœur de la ville, notre établissement s'efforce de vous offrir une expérience gastronomique exceptionnelle qui éveillera vos sens.",
     logo: "https://picsum.photos/200/200",
     profileLinks: [
       {

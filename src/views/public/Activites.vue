@@ -1,6 +1,5 @@
 <template>
     <div class="content">
-      <h1>Vous êtes sur la page : Activités</h1>
     </div>
 </template>
   

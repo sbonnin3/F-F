@@ -12,6 +12,7 @@
       <h2 v-if="currentInfoWindow.title">{{ currentInfoWindow.title }}</h2>
       <p v-if="currentInfoWindow.text">{{ currentInfoWindow.text }}</p>
       <img v-if="currentInfoWindow.title === 'Toilettes' && currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image des toilettes" />
+      <img v-if="currentInfoWindow.title === 'Les pilotes' && currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image des pilotes" />
       <div v-if="currentInfoWindow.groups">
         <div v-for="(group, index) in currentInfoWindow.groups" :key="index">
           <br/>
@@ -22,6 +23,7 @@
         </div>
       </div>
       <ProviderProfile v-if="currentInfoWindow && currentInfoWindow.providerId" minimal :id="currentInfoWindow.providerId" />
+      <div class="close-button" @click="closeInfoWindow">×</div>
     </div>
   </div>
 </template>
@@ -44,26 +46,23 @@ export default {
   name: 'Carte',
   data() {
     return {
+      minZoom: 0.5, // Limite de dézoom
+      maxZoom: 5,
+      isPinching: false,
+      initialPinchDistance: 0,
       showInfoWindow: false,
       infoWindowTitle: '',
       infoWindowText: '',
       infoWindowImage: '',
       infoWindowContent: {
-        /*
-        Nom des objets :
-        Plateforme
-        Route
-        Toilettes
-        Batiments
-        Concert
-        Quick
-        Snac Paul Ricard
-        McDonald
-        Burger King
-        */
         Toilettes: {
           title: 'Toilettes',
           image: 'https://us.123rf.com/450wm/malaha3/malaha32004/malaha3200400190/144852346-mod%C3%A8le-de-signe-de-toilettes-publiques-et-texte-wc-signe-de-porte-aiguille-lieu-public.jpg?ver=6',
+          providerId: null
+        },
+        Route: {
+          title: 'Les pilotes',
+          image: 'https://www.motorsinside.com/images/photo/article/f12022/miniature/1500/touslespilotes.webp',
           providerId: null
         },
         Quick: {
@@ -150,8 +149,7 @@ export default {
     this.openAnimation();
     this.animate();
     this.faireQuelqueChose();
-    this.updateObjectVisibility(); // Assurez-vous que la visibilité initiale est correcte
-    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+    this.updateObjectVisibility();
   },
   computed: {
     allObjectsActivated() {
@@ -260,7 +258,6 @@ export default {
       window.removeEventListener('keydown', this.gererTouchesClavier);
 
       if (this.scene) {
-        // Supprimez tous les objets de la scène
         while (this.scene.children.length > 0) {
           const object = this.scene.children[0];
           this.scene.remove(object);
@@ -273,7 +270,6 @@ export default {
               if (object.material.isMaterial) {
                 this.cleanMaterial(object.material);
               } else {
-                // Pour les cas où .material est un tableau de matériaux
                 for (const material of object.material) {
                   this.cleanMaterial(material);
                 }
@@ -291,7 +287,6 @@ export default {
     cleanMaterial(material) {
       material.dispose();
 
-      // Nettoie les textures s'il y en a
       if (material.map) material.map.dispose();
       if (material.lightMap) material.lightMap.dispose();
       if (material.bumpMap) material.bumpMap.dispose();
@@ -331,19 +326,69 @@ export default {
     finGlissement() {
       this.isDragging = false;
     },
+
+    handleMouseWheel(event) {
+      const zoomAmount = 0.1;
+      if (event.deltaY < 0) {
+        this.camera.zoom = Math.min(this.camera.zoom + zoomAmount, this.maxZoom);
+      } else {
+        this.camera.zoom = Math.max(this.camera.zoom - zoomAmount, this.minZoom);
+      }
+      this.camera.updateProjectionMatrix();
+    },
+
+    handleKeyDown(event) {
+      const zoomAmount = 0.1;
+      if (event.key === 'ArrowUp') {
+        this.camera.zoom = Math.min(this.camera.zoom + zoomAmount, this.maxZoom);
+      } else if (event.key === 'ArrowDown') {
+        this.camera.zoom = Math.max(this.camera.zoom - zoomAmount, this.minZoom);
+      }
+      this.camera.updateProjectionMatrix();
+    },
+    handleTouchStart(event) {
+      if (event.touches.length === 2) {
+        this.isPinching = true;
+        this.initialPinchDistance = this.getPinchDistance(event);
+      }
+    },
+
+    handleTouchMove(event) {
+      if (this.isPinching && event.touches.length === 2) {
+        const currentPinchDistance = this.getPinchDistance(event);
+        const zoomFactor = 0.01;
+        const newZoom = this.camera.zoom + (currentPinchDistance - this.initialPinchDistance) * zoomFactor;
+        this.camera.zoom = Math.min(Math.max(newZoom, this.minZoom), this.maxZoom);
+        this.initialPinchDistance = currentPinchDistance;
+        this.camera.updateProjectionMatrix();
+      }
+    },
+
+    handleTouchEnd() {
+      this.isPinching = false;
+      this.initialPinchDistance = 0;
+    },
+
+    getPinchDistance(event) {
+      const dx = event.touches[0].pageX - event.touches[1].pageX;
+      const dy = event.touches[0].pageY - event.touches[1].pageY;
+      return Math.sqrt(dx * dx + dy * dy);
+    },
+
     addEventListeners() {
       window.addEventListener('resize', this.onWindowResize);
       window.addEventListener('mousemove', this.handleMouseMove);
       window.addEventListener('click', this.handleClick);
-
       window.addEventListener('touchstart', this.debutGlissement);
       window.addEventListener('touchmove', this.glissement);
       window.addEventListener('touchend', this.finGlissement);
       window.addEventListener('mousedown', this.debutGlissement);
       window.addEventListener('mousemove', this.glissement);
       window.addEventListener('mouseup', this.finGlissement);
-
       window.addEventListener('keydown', this.gererTouchesClavier);
+      window.addEventListener('beforeunload', this.beforeUnloadHandler);
+      window.addEventListener('wheel', this.handleMouseWheel);
+      window.addEventListener('keydown', this.handleKeyDown);
     },
     onWindowResize() {
       this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -376,7 +421,7 @@ export default {
       
       if (intersects.length > 0) {
         const intersectedObject = intersects[0].object;
-
+        this.renderer.domElement.style.cursor = 'pointer';        
         if (this.hoveredObject !== intersectedObject) {
           if (this.hoveredObject && this.hoveredObject.material && this.hoveredObject.material.emissive) {
             this.hoveredObject.material.emissive.setHex(this.originalColors.get(this.hoveredObject) || 0x000000);
@@ -395,6 +440,7 @@ export default {
         if (this.hoveredObject && this.hoveredObject.material && this.hoveredObject.material.emissive) {
           this.hoveredObject.material.emissive.setHex(this.originalColors.get(this.hoveredObject) || 0x000000);
         }
+        this.renderer.domElement.style.cursor = '';
         this.hoveredObject = null;
       }
       if (this.isDragging) {
@@ -448,10 +494,9 @@ export default {
       this.renderer.render(this.scene, this.camera);
     },
 
-    resetRotationAndPosition() {
-      this.camera.position.set(0, 0, 10);
-      this.rotationX = 0;
-      this.rotationY = 0;
+    closeInfoWindow() {
+      this.showInfoWindow = false;
+      this.currentInfoWindow = null;
     },
 
     faireQuelqueChose() {
@@ -478,7 +523,7 @@ export default {
   width: auto;
   max-width: 460px;
   height: 100%;
-  background-color: rgba(200, 200, 200, 0.5);
+  background-color: rgba(200, 200, 200, 0.8);
   overflow: auto;
   padding: 16px;
   padding-top: 100px;
@@ -494,31 +539,20 @@ export default {
 .info-window p {
   margin-bottom: 16px;
 }
-
 .info-window img {
   max-width: 100%;
   height: auto;
 }
-
 .carte {
   flex: 1;
   max-height: calc(100vh - 91px);
   overflow: hidden;
 }
-.object-name {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 5px;
-}
 .menu-toggle {
   position: fixed;
   bottom: 10px;
   left: 10px;
-  background-color: gray;
+  background-color: black;
   padding: 5px;
   border-radius: 5px;
   display: flex;
@@ -526,10 +560,18 @@ export default {
 }
 .menu-toggle button {
   margin-bottom: 5px;
-  background-color: darkgray; /* Couleur par défaut pour désactivé */
+  background-color: white;
+}
+.menu-toggle button.active {
+  background-color: lightgreen;
 }
 
-.menu-toggle button.active {
-  background-color: lightgreen; /* Couleur pour activé */
+.close-button {
+  position: absolute;
+  top: 90px;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
 }
 </style>
