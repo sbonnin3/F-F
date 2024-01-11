@@ -29,7 +29,7 @@
     </div>
     <div class="button-container">
       <button class="confirm-button" 
-              v-if="selectedActivity && selectedTimeSlot && !reservationConfirmed" 
+              v-if="selectedActivity && selectedTimeSlot" 
               @click="confirmReservation">
         Confirmer la réservation
       </button>
@@ -39,28 +39,68 @@
         Annuler la réservation
       </button>
     </div>
-     <div class="countdown-container" v-if="countdown">
-      <h2>Temps restant avant l'événement :</h2>
-      <p>{{ countdown }}</p>
-    </div>
-  </div>
+    <client-information-form
+      v-if="showClientForm"
+      :activity-details="{ nom: selectedActivity, heure: selectedTimeSlot }"
+      @formSubmitted="handleFormSubmission"
+    />
+  </div> <!-- Fermeture de la div "content" -->
 </template>
 
 <script>
+import ClientInformationForm from './ClientInformationForm.vue'; 
 import ActiviteService from '@/services/from_datasets/activite.service.js';
 
 export default {
+
+  components: {
+    ClientInformationForm
+  },
+
   name: 'ReservationActivite',
   data() {
     return {
       selectedActivity: '',
       selectedTimeSlot: null,
       activities: ActiviteService.getAllActivites(),
-      timeSlots: this.generateTimeSlots(),
+      timeSlots: [],
+      showClientForm: false,
       reservationConfirmed: false,
     };
   },
+  
+   watch: {
+    selectedActivity(newVal) {
+      if (newVal) {
+        const activite = ActiviteService.getActiviteByName(newVal);
+        if (activite && activite.horaires) {
+          this.timeSlots = activite.horaires;
+        }
+      } else {
+        this.timeSlots = []; // Réinitialiser les créneaux horaires
+      }
+    },
+  },
   methods: {
+
+  confirmReservation() {
+    this.reservationConfirmed = true;
+  this.$router.push({
+    name: 'ReservationForm',
+    query: {
+      selectedActivity: this.selectedActivity,
+      selectedTimeSlot: this.selectedTimeSlot
+    } 
+  });
+  },
+    handleFormSubmission(clientData) {
+      console.log('Le formulaire a été soumis avec les données suivantes:', clientData);
+      this.$router.push({ name: 'Reservation' });
+      this.showClientForm = false;
+      this.selectedActivity = '';
+      this.selectedTimeSlot = null;
+    },
+
     generateTimeSlots() {
       let slots = [];
       for (let hour = 8; hour <= 20; hour++) {
@@ -70,9 +110,6 @@ export default {
     },
     selectTimeSlot(slot) {
       this.selectedTimeSlot = slot;
-    },
-    confirmReservation() {
-      this.reservationConfirmed = true;
     },
     cancelReservation() {
       this.reservationConfirmed = false;
@@ -91,29 +128,29 @@ export default {
 <style scoped>
 
 .content {
-  max-width: 800px; /* Limiter la largeur maximale du contenu */
-  margin: auto; /* Centrer dans la page */
-  padding: 20px; /* Ajouter du padding pour l'espacement */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajouter une ombre subtile */
-  border-radius: 10px; /* Adoucir les coins */
-  background: #fff; /* Fond blanc pour la section */
+  max-width: 800px;
+  margin: auto; 
+  padding: 20px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; 
+  background: #fff; 
 }
 
 .activities, .date-time-picker, .reservation-details {
-  margin-bottom: 20px; /* Espacement entre les sections */
+  margin-bottom: 20px;
 }
 
 h1, h2 {
-  color: #333; /* Couleur plus foncée pour les titres */
-  text-align: center; /* Centrer les titres */
+  color: #333; 
+  text-align: center; 
 }
 
 select {
-  width: 100%; /* Utiliser toute la largeur disponible */
-  padding: 10px; /* Ajouter du padding pour rendre la sélection plus grande */
-  margin-bottom: 20px; /* Espacement après le sélecteur */
-  border: 1px solid #ccc; /* Bordure subtile */
-  border-radius: 5px; /* Coins arrondis pour le sélecteur */
+  width: 100%;
+  padding: 10px; 
+  margin-bottom: 20px; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
 }
 
 .time-slot:hover {
@@ -131,27 +168,38 @@ select {
 .time-slots {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Ajoute un espace entre les boutons */
-  justify-content: start;
-  max-width: 600px; /* Vous pouvez ajuster cette largeur en fonction de votre design */
-  margin: auto; /* Centrer le conteneur des créneaux */
+  gap: 10px; 
+  justify-content: center;
+  max-width: 600px;
+  margin: auto;
 }
 
 .time-slot {
+  flex: 0 1 calc(33.333% - 10px); /* Prendre jusqu'à un tiers de l'espace disponible, moins le gap */
   padding: 10px 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #f8f8f8;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
-  /* Taille fixe ou minimum pour chaque créneau */
-  min-width: 80px;
   text-align: center;
+  margin-bottom: 10px;
 }
 
 .time-slot:hover {
-  background-color: #e0e0e0; /* Changement de couleur au survol */
+  background-color: #FFFF00; 
+}
+
+@media (max-width: 600px) {
+  .time-slot {
+    flex: 0 1 calc(50% - 10px); /* Pour les petits écrans, prenez la moitié de l'espace */
+  }
+}
+
+@media (max-width: 400px) {
+  .time-slot {
+    flex: 0 1 100%; /* Pour les très petits écrans, chaque créneau prend toute la largeur */
+  }
 }
 
 .button-container {
