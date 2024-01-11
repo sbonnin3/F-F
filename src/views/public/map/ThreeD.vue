@@ -357,16 +357,16 @@ export default {
     },
     
     handleTouchStart(event) {
-      event.preventDefault();
       if (event.touches.length === 2) {
+        event.preventDefault();
         this.isPinching = true;
         this.initialPinchDistance = this.getPinchDistance(event);
       }
     },
 
     handleTouchMove(event) {
-      event.preventDefault();
       if (this.isPinching && event.touches.length === 2) {
+        event.preventDefault();
         const currentPinchDistance = this.getPinchDistance(event);
         const zoomFactor = 0.01;
         const newZoom = this.camera.zoom + (currentPinchDistance - this.initialPinchDistance) * zoomFactor;
@@ -468,8 +468,6 @@ export default {
       }
     },
     handleClick(event) {
-      event.preventDefault();
-
       const rect = this.renderer.domElement.getBoundingClientRect();
       const mouse = new THREE.Vector2(
         ((event.clientX - rect.left) / rect.width) * 2 - 1,
