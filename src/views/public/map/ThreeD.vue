@@ -16,7 +16,7 @@
       <h3>{{ currentInfoWindow.title }}</h3>
       <p>{{ currentInfoWindow.text }}</p>
       <img :src="currentInfoWindow.image" />
-      <ProviderProfile v-if="currentInfoWindow && currentInfoWindow.providerId" :id="currentInfoWindow.providerId" />
+      <ProviderProfile v-if="currentInfoWindow && currentInfoWindow.providerId" minimal :id="currentInfoWindow.providerId" />
     </div>
   </div>
 </template>
