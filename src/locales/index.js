@@ -1,4 +1,4 @@
 export default {
-    en: {...import('./en')},
-    fr: {...import('./fr')}
+    en: {...require('./en')},
+    fr: {...require('./fr')}
 }
