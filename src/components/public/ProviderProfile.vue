@@ -74,7 +74,6 @@ export default {
     },
     minimal: {
       type: Boolean,
-      default: false,
     },
   },
   data() {
