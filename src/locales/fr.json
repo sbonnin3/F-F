@@ -74,6 +74,13 @@
       "role": "Rôle",
       "user-default-language": "Langue par défaut",
       "submit": "Mettre à jour"
+    },
+    "commentsForm": {
+      "ajouter-un-avis": "Ajouter un avis",
+      "contentInput": "Contenu",
+      "submit": "Soumettre",
+      "titleInput": "Titre",
+      "your-name": "Votre nom"
     }
   },
   "dashboard": {
