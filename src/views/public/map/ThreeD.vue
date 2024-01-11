@@ -1,37 +1,27 @@
 <template>
   <div>
     <div class="carte" ref="container"></div>
-    <div v-if="showObjectName" class="object-name">{{ objectName }}</div>
-    <div class="menu">
-      <h2>Menu</h2>
-      <button @click="toggleAll" class="toggle-button" :class="{ 'active': isAllChecked }">
-        <div class="slider"></div>
-      </button>
-      <span>Tout</span>
-      <br class="espace-supplementaire">
-      <label>
-        <input type="checkbox" v-model="chek_toilettes" @change="faireQuelqueChose"> Toilettes
-      </label>
-      <label>
-        <input type="checkbox" v-model="chek_batiments" @change="faireQuelqueChose"> Bâtiments
-      </label>
-      <label>
-        <input type="checkbox" v-model="chek_restaurants" @change="faireQuelqueChose"> Restaurants
-      </label>
-      <label>
-        <input type="checkbox" v-model="chek_concerts" @change="faireQuelqueChose"> Concerts
-      </label>
-      <button @click="resetRotationAndPosition" class="reset-button">Reset Position</button>
-    </div>
-    <div class="building-info" v-if="showBuildingInfo" @click="hideBuildingInfo">
-      <h3>{{ buildingInfo.title }}</h3>
-      <p>{{ buildingInfo.description }}</p>
+    <div class="menu-toggle">
+      <button :class="{ active: allObjectsVisible }" @click="toggleAllObjects">Tout</button>
+      <button :class="{ active: objectVisibility['restaurantsObject'] }" @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
+      <button :class="{ active: objectVisibility['toilettesObject'] }" @click="toggleObjectVisibility('toilettesObject')">Toilettes</button>
+      <button :class="{ active: objectVisibility['batimentsObject'] }" @click="toggleObjectVisibility('batimentsObject')">Décorations</button>
+      <button :class="{ active: objectVisibility['concertsObject'] }" @click="toggleObjectVisibility('concertsObject')">Scène</button>
     </div>
     <div class="info-window" v-if="showInfoWindow && currentInfoWindow">
-      <h3>{{ currentInfoWindow.title }}</h3>
-      <p>{{ currentInfoWindow.text }}</p>
-      <img :src="currentInfoWindow.image" />
-      <ProviderProfile v-if="currentInfoWindow && currentInfoWindow.providerId" :id="currentInfoWindow.providerId" />
+      <h2 v-if="currentInfoWindow.title">{{ currentInfoWindow.title }}</h2>
+      <p v-if="currentInfoWindow.text">{{ currentInfoWindow.text }}</p>
+      <img v-if="currentInfoWindow.title === 'Toilettes' && currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image des toilettes" />
+      <div v-if="currentInfoWindow.groups">
+        <div v-for="(group, index) in currentInfoWindow.groups" :key="index">
+          <br/>
+          <h3>{{ group.name }}</h3>
+          <p v-if="group.text">{{ group.text }}</p>
+          <img :src="group.image" :alt="group.name" />
+          <br/>
+        </div>
+      </div>
+      <ProviderProfile v-if="currentInfoWindow && currentInfoWindow.providerId" minimal :id="currentInfoWindow.providerId" />
     </div>
   </div>
 </template>
@@ -54,7 +44,6 @@ export default {
   name: 'Carte',
   data() {
     return {
-      // Data properties
       showInfoWindow: false,
       infoWindowTitle: '',
       infoWindowText: '',
@@ -74,11 +63,33 @@ export default {
         */
         Toilettes: {
           title: 'Toilettes',
-          image: 'https://cdn-icons-png.flaticon.com/256/185/185547.png',
-          providerId: null // Aucun ID pour la plateforme
+          image: 'https://us.123rf.com/450wm/malaha3/malaha32004/malaha3200400190/144852346-mod%C3%A8le-de-signe-de-toilettes-publiques-et-texte-wc-signe-de-porte-aiguille-lieu-public.jpg?ver=6',
+          providerId: null
         },
         Quick: {
-          providerId: '1' // ID pour Quick
+          providerId: '1'
+        },
+        Concert: {
+          title: 'Concerts',
+          text: "Des concerts au programme de 17h00 jusqu'à 02h00 !",
+          groups: [
+            {
+              name: "Sexion d'Assaut",
+              text: "17h00",
+              image: 'https://www.nikaia.fr/thumbs/1024x562r/2022-02/sexion-site.jpg',
+            },
+            {
+              name: '47ter',
+              text: "20h00",
+              image: 'https://www.arkeaarena.com/app/uploads/2020/09/AA_SI_SQR_WEB-3.jpg',
+            },
+            {
+              name: 'Maitre GIMS',
+              text: "23h00",
+              image: 'https://www.zenithdelille.com/wp-content/uploads/2023/05/gims-1-1-scaled-1600x0-c-default.jpg',
+            },
+          ],
+          providerId: null,
         },
       },
       currentInfoWindow: null,
@@ -112,12 +123,6 @@ export default {
       renderer: null,
       originalColors: new Map(),
 
-      isAllChecked: true,
-      chek_toilettes: true,
-      chek_batiments: true,
-      chek_restaurants: true,
-      chek_concerts: true,
-
       isDragging: false,
       startMouseX: 0,
       startMouseY: 0,
@@ -125,6 +130,14 @@ export default {
       currentMouseY: 0,
       rotationX: 0,
       rotationY: 0,
+
+      allObjectsVisible: true,
+      objectVisibility: {
+        restaurantsObject: true,
+        toilettesObject: true,
+        batimentsObject: true,
+        concertsObject: true,
+      }
     };
   },
   components: {
@@ -137,22 +150,25 @@ export default {
     this.openAnimation();
     this.animate();
     this.faireQuelqueChose();
+    this.updateObjectVisibility(); // Assurez-vous que la visibilité initiale est correcte
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  },
+  computed: {
+    allObjectsActivated() {
+      return Object.values(this.objectVisibility).every(status => status);
+    }
   },
   methods: {
     openAnimation() {
-      const rotation = { x: 0, y: 0 }; // Les valeurs de rotation initiales
+      const rotation = { x: 0, y: 0 };
 
-      // Modifiez la durée pour ajuster la vitesse (en secondes)
-      const animationDuration = 5; // Exemple : augmentation de la durée à 4 secondes
+      const animationDuration = 5;
 
-      // Utilise TweenMax pour l'animation avec la nouvelle durée
       TweenMax.to(rotation, animationDuration, {
         x: 0.5,
         y: 6,
-        ease: Power2.easeOut, // Utilisez une fonction d'accélération
+        ease: Power2.easeOut,
         onUpdate: () => {
-          // Fonction de mise à jour appelée à chaque frame de l'animation
           this.rotationX = rotation.x;
           this.rotationY = rotation.y;
         },
@@ -168,6 +184,31 @@ export default {
       this.$refs.container.appendChild(this.renderer.domElement);
       this.addLights();
     },
+    toggleObjectVisibility(objectKey) {
+      this.objectVisibility[objectKey] = !this.objectVisibility[objectKey];
+      this.updateObjectVisibility();
+      this.checkAllObjectsState();
+    },
+
+    toggleAllObjects() {
+      this.allObjectsVisible = !this.allObjectsVisible;
+      Object.keys(this.objectVisibility).forEach(key => {
+        this.objectVisibility[key] = this.allObjectsVisible;
+      });
+      this.updateObjectVisibility();
+    },
+
+    checkAllObjectsState() {
+      this.allObjectsVisible = this.allObjectsActivated;
+    },
+
+    updateObjectVisibility() {
+      Object.entries(this.objectVisibility).forEach(([key, visible]) => {
+        if (this[key]) {
+          this[key].visible = visible;
+        }
+      });
+    },
     loadModels() {
       this.group = new THREE.Group();
 
@@ -180,33 +221,33 @@ export default {
 
       loader.load(routePath, (gltf) => {
         this.routeObject = gltf.scene;
-        this.group.add(this.routeObject); // Correction ici
+        this.group.add(this.routeObject);
       });
 
       loader.load(batimentsPath, (gltf) => {
         this.batimentsObject = gltf.scene;
-        this.group.add(this.batimentsObject); // Correction ici
+        this.group.add(this.batimentsObject);
       });
 
       loader.load(toilettesPath, (gltf) => {
         this.toilettesObject = gltf.scene;
-        this.group.add(this.toilettesObject); // Correction ici
+        this.group.add(this.toilettesObject);
       });
 
       loader.load(restaurantsPath, (gltf) => {
         this.restaurantsObject = gltf.scene;
-        this.group.add(this.restaurantsObject); // Correction ici
+        this.group.add(this.restaurantsObject);
       });
 
       loader.load(concertsPath, (gltf) => {
         this.concertsObject = gltf.scene;
-        this.group.add(this.concertsObject); // Correction ici
+        this.group.add(this.concertsObject);
       });
 
       this.scene.add(this.group);
+      this.updateObjectVisibility();
     },
     unload3DModels() {
-      // Supprimer les gestionnaires d'événements
       window.removeEventListener('resize', this.onWindowResize);
       window.removeEventListener('mousemove', this.handleMouseMove);
       window.removeEventListener('click', this.handleClick);
@@ -218,81 +259,45 @@ export default {
       window.removeEventListener('mouseup', this.finGlissement);
       window.removeEventListener('keydown', this.gererTouchesClavier);
 
-      // Supprimer les modèles 3D de la scène
       if (this.scene) {
-        this.scene.remove(this.routeObject);
-        this.scene.remove(this.plateformeObject);
-        this.scene.remove(this.toilettesObject);
-        this.scene.remove(this.batimentsObject);
-        this.scene.remove(this.restaurantsObject);
-        this.scene.remove(this.concertsObject);
+        // Supprimez tous les objets de la scène
+        while (this.scene.children.length > 0) {
+          const object = this.scene.children[0];
+          this.scene.remove(object);
 
-        // Libérer la mémoire des textures et des géométries
-        this.routeObject.traverse((object) => {
           if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
+            if (object.geometry) {
+              object.geometry.dispose();
             }
-            object.material.dispose();
-          }
-        });
-        this.plateformeObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
+            if (object.material) {
+              if (object.material.isMaterial) {
+                this.cleanMaterial(object.material);
+              } else {
+                // Pour les cas où .material est un tableau de matériaux
+                for (const material of object.material) {
+                  this.cleanMaterial(material);
+                }
+              }
             }
-            object.material.dispose();
           }
-        });
-        this.toilettesObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
-            }
-            object.material.dispose();
-          }
-        });
-        this.batimentsObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
-            }
-            object.material.dispose();
-          }
-        });
-        this.restaurantsObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
-            }
-            object.material.dispose();
-          }
-        });
-        this.concertsObject.traverse((object) => {
-          if (object.isMesh) {
-            object.geometry.dispose();
-            if (object.material.map) {
-              object.material.map.dispose();
-            }
-            object.material.dispose();
-          }
-        });
+        }
 
-        // Libérer la mémoire des textures de lumières
-        this.scene.traverse((object) => {
-          if (object.isLight) {
-            if (object.target) {
-              object.target.dispose();
-            }
-            object.dispose();
-          }
-        });
+        if (this.renderer) {
+          this.renderer.dispose();
+        }
       }
+    },
+
+    cleanMaterial(material) {
+      material.dispose();
+
+      // Nettoie les textures s'il y en a
+      if (material.map) material.map.dispose();
+      if (material.lightMap) material.lightMap.dispose();
+      if (material.bumpMap) material.bumpMap.dispose();
+      if (material.normalMap) material.normalMap.dispose();
+      if (material.specularMap) material.specularMap.dispose();
+      if (material.envMap) material.envMap.dispose();
     },
     addLights() {
       const ambientLight = new THREE.AmbientLight(0xffffff, 5);
@@ -316,8 +321,8 @@ export default {
       const deltaX = (clientX - this.startMouseX) / window.innerWidth;
       const deltaY = (clientY - this.startMouseY) / window.innerHeight;
 
-      this.rotationY += deltaX * 2 * Math.PI; // Rotation autour de l'axe Y
-      this.rotationX += deltaY * 2 * Math.PI; // Rotation autour de l'axe X
+      this.rotationY += deltaX * 2 * Math.PI;
+      this.rotationX += deltaY * 2 * Math.PI;
 
       this.startMouseX = clientX;
       this.startMouseY = clientY;
@@ -331,7 +336,6 @@ export default {
       window.addEventListener('mousemove', this.handleMouseMove);
       window.addEventListener('click', this.handleClick);
 
-      // Gestion des événements de glissement pour la rotation
       window.addEventListener('touchstart', this.debutGlissement);
       window.addEventListener('touchmove', this.glissement);
       window.addEventListener('touchend', this.finGlissement);
@@ -339,7 +343,6 @@ export default {
       window.addEventListener('mousemove', this.glissement);
       window.addEventListener('mouseup', this.finGlissement);
 
-      // Gestion des touches du clavier pour d'autres interactions
       window.addEventListener('keydown', this.gererTouchesClavier);
     },
     onWindowResize() {
@@ -367,7 +370,7 @@ export default {
         this.batimentsObject,
         this.restaurantsObject,
         this.concertsObject
-      ].filter(obj => obj !== null); // Filtrer les objets non nuls
+      ].filter(obj => obj !== null);
 
       const intersects = raycaster.intersectObjects(objectsToIntersect, true);
       
@@ -375,15 +378,12 @@ export default {
         const intersectedObject = intersects[0].object;
 
         if (this.hoveredObject !== intersectedObject) {
-          // Réinitialiser l'objet précédemment survolé
           if (this.hoveredObject && this.hoveredObject.material && this.hoveredObject.material.emissive) {
             this.hoveredObject.material.emissive.setHex(this.originalColors.get(this.hoveredObject) || 0x000000);
           }
 
-          // Mettre à jour l'objet survolé actuel
           this.hoveredObject = intersectedObject;
 
-          // Stocker la couleur originale et mettre à jour la couleur
           if (this.hoveredObject.material && this.hoveredObject.material.emissive) {
             if (!this.originalColors.has(this.hoveredObject)) {
               this.originalColors.set(this.hoveredObject, this.hoveredObject.material.emissive.getHex());
@@ -392,7 +392,6 @@ export default {
           }
         }
       } else {
-        // Réinitialiser l'objet précédemment survolé
         if (this.hoveredObject && this.hoveredObject.material && this.hoveredObject.material.emissive) {
           this.hoveredObject.material.emissive.setHex(this.originalColors.get(this.hoveredObject) || 0x000000);
         }
@@ -441,7 +440,6 @@ export default {
     animate() {
       requestAnimationFrame(this.animate);
 
-      // Appliquer la rotation au groupe
       if (this.group) {
         this.group.rotation.x = this.rotationX;
         this.group.rotation.y = this.rotationY;
@@ -449,79 +447,43 @@ export default {
 
       this.renderer.render(this.scene, this.camera);
     },
-    handleCheckboxChange() {
-      this.isAllChecked = this.chek_toilettes && this.chek_batiments && this.chek_restaurants && this.chek_concerts;
-    },
-    toggleAll() {
-      const newState = !this.isAllChecked;
-      this.isAllChecked = newState;
-      this.chek_toilettes = newState;
-      this.chek_batiments = newState;
-      this.chek_restaurants = newState;
-      this.chek_concerts = newState;
 
-      // Mettre à jour la visibilité des objets en conséquence
-      this.toilettesObject.visible = newState;
-      this.batimentsObject.visible = newState;
-      this.restaurantsObject.visible = newState;
-      this.concertsObject.visible = newState;
-    },
     resetRotationAndPosition() {
       this.camera.position.set(0, 0, 10);
       this.rotationX = 0;
       this.rotationY = 0;
     },
+
     faireQuelqueChose() {
-      // Changer la couleur de fond de la scène
-      this.scene.background = new THREE.Color(0xabcdef); // Remplacer 0xabcdef par la couleur désirée
-
-      // Pour les toilettes
-      if (this.toilettesObject) {
-        this.toilettesObject.visible = this.chek_toilettes;
-      }
-
-      // Pour les bâtiments
-      if (this.batimentsObject) {
-        this.batimentsObject.visible = this.chek_batiments;
-      }
-
-      // Pour les restaurants
-      if (this.restaurantsObject) {
-        this.restaurantsObject.visible = this.chek_restaurants;
-      }
-
-      // Pour les concerts
-      if (this.concertsObject) {
-        this.concertsObject.visible = this.chek_concerts;
-      }
-      this.isAllChecked = this.chek_toilettes && this.chek_batiments && this.chek_restaurants && this.chek_concerts;
+      this.scene.background = new THREE.Color(0xabcdef);
     },
+
     beforeDestroy() {
       window.removeEventListener('resize', this.onWindowResize);
       window.removeEventListener('mousemove', this.handleMouseMove);
       window.removeEventListener('click', this.handleClick);
-      // Remove other event listeners
     },
     beforeUnloadHandler() {
       this.unload3DModels();
     },
-  }
+  },
 }
 </script>
 
 <style scoped>
-/* Styles for the Vue component */
 .info-window {
   position: fixed;
   top: 0;
   right: 0;
-  width: 460px;
+  width: auto;
+  max-width: 460px;
   height: 100%;
-  background-color: white;
+  background-color: rgba(200, 200, 200, 0.5);
   overflow: auto;
   padding: 16px;
   padding-top: 100px;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .info-window h3 {
@@ -537,74 +499,12 @@ export default {
   max-width: 100%;
   height: auto;
 }
-.reset-button {
-  width: 100%;
-  background-color: #ccc;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 8px;
-  padding: 8px;
-  margin-top: 16px;
-}
-
-.toggle-button {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  width: 50px;
-  height: 20px;
-  background-color: #ccc;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 20px;
-  padding: 0;
-}
-
-.toggle-button + span {
-  vertical-align: middle;
-  margin-left: 8px;
-}
-
-.slider {
-  width: 20px;
-  height: 20px;
-  background-color: #fff;
-  border-radius: 50%;
-  transition: 0.2s;
-}
-
-.active .slider {
-  transform: translateX(30px);
-}
 
 .carte {
   flex: 1;
   max-height: calc(100vh - 91px);
   overflow: hidden;
 }
-
-.menu {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 200px;
-  padding: 16px;
-  background-color: rgba(180,180,180);
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.menu h2 {
-  font-size: 1.2em;
-  margin-bottom: 8px;
-}
-
-.menu label {
-  display: block;
-  margin-bottom: 8px;
-}
-
 .object-name {
   position: fixed;
   bottom: 10px;
@@ -613,5 +513,23 @@ export default {
   padding: 5px;
   border: 1px solid black;
   border-radius: 5px;
+}
+.menu-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background-color: gray;
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.menu-toggle button {
+  margin-bottom: 5px;
+  background-color: darkgray; /* Couleur par défaut pour désactivé */
+}
+
+.menu-toggle button.active {
+  background-color: lightgreen; /* Couleur pour activé */
 }
 </style>

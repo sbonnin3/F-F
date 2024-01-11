@@ -1,26 +1,26 @@
 <template>
   <v-container>
     <v-autocomplete
-        v-model="seletedProvider"
-        :items="providers"
-        item-text="name"
-        item-value="_id"
-        :label="$t('public.providers.searchAccroche')"
-        :loading="loading"
-        filled
-        shaped
+      v-model="seletedProvider"
+      :items="providers"
+      :label="$t('public.providers.searchAccroche')"
+      :loading="loading"
+      filled
+      item-text="name"
+      item-value="_id"
+      shaped
     ></v-autocomplete>
   </v-container>
 </template>
 
 <script>
-import {getProviders} from "@/services/from_datasets/providers.service";
+import { getProviders } from "@/services/from_datasets/providers.service";
 
 export default {
   name: "SearchProvider",
   data() {
     return {
-      seletedProvider: this.$route.params.id || null,
+      seletedProvider: Number(this.$route.params.id) || null,
       providers: [],
       loading: false,
     };
@@ -35,8 +35,9 @@ export default {
   watch: {
     seletedProvider(newVal) {
       if (newVal) {
-        this.$router.push({name: "provider", params: {id: newVal}}).catch(() => {
-        });
+        this.$router
+          .push({ name: "provider", params: { id: newVal } })
+          .catch(() => {});
       }
     },
   },

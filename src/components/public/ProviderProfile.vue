@@ -3,7 +3,7 @@
     <div class="profile__head">
       <div class="headband">
         <div class="provider-picture">
-          <img :src="providerData.logo" alt="provider picture"/>
+          <img :src="providerData.logo" alt="provider picture" />
         </div>
       </div>
       <div class="header">
@@ -11,10 +11,10 @@
         <h2>{{ providerData.category }}</h2>
         <div class="actions">
           <button
-              v-for="(link, id) in providerData.profileLinks"
-              :key="id"
-              class="btn"
-              @click="redirect(link.to)"
+            v-for="(link, id) in providerData.profileLinks"
+            :key="id"
+            class="btn"
+            @click="redirect(link.to)"
           >
             {{ link.name }}
           </button>
@@ -24,18 +24,33 @@
     <div class="profile__body">
       <div class="profile__page">
         <div class="desc">
-          <h3>{{ $t('public.providers.providerDescription') }}</h3>
+          <h3>{{ $t("public.providers.providerDescription") }}</h3>
           <p>
             {{ providerData.description }}
           </p>
         </div>
         <div v-if="providerData.services.posts && !minimal" class="posts">
-          <h3>{{ $t('public.providers.posts') }}</h3>
+          <h3>{{ $t("public.providers.posts") }}</h3>
           <div class="elements">
             <article v-for="post in providerPosts" :key="post._id">
               <h4>{{ post.title }}</h4>
-              <p v-if="post.datetime" class="posts_details">{{ post.datetime }}</p>
+              <p v-if="post.datetime" class="posts_details">
+                {{ post.datetime }}
+              </p>
               <p v-if="post.content">{{ post.content }}</p>
+            </article>
+          </div>
+        </div>
+        <div v-if="providerData.services.livredor && !minimal" class="posts">
+          <h3>{{ $t("public.providers.livredor") }}</h3>
+          <FormulaireAjoutAvisLivreDOr :providerId="id" @comment-published="addComment" />
+          <div class="elements dense">
+            <article v-for="comment in providerComments" :key="comment._id">
+              <h4>{{ comment.title }}</h4>
+              <p v-if="comment.author" class="posts_details">
+                {{ comment.author }}
+              </p>
+              <p v-if="comment.content">{{ comment.content }}</p>
             </article>
           </div>
         </div>
@@ -45,8 +60,11 @@
 </template>
 
 <script>
-import {getProvider} from "@/services/from_datasets/providers.service";
-import {getPosts} from "@/services/from_datasets/posts.service";
+import { getProvider } from "@/services/from_datasets/providers.service";
+import { getPosts } from "@/services/from_datasets/posts.service";
+import { getComments } from "@/services/from_datasets/livredor.service";
+
+import FormulaireAjoutAvisLivreDOr from "@/components/public/FormulaireAjoutAvisLivreDOr.vue";
 
 export default {
   name: "ProviderProfile",
@@ -56,15 +74,18 @@ export default {
     },
     minimal: {
       type: Boolean,
-      default: false,
     },
   },
   data() {
     return {
       providerData: null,
       providerPosts: null,
+      providerComments: null,
       loading: false,
     };
+  },
+  components: {
+    FormulaireAjoutAvisLivreDOr,
   },
   methods: {
     redirect(to) {
@@ -78,7 +99,11 @@ export default {
       this.loading = true;
       this.providerData = await getProvider(id);
       this.providerPosts = await getPosts(id);
+      this.providerComments = await getComments(id);
       this.loading = false;
+    },
+    async addComment(comment) {
+      this.providerComments.push(comment);
     },
   },
   async mounted() {
@@ -87,8 +112,8 @@ export default {
   watch: {
     async id(newVal) {
       await this.getProviderData(Number(newVal));
-    }
-  }
+    },
+  },
 };
 </script>
 

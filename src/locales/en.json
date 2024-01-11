@@ -16,7 +16,8 @@
       "providerDescription": "Provider Description",
       "posts": "Posts",
       "providerNotFound": "Provider not found, please try again.",
-      "searchAccroche": "Select the profile you want to explore :"
+      "searchAccroche": "Select the profile you want to explore :",
+      "livredor": "Guest book"
     },
     "home": {
       "header": "Automobile GP at Circuit Paul Ricard",
@@ -73,6 +74,13 @@
       "role": "Role",
       "user-default-language": "User default language",
       "submit": "Update account"
+    },
+    "commentsForm": {
+      "ajouter-un-avis": "Ajouter un avis",
+      "your-name": "Your name",
+      "titleInput": "Title",
+      "contentInput": "Content",
+      "submit": "Submit"
     }
   },
   "dashboard": {
@@ -87,7 +95,8 @@
       "providers": "Providers",
       "users": "Users",
       "roles": "Roles and Menus",
-      "translations": "Translations"
+      "translations": "Translations",
+      "livredor": "Guest book"
     },
     "actions": {
       "edit": "Edit",

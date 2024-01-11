@@ -16,7 +16,8 @@
       "providerDescription": "Description du prestataire",
       "posts": "Articles",
       "providerNotFound": "Prestataire non trouvé, veuillez réessayer plus tard.",
-      "searchAccroche": "Recherchez un prestataire"
+      "searchAccroche": "Recherchez un prestataire",
+      "livredor": "Livre d'or"
     },
     "home": {
       "header": "GP automobile au Circuit Paul Ricard",
@@ -73,6 +74,13 @@
       "role": "Rôle",
       "user-default-language": "Langue par défaut",
       "submit": "Mettre à jour"
+    },
+    "commentsForm": {
+      "ajouter-un-avis": "Ajouter un avis",
+      "contentInput": "Contenu",
+      "submit": "Soumettre",
+      "titleInput": "Titre",
+      "your-name": "Votre nom"
     }
   },
   "dashboard": {
@@ -87,7 +95,8 @@
       "providers": "Prestataires",
       "users": "Utilisateurs",
       "roles": "Roles et Menus",
-      "translations": "Traductions"
+      "translations": "Traductions",
+      "livredor": "Livre d'or"
     },
     "actions": {
       "edit": "Modifier",

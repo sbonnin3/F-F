@@ -53,6 +53,13 @@ const dashboardRoutes = [
             ],
           },
           {
+            path: "livredor",
+            component: () => import("@/views/dashboard/livredor/Template.vue"),
+            children: [
+              {path: "", name: "providers.livredor", component: () => import("@/views/dashboard/livredor/CommentsList.vue")},
+            ]
+          },
+          {
             path: "map",
             name: "providers.map",
             component: () => import("@/views/dashboard/map/Template.vue"),
