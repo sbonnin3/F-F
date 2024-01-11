@@ -17,7 +17,7 @@
       </template>
 
       <v-card-title>
-        <span class="headline">Edit Provider Profile</span>
+        <span class="headline">{{ $t('dashboard.navigation.myProfile') }}</span>
       </v-card-title>
 
       <v-card-text>
@@ -37,7 +37,7 @@
                     <v-text-field
                       v-model="provider.logo"
                       :disabled="isUpdating"
-                      label="Provider Logo URL"
+                      :label="$t('dashboard.providers.profile.url')"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -47,7 +47,7 @@
                   v-model="provider.name"
                   :disabled="isUpdating"
                   filled
-                  label="Provider Name"
+                  :label="$t('dashboard.providers.profile.name')"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
@@ -55,13 +55,13 @@
                   v-model="provider.category"
                   disabled
                   filled
-                  label="Provider Category"
+                  :label="$t('dashboard.providers.profile.category')"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-textarea
                   v-model="provider.description"
-                  label="Provider Description"
+                  :label="$t('dashboard.providers.profile.description')"
                   outlined
                 ></v-textarea>
               </v-col>
@@ -76,7 +76,7 @@
                       v-model="provider.profileLinks[id].name"
                       :disabled="isUpdating"
                       filled
-                      label="Title"
+                      :label="$t('dashboard.providers.profile.link.title')"
                       shaped
                     ></v-text-field>
                     <v-text-field
@@ -93,7 +93,7 @@
                       text
                       @click="provider.profileLinks.splice(id, 1)"
                     >
-                      Remove Link
+                      {{$t('dashboard.providers.profile.link.remove-link')}}
                     </v-btn>
                   </v-card-actions>
                 </v-card>
@@ -108,7 +108,7 @@
           color="primary"
           @click="provider.profileLinks.push({ name: '', to: '' })"
         >
-          Add Link to profile
+          {{ $t('dashboard.providers.profile.link.add-link-to-profile') }}
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
@@ -116,14 +116,14 @@
           color="error"
           @click="$router.push({ name: 'dashboard.ROLE_PROVIDER' })"
         >
-          Cancel
+          {{ $t('dashboard.providers.profile.cancel') }}
         </v-btn>
         <v-btn
           :disabled="isUpdating"
           color="success"
           @click="updateProviderProfile"
         >
-          Save
+          {{ $t('dashboard.providers.profile.save') }}
         </v-btn>
       </v-card-actions>
     </v-card>
