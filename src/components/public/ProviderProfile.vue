@@ -79,11 +79,11 @@ export default {
     },
   },
   async mounted() {
-    await this.getProviderData(this.id);
+    await this.getProviderData(Number(this.id));
   },
   watch: {
     async id(newVal) {
-      await this.getProviderData(newVal);
+      await this.getProviderData(Number(newVal));
     }
   }
 };
