@@ -302,12 +302,14 @@ export default {
       this.scene.add(directionalLight);
     },
     debutGlissement(event) {
+      event.preventDefault();
       this.isDragging = true;
       this.startMouseX = (event.touches) ? event.touches[0].clientX : event.clientX;
       this.startMouseY = (event.touches) ? event.touches[0].clientY : event.clientY;
     },
 
     glissement(event) {
+      event.preventDefault();
       if (!this.isDragging) return;
 
       const clientX = (event.touches) ? event.touches[0].clientX : event.clientX;
@@ -324,6 +326,7 @@ export default {
     },
 
     finGlissement() {
+      event.preventDefault();
       this.isDragging = false;
     },
 
@@ -347,6 +350,7 @@ export default {
       this.camera.updateProjectionMatrix();
     },
     handleTouchStart(event) {
+      event.preventDefault();
       if (event.touches.length === 2) {
         this.isPinching = true;
         this.initialPinchDistance = this.getPinchDistance(event);
@@ -354,6 +358,7 @@ export default {
     },
 
     handleTouchMove(event) {
+      event.preventDefault();
       if (this.isPinching && event.touches.length === 2) {
         const currentPinchDistance = this.getPinchDistance(event);
         const zoomFactor = 0.01;
@@ -365,6 +370,7 @@ export default {
     },
 
     handleTouchEnd() {
+      event.preventDefault();
       this.isPinching = false;
       this.initialPinchDistance = 0;
     },
