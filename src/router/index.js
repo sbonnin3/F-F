@@ -20,11 +20,6 @@ const routes = [
             selectedTimeSlot: route.query.selectedTimeSlot 
         })
     },
-    {
-        path: '/reservation', // L'URL que vous voulez pour la page de réservation
-        name: 'Reservation', // Le nom de la route utilisé pour naviguer
-        component: () => import("@/views/public/Reservation.vue"),
-    },  
     
 
 ];

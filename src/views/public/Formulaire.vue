@@ -7,6 +7,7 @@
       <input type="tel" v-model="client.phone" placeholder="Téléphone" required
       pattern="\d{10}" title="Le numéro de téléphone doit contenir 10 chiffres.">       
       <button type="submit">Soumettre</button>
+      <button type="button" @click="goBack">Retour</button>
     </form>
   </div>
 </template>
@@ -29,14 +30,15 @@ export default {
   },
   methods: {
     submitForm() {
-    console.log('Informations client:', this.client);
-    this.$router.push({ name: 'Reservation' });
-    if (this.client.phone.length === 10 && !isNaN(this.client.phone)) {
+      if (this.client.phone.length === 10 && !isNaN(this.client.phone)) {
         console.log('Informations client:', this.client);
-        // Effectuez la soumission ici
+        alert("Les données ont bien été soumises."); // Ajouter cette ligne pour la confirmation
       } else {
         alert("Le numéro de téléphone doit être composé de 10 chiffres.");
-      }
+       }
+    },
+    goBack() {
+      this.$router.go(-1);
     }
   }
 };
@@ -101,6 +103,7 @@ input {
 }
 
 button {
+    margin-bottom: 30px;
     width: 100%;
     padding: 0.75rem;
     border: none;
@@ -117,4 +120,9 @@ button {
 button:hover {
     background-color: #4cae4c;
 }
+
+.button-back {
+  margin-top: 10px;
+}
+
 </style>
