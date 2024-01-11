@@ -2,21 +2,29 @@ const comments = [
   {
     _id: 1,
     providerId: 1,
-    author: "John Doe",
-    title: "Lorem ipsum dolor sit amet",
+    author: "Maryl Ine",
+    title: "Super restaurant!",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae",
+      "La friture est délicieuse, le magret de canard cuit à la perfection avec ses sauces excellentes sont vraiment à déguster ! Je vous recommande ce resto et son large choix des plats réalisés à la perfection !!! Bravo  au chef",
     date: "2019-01-01T00:00:00.000Z",
   },
   {
     _id: 2,
     providerId: 1,
-    author: "Jane Doe",
-    title: "Lorem ipsum dolor sit amet",
+    author: "Jean Bon",
+    title: "Très bon restaurant",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae",
-    date: "2019-01-01T00:00:00.000Z",
+      "Très bon restaurant, les plats sont très bons et le service est rapide. Je recommande.",
+    date: "2019-01-02T00:00:00.000Z",
   },
+  {
+    _id: 3,
+    providerId: 1,
+    author: "Bertrand DEGIEUX",
+    title: "On y retournera, c'est sûr",
+    content: "Super top. Patron et service nickel nous avons tout apprécié. Nous conseillons vivement",
+    date: "2019-01-03T00:00:00.000Z",
+  }
 ];
 
 async function getComments(idProvider) {
