@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="carte" ref="container"></div>
+    <div class="carte" id="threeContainer" ref="container"></div>
     <div class="menu-toggle">
       <button :class="{ active: allObjectsVisible }" @click="toggleAllObjects">Tout</button>
       <button :class="{ active: objectVisibility['restaurantsObject'] }" @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
@@ -150,6 +150,10 @@ export default {
     this.animate();
     this.faireQuelqueChose();
     this.updateObjectVisibility();
+    const threeContainer = document.getElementById('threeContainer');
+    if (threeContainer) {
+      threeContainer.addEventListener('wheel', this.handleMouseWheel);
+    }
   },
   computed: {
     allObjectsActivated() {
@@ -331,6 +335,8 @@ export default {
     },
 
     handleMouseWheel(event) {
+      event.preventDefault();
+
       const zoomAmount = 0.1;
       if (event.deltaY < 0) {
         this.camera.zoom = Math.min(this.camera.zoom + zoomAmount, this.maxZoom);
@@ -349,6 +355,7 @@ export default {
       }
       this.camera.updateProjectionMatrix();
     },
+    
     handleTouchStart(event) {
       event.preventDefault();
       if (event.touches.length === 2) {
@@ -508,8 +515,11 @@ export default {
     faireQuelqueChose() {
       this.scene.background = new THREE.Color(0xabcdef);
     },
-
     beforeDestroy() {
+      const threeContainer = document.getElementById('threeContainer');
+      if (threeContainer) {
+        threeContainer.removeEventListener('wheel', this.handleMouseWheel);
+      }
       window.removeEventListener('resize', this.onWindowResize);
       window.removeEventListener('mousemove', this.handleMouseMove);
       window.removeEventListener('click', this.handleClick);
