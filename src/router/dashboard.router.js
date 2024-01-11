@@ -70,7 +70,7 @@ const dashboardRoutes = [
             component: () => import("@/views/dashboard/goodies/Template.vue"),
             children: [],
           },
-          { path: "my-profile", name: "myProfile" },
+          { path: "my-profile", name: "myProfile", component: () => import("@/views/dashboard/providerprofile/EditProviderProfile.vue") },
         ],
       },
       {

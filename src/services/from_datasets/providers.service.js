@@ -108,4 +108,13 @@ async function getProvider(id) {
   });
 }
 
-module.exports = { getProviders, getProvider };
+async function updateProviderProfile(id, profile) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      providers.find((provider) => provider._id === id).profile = profile;
+      resolve(providers.find((provider) => provider._id === id));
+    }, 200);
+  });
+}
+
+module.exports = { getProviders, getProvider, updateProviderProfile };
