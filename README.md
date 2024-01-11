@@ -5,7 +5,7 @@ lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor inc
 
 ### Project contributors
 This project was made into the context of the **_Semester 4 tutored project_** at the **_IUT Nord Franche-Comté_** by:
-- [**Simon BONIN**](https://github.com/sbonnin3)
+- [**Simon BONNIN**](https://github.com/sbonnin3)
 - [**Nathan BOSCHI**](https://github.com/nathanboschi25)
 - [**Théo GOUSSOT**](https://github.com/tgoussot)
 - [**Manon GRANDMOUGIN**](https://github.com/Manonnnnnn)
