@@ -20,10 +20,10 @@
     },
     "home": {
       "header": "Automobile Grand Prix at Circuit Paul Ricard",
-      "secondHeader": "Enjoy an exceptional day of speed and adrenaline!",
-      "leCircuitPaulRicardEstRaviDaccueillir": "Circuit Paul Ricard is delighted to host the 2024 edition of our Automobile Grand Prix, a thrilling celebration for lovers of speed and mechanical performance. This one-of-a-kind event offers you a full day of breathtaking races, exciting activities and entertainment for all ages.",
+      "secondHeader": "Profitez d'une journée exceptionnelle de vitesse et d'adrénaline !",
+      "leCircuitPaulRicardEstRaviDaccueillir": "Le Circuit Paul Ricard est ravi d'accueillir l'édition 2024 de notre Grand Prix Automobile, une célébration palpitante pour les amateurs de vitesse et de performances mécaniques. \nCet événement unique en son genre vous propose une journée complète de courses à couper le souffle, d'activités passionnantes et de divertissements pour tous les âges.",
       "pointsForts": {
-        "header": "Highlights of the day",
+        "header": "Faits marquants de la journée",
         "grandPrix": "The Grand Prix: The main attraction of the day, our Grand Prix promises breathtaking races with some of the best drivers on the circuit. Experience the excitement of speed and competition on one of the most emblematic circuits in France.",
         "kartingForAll": "Karting for everyone: Whether you are a beginner or an experienced driver, take advantage of our karting sessions. A perfect opportunity to feel the adrenaline of a race and why not, to discover future talents.",
         "bateme": "Driving introduction: Experience the thrill of speed as a passenger in a racing car driven by professionals. An unforgettable experience that will give you the thrill of a real race.",
@@ -81,10 +81,10 @@
       "map": "Carte interactive",
       "ticketing": "Billetterie",
       "goodies": "Boutique",
-"myProfile": "Mon profil prestataire",
+      "myProfile": "Mon profil prestataire",
       "myAccount": "Mon compte",
       "posts": "Posts",
-"providers": "Prestataires",
+      "providers": "Prestataires",
       "users": "Utilisateurs",
       "roles": "Roles et Menus",
       "translations": "Traductions"
