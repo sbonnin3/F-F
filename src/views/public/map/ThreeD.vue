@@ -12,6 +12,7 @@
       <h2 v-if="currentInfoWindow.title">{{ currentInfoWindow.title }}</h2>
       <p v-if="currentInfoWindow.text">{{ currentInfoWindow.text }}</p>
       <img v-if="currentInfoWindow.title === 'Toilettes' && currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image des toilettes" />
+      <img v-if="currentInfoWindow.title === 'Les pilotes' && currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image des pilotes" />
       <div v-if="currentInfoWindow.groups">
         <div v-for="(group, index) in currentInfoWindow.groups" :key="index">
           <br/>
@@ -22,6 +23,7 @@
         </div>
       </div>
       <ProviderProfile v-if="currentInfoWindow && currentInfoWindow.providerId" minimal :id="currentInfoWindow.providerId" />
+      <div class="close-button" @click="closeInfoWindow">×</div>
     </div>
   </div>
 </template>
@@ -49,21 +51,14 @@ export default {
       infoWindowText: '',
       infoWindowImage: '',
       infoWindowContent: {
-        /*
-        Nom des objets :
-        Plateforme
-        Route
-        Toilettes
-        Batiments
-        Concert
-        Quick
-        Snac Paul Ricard
-        McDonald
-        Burger King
-        */
         Toilettes: {
           title: 'Toilettes',
           image: 'https://us.123rf.com/450wm/malaha3/malaha32004/malaha3200400190/144852346-mod%C3%A8le-de-signe-de-toilettes-publiques-et-texte-wc-signe-de-porte-aiguille-lieu-public.jpg?ver=6',
+          providerId: null
+        },
+        Route: {
+          title: 'Les pilotes',
+          image: 'https://www.motorsinside.com/images/photo/article/f12022/miniature/1500/touslespilotes.webp',
           providerId: null
         },
         Quick: {
@@ -150,7 +145,7 @@ export default {
     this.openAnimation();
     this.animate();
     this.faireQuelqueChose();
-    this.updateObjectVisibility(); // Assurez-vous que la visibilité initiale est correcte
+    this.updateObjectVisibility();
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
   },
   computed: {
@@ -260,7 +255,6 @@ export default {
       window.removeEventListener('keydown', this.gererTouchesClavier);
 
       if (this.scene) {
-        // Supprimez tous les objets de la scène
         while (this.scene.children.length > 0) {
           const object = this.scene.children[0];
           this.scene.remove(object);
@@ -273,7 +267,6 @@ export default {
               if (object.material.isMaterial) {
                 this.cleanMaterial(object.material);
               } else {
-                // Pour les cas où .material est un tableau de matériaux
                 for (const material of object.material) {
                   this.cleanMaterial(material);
                 }
@@ -291,7 +284,6 @@ export default {
     cleanMaterial(material) {
       material.dispose();
 
-      // Nettoie les textures s'il y en a
       if (material.map) material.map.dispose();
       if (material.lightMap) material.lightMap.dispose();
       if (material.bumpMap) material.bumpMap.dispose();
@@ -376,7 +368,7 @@ export default {
       
       if (intersects.length > 0) {
         const intersectedObject = intersects[0].object;
-
+        this.renderer.domElement.style.cursor = 'pointer';        
         if (this.hoveredObject !== intersectedObject) {
           if (this.hoveredObject && this.hoveredObject.material && this.hoveredObject.material.emissive) {
             this.hoveredObject.material.emissive.setHex(this.originalColors.get(this.hoveredObject) || 0x000000);
@@ -395,6 +387,7 @@ export default {
         if (this.hoveredObject && this.hoveredObject.material && this.hoveredObject.material.emissive) {
           this.hoveredObject.material.emissive.setHex(this.originalColors.get(this.hoveredObject) || 0x000000);
         }
+        this.renderer.domElement.style.cursor = '';
         this.hoveredObject = null;
       }
       if (this.isDragging) {
@@ -448,10 +441,9 @@ export default {
       this.renderer.render(this.scene, this.camera);
     },
 
-    resetRotationAndPosition() {
-      this.camera.position.set(0, 0, 10);
-      this.rotationX = 0;
-      this.rotationY = 0;
+    closeInfoWindow() {
+      this.showInfoWindow = false;
+      this.currentInfoWindow = null;
     },
 
     faireQuelqueChose() {
@@ -494,31 +486,20 @@ export default {
 .info-window p {
   margin-bottom: 16px;
 }
-
 .info-window img {
   max-width: 100%;
   height: auto;
 }
-
 .carte {
   flex: 1;
   max-height: calc(100vh - 91px);
   overflow: hidden;
 }
-.object-name {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 5px;
-}
 .menu-toggle {
   position: fixed;
   bottom: 10px;
   left: 10px;
-  background-color: gray;
+  background-color: black;
   padding: 5px;
   border-radius: 5px;
   display: flex;
@@ -526,10 +507,18 @@ export default {
 }
 .menu-toggle button {
   margin-bottom: 5px;
-  background-color: darkgray; /* Couleur par défaut pour désactivé */
+  background-color: white;
+}
+.menu-toggle button.active {
+  background-color: lightgreen;
 }
 
-.menu-toggle button.active {
-  background-color: lightgreen; /* Couleur pour activé */
+.close-button {
+  position: absolute;
+  top: 90px;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
 }
 </style>
