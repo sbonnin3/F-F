@@ -122,7 +122,25 @@
           "contentInput": "Contenu de l'article",
           "contentInputRequired": "Le contenu est requis"
         }
+      },
+      "profile": {
+        "cancel": "Annuler",
+        "category": "Catégorie du prestataire",
+        "description": "Présentation du prestataire",
+        "link": {
+          "add-link-to-profile": "Ajouter un lien",
+          "remove-link": "Supprimer le lien",
+          "title": "Titre"
+        },
+        "name": "Nom du prestataire",
+        "save": "Sauvegarder",
+        "url": "URL du logo du prestataire"
       }
+    },
+    "services": {
+      "go-back": "Retourner",
+      "sorry-not-suscribed": "Désolé, vous devez vous abonner à ce service pour accéder à cette page.",
+      "subscribe-to-service": "Abonnez-vous à {0}"
     }
   }
 }
