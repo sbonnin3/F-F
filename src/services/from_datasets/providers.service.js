@@ -25,6 +25,7 @@ const providers = [
       ticketing: true,
       goodies: true,
       mapPlacement: true,
+      livredor: true,
     },
   },
   {

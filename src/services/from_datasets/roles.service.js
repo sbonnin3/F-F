@@ -74,6 +74,11 @@ const roles = [
                 icon: "mdi-post"
             },
             {
+                to: {name: "providers.livredor"},
+                title: "dashboard.navigation.livredor",
+                icon: "mdi-book-open-page-variant"
+            },
+            {
                 to: {name: "providers.map"},
                 title: "dashboard.navigation.map",
                 icon: "mdi-map"
