@@ -1,13 +1,6 @@
 <template>
   <div>
     <div class="carte" ref="container"></div>
-    <div class="menu-toggle">
-      <button @click="toggleAllObjects">Tout</button>
-      <button @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
-      <button @click="toggleObjectVisibility('toilettesObject')">Toilettes</button>
-      <button @click="toggleObjectVisibility('batimentsObject')">Décorations</button>
-      <button @click="toggleObjectVisibility('concertsObject')">Scène</button>
-    </div>
     <div class="building-info" v-if="showBuildingInfo" @click="hideBuildingInfo">
       <h3>{{ buildingInfo.title }}</h3>
       <p>{{ buildingInfo.description }}</p>
@@ -103,14 +96,6 @@ export default {
       currentMouseY: 0,
       rotationX: 0,
       rotationY: 0,
-
-      allObjectsVisible: true,
-      objectVisibility: {
-        restaurantsObject: true,
-        toilettesObject: true,
-        batimentsObject: true,
-        concertsObject: true,
-      }
     };
   },
   components: {
@@ -123,7 +108,6 @@ export default {
     this.openAnimation();
     this.animate();
     this.faireQuelqueChose();
-    this.updateObjectVisibility(); // Assurez-vous que la visibilité initiale est correcte
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
   },
   methods: {
@@ -151,26 +135,6 @@ export default {
       this.renderer.setSize(window.innerWidth, window.innerHeight);
       this.$refs.container.appendChild(this.renderer.domElement);
       this.addLights();
-    },
-    toggleObjectVisibility(objectKey) {
-      this.objectVisibility[objectKey] = !this.objectVisibility[objectKey];
-      this.updateObjectVisibility();
-    },
-
-    toggleAllObjects() {
-      this.allObjectsVisible = !this.allObjectsVisible;
-      Object.keys(this.objectVisibility).forEach(key => {
-        this.objectVisibility[key] = this.allObjectsVisible;
-      });
-      this.updateObjectVisibility();
-    },
-
-    updateObjectVisibility() {
-      Object.entries(this.objectVisibility).forEach(([key, visible]) => {
-        if (this[key]) {
-          this[key].visible = visible;
-        }
-      });
     },
     loadModels() {
       this.group = new THREE.Group();
@@ -208,7 +172,6 @@ export default {
       });
 
       this.scene.add(this.group);
-      this.updateObjectVisibility();
     },
     unload3DModels() {
       window.removeEventListener('resize', this.onWindowResize);
@@ -507,18 +470,5 @@ export default {
   padding: 5px;
   border: 1px solid black;
   border-radius: 5px;
-}
-.menu-toggle {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-}
-.menu-toggle button {
-  margin-bottom: 5px;
 }
 </style>
