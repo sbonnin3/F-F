@@ -46,6 +46,10 @@ export default {
   name: 'Carte',
   data() {
     return {
+      minZoom: 0.5, // Limite de dézoom
+      maxZoom: 5,
+      isPinching: false,
+      initialPinchDistance: 0,
       showInfoWindow: false,
       infoWindowTitle: '',
       infoWindowText: '',
@@ -146,7 +150,6 @@ export default {
     this.animate();
     this.faireQuelqueChose();
     this.updateObjectVisibility();
-    window.addEventListener('beforeunload', this.beforeUnloadHandler);
   },
   computed: {
     allObjectsActivated() {
@@ -323,19 +326,69 @@ export default {
     finGlissement() {
       this.isDragging = false;
     },
+
+    handleMouseWheel(event) {
+      const zoomAmount = 0.1;
+      if (event.deltaY < 0) {
+        this.camera.zoom = Math.min(this.camera.zoom + zoomAmount, this.maxZoom);
+      } else {
+        this.camera.zoom = Math.max(this.camera.zoom - zoomAmount, this.minZoom);
+      }
+      this.camera.updateProjectionMatrix();
+    },
+
+    handleKeyDown(event) {
+      const zoomAmount = 0.1;
+      if (event.key === 'ArrowUp') {
+        this.camera.zoom = Math.min(this.camera.zoom + zoomAmount, this.maxZoom);
+      } else if (event.key === 'ArrowDown') {
+        this.camera.zoom = Math.max(this.camera.zoom - zoomAmount, this.minZoom);
+      }
+      this.camera.updateProjectionMatrix();
+    },
+    handleTouchStart(event) {
+      if (event.touches.length === 2) {
+        this.isPinching = true;
+        this.initialPinchDistance = this.getPinchDistance(event);
+      }
+    },
+
+    handleTouchMove(event) {
+      if (this.isPinching && event.touches.length === 2) {
+        const currentPinchDistance = this.getPinchDistance(event);
+        const zoomFactor = 0.01;
+        const newZoom = this.camera.zoom + (currentPinchDistance - this.initialPinchDistance) * zoomFactor;
+        this.camera.zoom = Math.min(Math.max(newZoom, this.minZoom), this.maxZoom);
+        this.initialPinchDistance = currentPinchDistance;
+        this.camera.updateProjectionMatrix();
+      }
+    },
+
+    handleTouchEnd() {
+      this.isPinching = false;
+      this.initialPinchDistance = 0;
+    },
+
+    getPinchDistance(event) {
+      const dx = event.touches[0].pageX - event.touches[1].pageX;
+      const dy = event.touches[0].pageY - event.touches[1].pageY;
+      return Math.sqrt(dx * dx + dy * dy);
+    },
+
     addEventListeners() {
       window.addEventListener('resize', this.onWindowResize);
       window.addEventListener('mousemove', this.handleMouseMove);
       window.addEventListener('click', this.handleClick);
-
       window.addEventListener('touchstart', this.debutGlissement);
       window.addEventListener('touchmove', this.glissement);
       window.addEventListener('touchend', this.finGlissement);
       window.addEventListener('mousedown', this.debutGlissement);
       window.addEventListener('mousemove', this.glissement);
       window.addEventListener('mouseup', this.finGlissement);
-
       window.addEventListener('keydown', this.gererTouchesClavier);
+      window.addEventListener('beforeunload', this.beforeUnloadHandler);
+      window.addEventListener('wheel', this.handleMouseWheel);
+      window.addEventListener('keydown', this.handleKeyDown);
     },
     onWindowResize() {
       this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -470,7 +523,7 @@ export default {
   width: auto;
   max-width: 460px;
   height: 100%;
-  background-color: rgba(200, 200, 200, 0.5);
+  background-color: rgba(200, 200, 200, 0.8);
   overflow: auto;
   padding: 16px;
   padding-top: 100px;
