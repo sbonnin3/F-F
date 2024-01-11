@@ -29,7 +29,7 @@
             {{ providerData.description }}
           </p>
         </div>
-        <div v-if="providerData.services.posts" class="posts">
+        <div v-if="providerData.services.posts && !minimal" class="posts">
           <h3>{{ $t('public.providers.posts') }}</h3>
           <div class="elements">
             <article v-for="post in providerPosts" :key="post._id">
@@ -53,9 +53,12 @@ export default {
   props: {
     id: {
       required: true,
-    }
+    },
+    minimal: {
+      type: Boolean,
+      default: false,
+    },
   },
-  // TODO: add prop for minimal display with a button to see more
   data() {
     return {
       providerData: null,
