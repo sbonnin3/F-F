@@ -9,13 +9,17 @@
         <button class="reserve-button">Réserver</button>
       </div>
     </div>
-
     <div class="popup" v-if="showPopup" @click="handleOutsideClick">
       <div class="popup-content" @click.stop>
         <h2>{{ selectedActivity.title }}</h2>
-        <img :src="selectedActivity.image" :alt="selectedActivity.title" style="width: 50%;">
+        <img :src="selectedActivity.image" :alt="selectedActivity.title" style="width: 70%; border-radius: 10px; margin: auto">
         <p>{{ selectedActivity.summary }}</p>
         <p class="activity-price">Prix: {{ selectedActivity.price }} €</p>
+        <select v-if="selectedActivity.horaires">
+          <option v-for="horaire in selectedActivity.horaires" :key="horaire" :value="horaire">
+            {{ horaire }}
+          </option>
+        </select>
         <button @click="reserveActivity">Réserver</button>
       </div>
     </div>
@@ -23,65 +27,16 @@
 </template>
 
 <script>
+import { activités } from '@/services/from_datasets/activite.service.js';
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Activites',
   data() {
     return {
+      activities: activités,
       selectedActivity: null,
       showPopup: false,
-      activities: [
-        { title: 'Piste de karting',
-          image: 'https://www.circuitpaulricard.com/assets/evenements/938/fiche/2020_PaulRicard_KARTPACA-7820.jpg',
-          summary: 'Découvrez la vitesse et l’adrénaline sur notre piste de karting.',
-          price: 50,
-        },
-        { title: 'Vol en hélicoptère',
-          image: 'https://www.helipass.com/uploads/media/default/0001/02/5cf525a20a54b-mob9016-jpg.jpeg',
-          summary: 'Survolez le circuit et vivez une expérience inoubliable.',
-          price: 50,
-        },
-        { title: 'Tour en bus',
-          image: 'https://static.apidae-tourisme.com/filestore/objets-touristiques/images/26/161/9543962-diaporama.jpg',
-          summary: 'Explore la piste avec confort dans notre bus.',
-          price: 50,
-        },
-        { title: 'Terrain de quad',
-          image: 'https://c3.ywcdn.com/www.airvertical.fr/files/2022/01/800x600_QUAD.jpeg',
-          summary: 'Découvrez de nouvelles sensations sur notre terrain de quad.',
-          price: 50,
-        },
-        { title: 'Restauration',
-          image: 'https://media.abcsalles.com/images/1/salles/900h/14361/circuit-paul-ricard-6.jpg',
-          summary: 'Venez vous restaurer dans les différents snacs.',
-          price: 50,
-        },
-        { title: 'Concert',
-          image: 'https://weezevent.com/wp-content/uploads/2018/08/27184142/organiser-un-concert-en-7-etapes.png',
-          summary: 'Entre amis écoutez de musique lors des différents concerts.',
-          price: 50,
-        },
-        { title: "Feu d'artifice",
-          image: 'https://cdn.visitjapan.ru/storage/app/media/Spot/6545/image/td2pki7buofscgn3essk.jpeg',
-          summary: 'Fêtons le 14 juillet cette année au circuit paul ricard.',
-          price: 50,
-        },
-        { title: 'Course des pilotes',
-          image: 'https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/motorsport/circuits/EUROPE/valencia/2023/paul_d.jpg',
-          summary: 'Regardez le grand prix entre les différents pilotes de course.',
-          price: 50,
-        },
-        { title: 'Bâptème de pilotage',
-          image: 'https://media.cylex-locale.fr/companies/1426/5920/images/1707112535-img40_145988_large.jpg',
-          summary: 'Même jeune tu peux venir conduire au circuit paul ricard.',
-          price: 50,
-        },
-        { title: 'Simulation de conduite',
-          image: 'https://xtrem-park.com/wp-content/uploads/2022/04/CPR-BOUTIQUE-SIMU-1.jpg',
-          summary: "Conduire sans risque, c'est possible avec la simulation.",
-          price: 50,
-        },
-      ]
     };
   },
   methods: {
@@ -187,10 +142,13 @@ export default {
 }
 
 .popup-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: white;
   padding: 20px;
   border-radius: 10px;
-  width: 60%;
+  width: 40%;
   max-height: 80%;
   overflow-y: auto;
 }
@@ -198,6 +156,15 @@ export default {
 .popup-content img {
   width: 100%;
   border-radius: 10px;
+}
+
+.popup-content select {
+  width: auto;
+  text-align: center;
+  margin: auto;
+  padding: 5px;
+  border-radius: 20px;
+  border: 1px solid #999;
 }
 
 .activity-price {
