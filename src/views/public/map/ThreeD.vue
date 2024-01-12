@@ -6,6 +6,9 @@
       <button :class="{ active: objectVisibility['restaurantsObject'] }" @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
       <button :class="{ active: objectVisibility['toilettesObject'] }" @click="toggleObjectVisibility('toilettesObject')">Toilettes</button>
       <button :class="{ active: objectVisibility['batimentsObject'] }" @click="toggleObjectVisibility('batimentsObject')">Décorations</button>
+      <button :class="{ active: objectVisibility['kartingObject'] }" @click="toggleObjectVisibility('kartingObject')">Karting</button>
+      <button :class="{ active: objectVisibility['parkingObject'] }" @click="toggleObjectVisibility('parkingObject')">Parking</button>
+      <button :class="{ active: objectVisibility['aeroportObject'] }" @click="toggleObjectVisibility('aeroportObject')">Aéroport</button>
       <button :class="{ active: objectVisibility['concertsObject'] }" @click="toggleObjectVisibility('concertsObject')">Scène</button>
     </div>
     <div class="info-window" v-if="showInfoWindow && currentInfoWindow">
@@ -38,6 +41,9 @@ import routePath from '@/assets/paul_ricard/Route.glb';
 import batimentsPath from '@/assets/paul_ricard/Batiments.glb';
 import toilettesPath from '@/assets/paul_ricard/Toilettes.glb';
 import restaurantsPath from '@/assets/paul_ricard/Restaurants.glb';
+import kartingPath from '@/assets/paul_ricard/Karting.glb';
+import parkingPath from '@/assets/paul_ricard/Parking.glb';
+import aeroportPath from '@/assets/paul_ricard/Aéroport.glb';
 import concertsPath from '@/assets/paul_ricard/Concerts.glb';
 import voiturePath from '@/assets/paul_ricard/Voiture.glb';
 
@@ -118,6 +124,9 @@ export default {
       batimentsObject: null,
       restaurantsObject: null,
       concertsObject: null,
+      kartingObject: null,
+      parkingObject: null,
+      aeroportObject: null,
 
       camera: null,
       scene: null,
@@ -138,6 +147,9 @@ export default {
         toilettesObject: true,
         batimentsObject: true,
         concertsObject: true,
+        kartingObject: true,
+        parkingObject: true,
+        aeroportObject: true,
       }
     };
   },
@@ -246,6 +258,21 @@ export default {
       loader.load(concertsPath, (gltf) => {
         this.concertsObject = gltf.scene;
         this.group.add(this.concertsObject);
+      });
+
+      loader.load(kartingPath, (gltf) => {
+        this.kartingObject = gltf.scene;
+        this.group.add(this.kartingObject);
+      });
+
+      loader.load(parkingPath, (gltf) => {
+        this.parkingObject = gltf.scene;
+        this.group.add(this.parkingObject);
+      });
+
+      loader.load(aeroportPath, (gltf) => {
+        this.aeroportObject = gltf.scene;
+        this.group.add(this.aeroportObject);
       });
 
       loader.load(voiturePath, (gltf) => {
@@ -437,18 +464,21 @@ export default {
 
       const objectsToIntersect = [
         this.routeObject,
-        this.plateformeObject,
         this.toilettesObject,
         this.batimentsObject,
         this.restaurantsObject,
-        this.concertsObject
+        this.concertsObject,
+        this.kartingObject,
+        this.parkingObject,
+        this.aeroportObject,
       ].filter(obj => obj !== null);
 
       const intersects = raycaster.intersectObjects(objectsToIntersect, true);
       
       if (intersects.length > 0) {
         const intersectedObject = intersects[0].object;
-        this.renderer.domElement.style.cursor = 'pointer';        
+        this.renderer.domElement.style.cursor = 'pointer';
+        
         if (this.hoveredObject !== intersectedObject) {
           if (this.hoveredObject && this.hoveredObject.material && this.hoveredObject.material.emissive) {
             this.hoveredObject.material.emissive.setHex(this.originalColors.get(this.hoveredObject) || 0x000000);
