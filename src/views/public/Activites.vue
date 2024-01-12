@@ -50,6 +50,14 @@ export default {
           image: 'https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/motorsport/circuits/EUROPE/valencia/2023/paul_d.jpg',
           summary: 'Regardez le grand prix entre les différents pilotes de course.'
         },
+        { title: 'Bâptème de pilotage',
+          image: 'https://media.cylex-locale.fr/companies/1426/5920/images/1707112535-img40_145988_large.jpg',
+          summary: 'Même jeune tu peux venir conduire au circuit paul ricard.'
+        },
+        { title: 'Simulation de conduite',
+          image: 'https://xtrem-park.com/wp-content/uploads/2022/04/CPR-BOUTIQUE-SIMU-1.jpg',
+          summary: "Conduire sans risque, c'est possible avec la simulation."
+        },
       ]
     };
   },
