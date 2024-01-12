@@ -1,8 +1,6 @@
 # Fast&Fabulous (front)
 
-## Project description
-lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+## Project presentation
 ### Project contributors
 This project was made into the context of the **_Semester 4 tutored project_** at the **_IUT Nord Franche-Comté_** by:
 - [**Simon BONNIN**](https://github.com/sbonnin3)
@@ -16,8 +14,8 @@ This project was made into the context of the **_Semester 4 tutored project_** a
 
 ### Project technologies and tools
 - **_Vue.js_** for the front-end
-- **_Node.js_** for the back-end (see [**_Back-end repository_**]())
-- **_MongoDB_** for the database (see [**_Back-end repository_**]())
+- **_Node.js_** for the back-end (see [**_Back-end repository_**](https://github.com/tgoussot/API_Fast_Fabulous))
+- **_PostgreSQL_** for the database (see [**_Back-end repository_**](https://github.com/tgoussot/API_Fast_Fabulous))
 - **_Docker_** for the deployment
 - **_Git_** for the version control
 - **_Trello_** for the project management
@@ -27,8 +25,9 @@ This project was made into the context of the **_Semester 4 tutored project_** a
 ### Vue plugins
 - **_vue-router_** for routing (see `src/router`)
 - **_vuex_** for state management (see `src/store`)
-- **_vue-i18n_** for internationalization (config in `src/i18n.plugin.js`)
-- **_vue-axios_** for HTTP requests
+- **_vue-i18n_** for internationalization (config in `src/plugins/i18n.plugin.js`)
+- **_vuetify_** for ui components (config in `src/plugins/vuetify.plugin.js`) - **_mdi-icons_** for icons
+- **_axios_** for HTTP requests
 - **_three.js_** for 3D rendering
 
 ### Project tree
