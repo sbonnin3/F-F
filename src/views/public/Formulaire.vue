@@ -36,6 +36,7 @@ export default {
       } else {
         alert("Le numéro de téléphone doit être composé de 10 chiffres.");
        }
+      localStorage.setItem('clientData', JSON.stringify(this.client));
     },
     goBack() {
       this.$router.go(-1);
