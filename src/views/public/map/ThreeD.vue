@@ -31,8 +31,7 @@
 <script>
 import ProviderProfile from "@/components/public/ProviderProfile.vue";
 import * as THREE from 'three';
-import { TweenMax } from 'gsap';
-import { Power2 } from 'gsap';
+import { TweenMax, Power2 } from 'gsap';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import plateformePath from '@/assets/paul_ricard/Plateforme.glb';
 import routePath from '@/assets/paul_ricard/Route.glb';
@@ -40,13 +39,16 @@ import batimentsPath from '@/assets/paul_ricard/Batiments.glb';
 import toilettesPath from '@/assets/paul_ricard/Toilettes.glb';
 import restaurantsPath from '@/assets/paul_ricard/Restaurants.glb';
 import concertsPath from '@/assets/paul_ricard/Concerts.glb';
+import voiturePath from '@/assets/paul_ricard/Voiture.glb';
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Carte',
   data() {
     return {
-      minZoom: 0.5, // Limite de dézoom
+      mixer: null,
+      clock: new THREE.Clock(),
+      minZoom: 0.5,
       maxZoom: 5,
       isPinching: false,
       initialPinchDistance: 0,
@@ -244,6 +246,18 @@ export default {
       loader.load(concertsPath, (gltf) => {
         this.concertsObject = gltf.scene;
         this.group.add(this.concertsObject);
+      });
+
+      loader.load(voiturePath, (gltf) => {
+        const voiture = gltf.scene;
+        this.group.add(voiture);
+
+        if (gltf.animations && gltf.animations.length) {
+          this.mixer = new THREE.AnimationMixer(voiture);
+          gltf.animations.forEach((clip) => {
+            this.mixer.clipAction(clip).play();
+          });
+        }
       });
 
       this.scene.add(this.group);
@@ -497,6 +511,11 @@ export default {
     animate() {
       requestAnimationFrame(this.animate);
 
+      const delta = this.clock.getDelta();
+      if (this.mixer) {
+        this.mixer.update(delta);
+      }
+
       if (this.group) {
         this.group.rotation.x = this.rotationX;
         this.group.rotation.y = this.rotationY;
@@ -514,6 +533,9 @@ export default {
       this.scene.background = new THREE.Color(0xabcdef);
     },
     beforeDestroy() {
+      if (this.mixer) {
+        this.mixer.uncacheRoot(this.mixer.getRoot());
+      }
       const threeContainer = document.getElementById('threeContainer');
       if (threeContainer) {
         threeContainer.removeEventListener('wheel', this.handleMouseWheel);
