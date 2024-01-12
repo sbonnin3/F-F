@@ -5,7 +5,7 @@
       <button :class="{ active: allObjectsVisible }" @click="toggleAllObjects">Tout</button>
       <button :class="{ active: objectVisibility['restaurantsObject'] }" @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
       <button :class="{ active: objectVisibility['toilettesObject'] }" @click="toggleObjectVisibility('toilettesObject')">Toilettes</button>
-      <button :class="{ active: objectVisibility['batimentsObject'] }" @click="toggleObjectVisibility('batimentsObject')">Décorations</button>
+      <button :class="{ active: objectVisibility['batimentsObject'] }" @click="toggleObjectVisibility('batimentsObject')">Bâtiments</button>
       <button :class="{ active: objectVisibility['kartingObject'] }" @click="toggleObjectVisibility('kartingObject')">Karting</button>
       <button :class="{ active: objectVisibility['parkingObject'] }" @click="toggleObjectVisibility('parkingObject')">Parking</button>
       <button :class="{ active: objectVisibility['aeroportObject'] }" @click="toggleObjectVisibility('aeroportObject')">Aéroport</button>
