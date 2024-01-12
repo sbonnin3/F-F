@@ -54,7 +54,7 @@ const publicRoutes = [
       {
         path: "/reservation-form",
         name: "ReservationForm",
-        component: import("@/views/public/Formulaire.vue"),
+        component: ()=> import("@/views/public/Formulaire.vue"),
         props: (route) => ({
           selectedActivity: route.query.selectedActivity,
           selectedTimeSlot: route.query.selectedTimeSlot,

@@ -83,16 +83,16 @@ export default {
   },
   methods: {
 
-  confirmReservation() {
-    this.reservationConfirmed = true;
-  this.$router.push({
-    name: 'ReservationForm',
-    query: {
-      selectedActivity: this.selectedActivity,
-      selectedTimeSlot: this.selectedTimeSlot
-    } 
-  });
-  },
+    confirmReservation() {
+      this.reservationConfirmed = true;
+      this.$router.push({
+        name: 'ReservationForm', // Assurez-vous que ce nom correspond au nom défini dans le routeur
+        query: {
+          selectedActivity: this.selectedActivity,
+          selectedTimeSlot: this.selectedTimeSlot
+        } 
+      });
+    },
     handleFormSubmission(clientData) {
       console.log('Le formulaire a été soumis avec les données suivantes:', clientData);
       this.$router.push({ name: 'Reservation' });
