@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@tweenjs/tween.js": "^21.0.0",
+    "axios": "^1.6.8",
     "cannon": "^0.6.2",
     "core-js": "^3.8.3",
     "gsap": "^3.12.4",
