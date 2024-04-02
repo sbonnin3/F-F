@@ -1,8 +1,8 @@
 const AxiosService = require("@/services/from_api/axios.service");
 
 async function getPosts(providerId) {
-    const posts = await AxiosService.getRequest("/posts")
-    return posts.data.filter((post) => post.providerId === providerId);
+    const posts = await AxiosService.getRequest("/providers/" + providerId + "/posts");
+    return posts.data;
 }
 
 async function createPost(payload) {
