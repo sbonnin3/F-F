@@ -12,6 +12,7 @@
     "axios": "^1.6.8",
     "cannon": "^0.6.2",
     "core-js": "^3.8.3",
+    "dotenv": "^16.4.5",
     "gsap": "^3.12.4",
     "three": "^0.157.0",
     "three-orbit-controls": "^82.1.0",

@@ -61,7 +61,7 @@
 
 <script>
 import { getProvider } from "@/services/from_datasets/providers.service";
-import { getPosts } from "@/services/from_datasets/posts.service";
+import { getPosts } from "@/services/from_api/posts.service";
 import { getComments } from "@/services/from_datasets/livredor.service";
 
 import FormulaireAjoutAvisLivreDOr from "@/components/public/FormulaireAjoutAvisLivreDOr.vue";

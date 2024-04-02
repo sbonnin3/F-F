@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const axiosService = axios.create({
-    baseURL: process.env.API_URL,
+    baseURL: "http://localhost:3000/api/",
     timeout: 1000,
 })
 
