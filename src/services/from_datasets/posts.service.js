@@ -29,6 +29,13 @@ const posts = [
     },
 ];
 
+/**
+ * Get posts by provider id
+ * @author Nathan BOSCHI
+ * @deprecated
+ * @param providerId - The id of the provider
+ * @returns {Promise<unknown>} - A promise that resolves with the posts
+ */
 async function getPosts(providerId) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -37,6 +44,13 @@ async function getPosts(providerId) {
     });
 }
 
+/**
+ * Create a post
+ * @author Nathan BOSCHI
+ * @deprecated
+ * @param payload - The post to create {providerId, title, content}
+ * @returns {Promise<unknown>} - A promise that resolves with the created post
+ */
 async function createPost(payload) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -52,6 +66,13 @@ async function createPost(payload) {
     });
 }
 
+/**
+ * Edit a post
+ * @author Nathan BOSCHI
+ * @deprecated
+ * @param payload - The post to edit {postId, title, content}
+ * @returns {Promise<unknown>}
+ */
 async function editPost(payload) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -64,6 +85,13 @@ async function editPost(payload) {
     });
 }
 
+/**
+ * Delete a post
+ * @author Nathan BOSCHI
+ * @deprecated
+ * @param postId - The id of the post to delete
+ * @returns {Promise<unknown>} - A promise that resolves when the post is deleted
+ */
 async function deletePost(postId) {
     return new Promise((resolve) => {
         setTimeout(() => {

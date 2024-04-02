@@ -27,10 +27,23 @@ const comments = [
   }
 ];
 
+/**
+ * Get comments by provider id
+ * @deprecated
+ * @param {number} idProvider - The id of the provider
+ * @returns {Promise<Array>} comments
+  */
 async function getComments(idProvider) {
     return comments.filter((comment) => comment.providerId === idProvider);
 }
 
+/**
+ * Add a comment
+ * @deprecated
+ * @param idProvider - The id of the provider
+ * @param comment - The comment to add
+ * @returns {Promise<void>} - A promise that resolves when the comment is added
+ */
 async function addComment(idProvider, comment) {
   comment._id = comments.length + 1;
   comment.providerId = idProvider;
