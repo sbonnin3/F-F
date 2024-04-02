@@ -1,4 +1,4 @@
-import Posts from "@/services/from_datasets/posts.service"
+import Posts from "@/services/from_api/posts.service"
 
 const postsStore = {
     state: {
