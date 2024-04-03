@@ -9,6 +9,12 @@
       <div class="header">
         <h1>{{ providerData.name }}</h1>
         <h2>{{ providerData.category }}</h2>
+        <v-rating
+          :value="rateAvg"
+          readonly
+          dense
+          half-increments
+          color="white" />
         <div class="actions">
           <button
               v-for="(link, id) in providerData.profileLinks"
@@ -83,6 +89,9 @@ export default {
       type: Boolean,
     },
   },
+  components: {
+    FormulaireAjoutAvisLivreDOr,
+  },
   data() {
     return {
       providerData: null,
@@ -91,8 +100,13 @@ export default {
       loading: false,
     };
   },
-  components: {
-    FormulaireAjoutAvisLivreDOr,
+  computed: {
+    rateAvg() {
+      if (this.providerComments) {
+        return this.providerComments.reduce((acc, comment) => acc + comment.rate, 0) / this.providerComments.length;
+      }
+      return null;
+    }
   },
   methods: {
     redirect(to) {
