@@ -132,7 +132,7 @@
 
 <script>
 import { mapState } from "vuex";
-import ProviderService from "@/services/from_datasets/providers.service";
+import ProviderService from "@/services/from_api/providers.service";
 
 export default {
   data: () => ({

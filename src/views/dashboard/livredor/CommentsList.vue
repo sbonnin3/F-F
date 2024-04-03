@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { getComments } from "@/services/from_datasets/livredor.service";
+import { getComments } from "@/services/from_api/livredor.service";
 
 export default {
   data() {

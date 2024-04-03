@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import LivreDOrService from "@/services/from_datasets/livredor.service";
+import LivreDOrService from "@/services/from_api/livredor.service";
 
 export default {
   props: {

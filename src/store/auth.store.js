@@ -1,5 +1,5 @@
 import Users from "@/services/from_datasets/users.service";
-import Providers from "@/services/from_datasets/providers.service";
+import Providers from "@/services/from_api/providers.service";
 
 const authStore = {
   state: {

@@ -60,9 +60,9 @@
 </template>
 
 <script>
-import { getProvider } from "@/services/from_datasets/providers.service";
+import { getProvider } from "@/services/from_api/providers.service";
 import { getPosts } from "@/services/from_api/posts.service";
-import { getComments } from "@/services/from_datasets/livredor.service";
+import { getComments } from "@/services/from_api/livredor.service";
 
 import FormulaireAjoutAvisLivreDOr from "@/components/public/FormulaireAjoutAvisLivreDOr.vue";
 

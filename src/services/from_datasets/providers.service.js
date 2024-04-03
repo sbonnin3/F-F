@@ -92,6 +92,12 @@ const providers = [
   },
 ];
 
+/**
+ * Get all providers
+ * @author Nathan BOSCHI
+ * @deprecated
+ * @returns {Promise<unknown>}
+ */
 async function getProviders() {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -100,6 +106,13 @@ async function getProviders() {
   });
 }
 
+/**
+ * Get a provider by its id
+ * @author Nathan BOSCHI
+ * @deprecated
+ * @param id
+ * @returns {Promise<unknown>}
+ */
 async function getProvider(id) {
   return new Promise((resolve) => {
     setTimeout(() => {

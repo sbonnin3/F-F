@@ -1,12 +1,13 @@
+const AxiosService = require("./axios.service")
+
 async function getComments(idProvider) {
-    return comments.filter((comment) => comment.providerId === idProvider);
+    const reviews = await AxiosService.getRequest("/providers/" + idProvider + "/reviews");
+    return reviews.data
 }
 
 async function addComment(idProvider, comment) {
-  comment._id = comments.length + 1;
-  comment.providerId = idProvider;
-  comment.date = new Date();
-  comments.push(comment);
+  console.log(idProvider, comment);
+  //TODO
 }
 
 module.exports = {

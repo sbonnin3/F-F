@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getProviders } from "@/services/from_datasets/providers.service";
+import { getProviders } from "@/services/from_api/providers.service";
 
 export default {
   name: "SearchProvider",
