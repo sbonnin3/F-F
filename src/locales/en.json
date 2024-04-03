@@ -76,8 +76,9 @@
       "submit": "Update account"
     },
     "commentsForm": {
-      "ajouter-un-avis": "Ajouter un avis",
+      "ajouter-un-avis": "Add a review",
       "your-name": "Your name",
+      "addAMessage": "Add a message to your review",
       "titleInput": "Title",
       "contentInput": "Content",
       "submit": "Submit"

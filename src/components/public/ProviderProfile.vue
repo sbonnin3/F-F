@@ -3,7 +3,7 @@
     <div class="profile__head">
       <div class="headband">
         <div class="provider-picture">
-          <img :src="providerData.logo" alt="provider picture" />
+          <img :src="providerData.logo" alt="provider picture"/>
         </div>
       </div>
       <div class="header">
@@ -11,10 +11,10 @@
         <h2>{{ providerData.category }}</h2>
         <div class="actions">
           <button
-            v-for="(link, id) in providerData.profileLinks"
-            :key="id"
-            class="btn"
-            @click="redirect(link.to)"
+              v-for="(link, id) in providerData.profileLinks"
+              :key="id"
+              class="btn"
+              @click="redirect(link.to)"
           >
             {{ link.name }}
           </button>
@@ -43,9 +43,16 @@
         </div>
         <div v-if="providerData.services.livredor && !minimal" class="posts">
           <h3>{{ $t("public.providers.livredor") }}</h3>
-          <FormulaireAjoutAvisLivreDOr :providerId="id" @comment-published="addComment" />
+          <FormulaireAjoutAvisLivreDOr :providerId="id" @comment-published="addComment"/>
           <div class="elements dense">
             <article v-for="comment in providerComments" :key="comment._id">
+              <v-rating
+                  :value="comment.rate"
+                  readonly
+                  dense
+                  small
+                  v-if="comment.rate"
+              />
               <h4>{{ comment.title }}</h4>
               <p v-if="comment.author" class="posts_details">
                 {{ comment.author }}
@@ -60,9 +67,9 @@
 </template>
 
 <script>
-import { getProvider } from "@/services/from_api/providers.service";
-import { getPosts } from "@/services/from_api/posts.service";
-import { getComments } from "@/services/from_api/livredor.service";
+import {getProvider} from "@/services/from_api/providers.service";
+import {getPosts} from "@/services/from_api/posts.service";
+import {getComments} from "@/services/from_api/livredor.service";
 
 import FormulaireAjoutAvisLivreDOr from "@/components/public/FormulaireAjoutAvisLivreDOr.vue";
 

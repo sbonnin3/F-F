@@ -5,10 +5,10 @@
       {{ $t('public.commentsForm.ajouter-un-avis') }}
     </v-btn>
     <v-card
-      v-if="isFormOpen"
-      :loading="isPublishing"
-      max-width="1000px"
-      style="margin: auto"
+        v-if="isFormOpen"
+        :loading="isPublishing"
+        max-width="1000px"
+        style="margin: auto"
     >
       <v-card-title>
         <h3>{{ $t('public.commentsForm.ajouter-un-avis') }}</h3>
@@ -18,30 +18,45 @@
           <v-row>
             <v-col cols="12" md="6">
               <v-text-field
-                v-model="title"
-                dense
-                filled
-                :label="$t('public.commentsForm.your-name')"
-                shaped
+                  v-model="author"
+                  dense
+                  filled
+                  :label="$t('public.commentsForm.your-name')"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="author"
-                dense
-                filled
-                :label="$t('public.commentsForm.titleInput')"
-                shaped
-              ></v-text-field>
+            <v-col cols="12" md="6" class="text-center">
+              <v-rating
+                  v-model="rating"
+                  hover
+                  large
+              />
             </v-col>
-            <v-col cols="12">
-              <v-textarea
-                v-model="content"
-                dense
-                :label="$t('public.commentsForm.contentInput')"
-                outlined
-              ></v-textarea>
-            </v-col>
+            <v-expansion-panels>
+              <v-expansion-panel>
+                <v-expansion-panel-header>
+                  {{ $t('public.commentsForm.addAMessage') }}
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <v-col cols="12">
+                    <v-text-field
+                        v-model="title"
+                        dense
+                        filled
+                        :label="$t('public.commentsForm.titleInput')"
+                        shaped
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-textarea
+                        v-model="content"
+                        dense
+                        :label="$t('public.commentsForm.contentInput')"
+                        outlined
+                    ></v-textarea>
+                  </v-col>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
           </v-row>
         </v-container>
       </v-card-text>
@@ -66,6 +81,7 @@ export default {
     return {
       isFormOpen: false,
       isPublishing: false,
+      rating: null,
       title: null,
       author: null,
       content: null,
@@ -78,11 +94,12 @@ export default {
         title: this.title,
         author: this.author,
         content: this.content,
+        rate: this.rating
       };
-      LivreDOrService.addComment(this.providerId, comment).then(() => {
+      LivreDOrService.addComment(this.providerId, comment).then((result) => {
         this.isPublishing = false;
         this.isFormOpen = false;
-        this.$emit("comment-published", comment);
+        this.$emit("comment-published", result);
       });
     },
   },

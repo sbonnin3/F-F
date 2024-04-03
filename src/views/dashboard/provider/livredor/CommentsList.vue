@@ -9,6 +9,12 @@
           </v-card-title>
 
           <v-card-text class="text-h5 font-weight-bold">
+            <v-rating
+                :value="comment.rate"
+                readonly
+                color="white"
+                v-if="comment.rate"
+            />
             "{{ comment.content }}"
           </v-card-text>
 
@@ -16,9 +22,9 @@
             <v-list-item class="grow">
               <v-list-item-avatar>
                 <v-img
-                  alt=""
-                  class="elevation-6"
-                  src="https://avataaars.io/?accessoriesType=Kurt&avatarStyle=Transparent&clotheColor=Blue01&clotheType=Hoodie&eyeType=Surprised&eyebrowType=AngryNatural&facialHairColor=Black&facialHairType=Blank&graphicType=Cumbia&hairColor=BlondeGolden&hatColor=Pink&mouthType=Eating&skinColor=Brown&topType=ShortHairShaggyMullet"
+                    alt=""
+                    class="elevation-6"
+                    src="https://avataaars.io/?accessoriesType=Kurt&avatarStyle=Transparent&clotheColor=Blue01&clotheType=Hoodie&eyeType=Surprised&eyebrowType=AngryNatural&facialHairColor=Black&facialHairType=Blank&graphicType=Cumbia&hairColor=BlondeGolden&hatColor=Pink&mouthType=Eating&skinColor=Brown&topType=ShortHairShaggyMullet"
                 ></v-img>
               </v-list-item-avatar>
 
@@ -34,7 +40,7 @@
 </template>
 
 <script>
-import { getComments } from "@/services/from_api/livredor.service";
+import {getComments} from "@/services/from_api/livredor.service";
 
 export default {
   data() {
@@ -42,9 +48,22 @@ export default {
       comments: [],
     };
   },
+  computed: {
+    commentsStats() {
+      const rates = []
+      this.comments.forEach((comment) => {
+        if(comment.rate) rates.push(comment.rate)
+      })
+      return {
+
+      }
+    }
+  },
   async mounted() {
     this.comments = await getComments(this.$store.state.auth.user.providerId);
   },
+  methods: {
+  }
 };
 </script>
 

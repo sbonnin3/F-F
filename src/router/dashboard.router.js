@@ -30,54 +30,54 @@ const dashboardRoutes = [
         children: [
           {
             path: "posts",
-            component: () => import("@/views/dashboard/posts/Template.vue"),
+            component: () => import("@/views/dashboard/provider/posts/Template.vue"),
             children: [
               {
                 path: "",
                 name: "providers.posts",
                 component: () =>
-                  import("@/views/dashboard/posts/PostsList.vue"),
+                  import("@/views/dashboard/provider/posts/PostsList.vue"),
               },
               {
                 path: "new",
                 name: "newPost",
                 component: () =>
-                  import("@/views/dashboard/posts/PublishPost.vue"),
+                  import("@/views/dashboard/provider/posts/PublishPost.vue"),
               },
               {
                 path: "edit/:postId",
                 name: "EditPost",
                 props: true,
-                component: () => import("@/views/dashboard/posts/EditPost.vue"),
+                component: () => import("@/views/dashboard/provider/posts/EditPost.vue"),
               },
             ],
           },
           {
             path: "livredor",
-            component: () => import("@/views/dashboard/livredor/Template.vue"),
+            component: () => import("@/views/dashboard/provider/livredor/Template.vue"),
             children: [
-              {path: "", name: "providers.livredor", component: () => import("@/views/dashboard/livredor/CommentsList.vue")},
+              {path: "", name: "providers.livredor", component: () => import("@/views/dashboard/provider/livredor/CommentsList.vue")},
             ]
           },
           {
             path: "map",
             name: "providers.map",
-            component: () => import("@/views/dashboard/map/Template.vue"),
+            component: () => import("@/views/dashboard/provider/map/Template.vue"),
             children: [],
           },
           {
             path: "ticketing",
             name: "providers.ticketing",
-            component: () => import("@/views/dashboard/ticketing/Template.vue"),
+            component: () => import("@/views/dashboard/provider/ticketing/Template.vue"),
             children: [],
           },
           {
             path: "goodies",
             name: "providers.goodies",
-            component: () => import("@/views/dashboard/goodies/Template.vue"),
+            component: () => import("@/views/dashboard/provider/goodies/Template.vue"),
             children: [],
           },
-          { path: "my-profile", name: "myProfile", component: () => import("@/views/dashboard/providerprofile/EditProviderProfile.vue") },
+          { path: "my-profile", name: "myProfile", component: () => import("@/views/dashboard/provider/providerprofile/EditProviderProfile.vue") },
         ],
       },
       {

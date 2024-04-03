@@ -20,7 +20,8 @@ async function getComments(idProvider) {
  * @returns {Promise<void>} - A promise that resolves when the comment is added
  */
 async function addComment(idProvider, comment) {
-  console.log(idProvider, comment);
+    const review = await AxiosService.postRequest("/reviews", {providerId: idProvider, review: comment});
+    return review.data
 }
 
 module.exports = {
