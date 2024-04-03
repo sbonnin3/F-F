@@ -29,6 +29,7 @@ const comments = [
 
 /**
  * Get comments by provider id
+ * @author Nathan BOSCHI
  * @deprecated
  * @param {number} idProvider - The id of the provider
  * @returns {Promise<Array>} comments
@@ -39,6 +40,7 @@ async function getComments(idProvider) {
 
 /**
  * Add a comment
+ * @author Nathan BOSCHI
  * @deprecated
  * @param idProvider - The id of the provider
  * @param comment - The comment to add

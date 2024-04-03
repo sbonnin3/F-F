@@ -46,7 +46,7 @@ const dashboardRoutes = [
               },
               {
                 path: "edit/:postId",
-                name: "editPost",
+                name: "EditPost",
                 props: true,
                 component: () => import("@/views/dashboard/posts/EditPost.vue"),
               },

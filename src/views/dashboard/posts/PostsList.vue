@@ -50,7 +50,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="success" :to="{name: 'editPost', params: {postId: post._id}}"
+                <v-btn color="success" :to="{name: 'EditPost', params: {postId: post._id}}"
                   >{{ $t("dashboard.actions.edit") }}
                 </v-btn>
                 <v-btn color="error" @click="deletePost(post._id)"
