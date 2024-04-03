@@ -7,7 +7,7 @@
               $store.state.auth.user.lastname
             }}</span>
             <br><span class="font-italic">{{ $store.state.auth.user.email }}</span>
-            <br>For {{ $store.state.auth.user.provider.name }} ({{ $store.state.auth.user.provider.category }})</p>
+            <br>{{$t("dashboard.providers.dashboard.for_provider")}} <b>{{ $store.state.auth.user.provider.name }}</b> ({{ $store.state.auth.user.provider.category }})</p>
         </v-alert>
       </v-col>
       <v-col cols="12" lg="4" v-if="provider.services.posts">
