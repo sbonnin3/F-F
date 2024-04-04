@@ -22,7 +22,6 @@ export default new Vuex.Store({
   },
   actions: {
     async getNavLinks(store) {
-      console.log("store.state.auth.user.role", store.state.auth.user.role);
       const menu = await Roles.getMenu(store.state.auth.user.role);
       store.commit("setNavLinks", menu);
     },

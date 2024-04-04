@@ -26,14 +26,14 @@ const authStore = {
     },
     actions: {
         async logout(store) {
-            AuthService.logout().then(() => {
+            await AuthService.logout().then(() => {
                 store.commit("dropUser");
                 store.state.isLogged = false;
             })
             store.dispatch("getNavLinks");
         },
         async login(store, {email, password}) {
-            AuthService.login(email, password).then((result) => {
+            await AuthService.login(email, password).then((result) => {
                 store.commit("setUser", result);
                 store.state.isLogged = true;
             }).catch((error) => {
