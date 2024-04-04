@@ -23,6 +23,10 @@ function putRequest(path, data) {
     return axiosService.put(path, data);
 }
 
+function patchRequest(path, data) {
+    return axiosService.patch(path, data);
+}
+
 function deleteRequest(path) {
     return axiosService.delete(path);
 }
@@ -31,5 +35,6 @@ module.exports = {
     getRequest,
     postRequest,
     putRequest,
+    patchRequest,
     deleteRequest
 }
