@@ -1,5 +1,5 @@
 import Providers from "@/services/from_api/providers.service.js";
-
+import User from "@/services/from_api/users.service.js";
 const providersStore = {
     state: {
         providers: [],
@@ -29,7 +29,13 @@ const providersStore = {
             console.log("Payload : " + payload)
             await Providers.updateProviderProfile(payload._id, payload);
         },
-        async deleteProvider(store, id) {
+        async deleteProvider(store,payload) {
+            console.log(payload)
+            const id = payload;
+            const userId = await Providers.getProviderIdByUserId(id);
+            console.log("deleteProvider with userID : ", userId)
+            await User.deleteUser(userId);
+            console.log("deleteProvider with id : ", id)
             await Providers.deleteProvider(id);
         }
     }

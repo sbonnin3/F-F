@@ -10,7 +10,13 @@ async function updateUser(userObject) {
     return result;
 }
 
+async function deleteUser(userId) {
+    const user = await AxiosService.deleteRequest("/user/" + userId);
+    return user.data;
+}
+
 module.exports = {
     setLocale,
-    updateUser
+    updateUser,
+    deleteUser
 };

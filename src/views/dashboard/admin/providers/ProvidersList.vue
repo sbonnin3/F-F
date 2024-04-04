@@ -1,5 +1,6 @@
 <template>
   <v-container>
+
     <v-data-table
         :headers="headers"
         :items="providers"
@@ -145,9 +146,18 @@ export default {
     closeDelete() {
       this.dialogDelete = false
     },
-    deleteItemConfirm() {
-      this.$store.dispatch('deleteProvider', this.editedItem._id)
-      this.closeDelete()
+    deleteProviderUser(id){
+      this.$store.dispatch('deleteProvider', id)
+    },
+    async deleteItemConfirm() {
+      const id = this.editedItem._id;
+      try {
+        await this.$store.dispatch('deleteProvider', id);
+        this.dialogDelete = false;
+        await this.$store.dispatch('getProviders');
+      } catch (error) {
+        console.error('Erreur lors de la suppression du provider:', error);
+      }
     },
     close() {
       this.editDialog = false

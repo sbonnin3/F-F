@@ -47,5 +47,10 @@ async function deleteProvider(id) {
     return provider.data;
 }
 
+async function getProviderIdByUserId(userId) {
+    const provider = await AxiosService.getRequest(`/providers/getUserId/${userId}`);
+    return provider.data;
+}
 
-module.exports = {getProviders, getProvider, updateProviderProfile, deleteProvider};
+
+module.exports = {getProviders, getProvider, updateProviderProfile, deleteProvider, getProviderIdByUserId};
