@@ -46,11 +46,7 @@ const publicRoutes = [
         name: "logout",
         component: () => import("@/views/Logout.vue"),
       },
-      {
-        path: "/reservation",
-        name: "reservation",
-        component: () => import("@/views/public/Reservation.vue"),
-      },
+    
       {
         path: "/reservation-form",
         name: "ReservationForm",
