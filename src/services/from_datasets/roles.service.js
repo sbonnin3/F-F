@@ -32,7 +32,7 @@ const roles = [
                 exact: true
             },
             {
-                to: {name: "providers.admin"},
+                to: {name: "providers.list"},
                 title: "dashboard.navigation.providers",
                 icon: "mdi-badge-account-horizontal"
             },

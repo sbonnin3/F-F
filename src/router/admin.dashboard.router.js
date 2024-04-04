@@ -1,8 +1,14 @@
 const adminRouter = [
   {
-    name: "providers.admin",
     path: "providers",
     component: () => import("@/views/dashboard/admin/providers/Template.vue"),
+    children : [
+      {
+        path: "",
+        name: "providers.list",
+        component: () => import("@/views/dashboard/admin/providers/ProvidersList.vue"),
+      }
+    ]
   },
   {
     name: "users.admin",
