@@ -21,7 +21,15 @@
     <div class="info-window" v-if="showInfoWindow && currentInfoWindow">
       <h2>{{ currentInfoWindow.title }}</h2>
       <p>{{ currentInfoWindow.text }}</p>
-      <img v-if="currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image du provider" />
+      <div v-if="currentInfoWindow.groups">
+        <div v-for="group in currentInfoWindow.groups" :key="group.name">
+          <h3>{{ group.name }}</h3>
+          <p>Heure : {{ group.text }}</p>
+          <img :src="group.image" alt="Image du groupe">
+        </div>
+      </div>
+      <img v-if="currentInfoWindow.image && !currentInfoWindow.groups" :src="currentInfoWindow.image"
+        alt="Image du provider">
     </div>
   </div>
 </template>
@@ -67,26 +75,38 @@ export default {
             image: 'https://www.motorsinside.com/images/photo/article/f12022/miniature/1500/touslespilotes.webp',
           },
           Concert: {
-          title: 'Concerts',
-          text: "Des concerts au programme de 17h00 jusqu'à 02h00 !",
-          groups: [
-            {
-              name: "Sexion d'Assaut",
-              text: "17h00",
-              image: 'https://www.nikaia.fr/thumbs/1024x562r/2022-02/sexion-site.jpg',
-            },
-            {
-              name: '47ter',
-              text: "20h00",
-              image: 'https://www.arkeaarena.com/app/uploads/2020/09/AA_SI_SQR_WEB-3.jpg',
-            },
-            {
-              name: 'Maitre GIMS',
-              text: "23h00",
-              image: 'https://www.zenithdelille.com/wp-content/uploads/2023/05/gims-1-1-scaled-1600x0-c-default.jpg',
-            },
-          ],
-        },
+            title: 'Concerts',
+            text: "Des concerts au programme de 17h00 jusqu'à 02h00 !",
+            groups: [
+              {
+                name: "Sexion d'Assaut",
+                text: "17h00",
+                image: 'https://www.nikaia.fr/thumbs/1024x562r/2022-02/sexion-site.jpg',
+              },
+              {
+                name: '47ter',
+                text: "20h00",
+                image: 'https://www.arkeaarena.com/app/uploads/2020/09/AA_SI_SQR_WEB-3.jpg',
+              },
+              {
+                name: 'Maitre GIMS',
+                text: "23h00",
+                image: 'https://www.zenithdelille.com/wp-content/uploads/2023/05/gims-1-1-scaled-1600x0-c-default.jpg',
+              },
+            ],
+          },
+          Aéroport: {
+            title: "L'aéroport",
+            image: 'https://www.aerobuzz.fr/wp-content/uploads/2022/01/piste-atterrissage-castellet-900x516.jpg',
+          },
+          Karting: {
+            title: 'Karting',
+            image: 'https://www.circuitpaulricard.com/assets/actualites/496/fiche/2020_PaulRicard_KARTPACA-7820.jpg',
+          },
+          Parking: {
+            title: 'Parking',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/1200px-Parking_icon.svg.png',
+          },
         };
       },
       currentInfoWindow: null,
@@ -103,6 +123,9 @@ export default {
         'batimentsObject': 'Objet 4',
         'restaurantsObject': 'Objet 5',
         'concertsObject': 'Objet 6',
+        'aeroportObject': 'Objet 7',
+        'kartingObject': 'Objet 8',
+        'parkingObject': 'Objet 9',
       },
       showObjectName: false,
       objectName: '',
@@ -151,11 +174,11 @@ export default {
     this.animate();
     this.faireQuelqueChose();
     this.updateObjectVisibility();
-    const threeContainer = document.getElementById('threeContainer');
-    if (threeContainer) {
-      threeContainer.addEventListener('wheel', this.handleMouseWheel, { passive: false });
-    }
+
+    // Écouteur pour les clics en dehors des objets
+    document.addEventListener('click', this.handleOutsideClick);
   },
+
   computed: {
     allObjectsActivated() {
       return Object.values(this.objectVisibility).every(status => status);
@@ -553,6 +576,9 @@ export default {
         this.batimentsObject,
         this.restaurantsObject,
         this.concertsObject,
+        this.kartingObject,
+        this.parkingObject,
+        this.aeroportObject,
       ].filter(obj => obj !== null);
 
       const intersects = raycaster.intersectObjects(objectsToIntersect, true);
@@ -560,8 +586,13 @@ export default {
       if (intersects.length > 0) {
         const clickedObjectName = intersects[0].object.name;
         this.fetchProviderData(clickedObjectName);
+      } else {
+        // Aucun objet pertinent n'a été cliqué, fermez la fenêtre d'information
+        this.showInfoWindow = false;
+        this.currentInfoWindow = null;
       }
     },
+
     animate() {
       requestAnimationFrame(this.animate);
 
@@ -586,7 +617,9 @@ export default {
     faireQuelqueChose() {
       this.scene.background = new THREE.Color(0xabcdef);
     },
+    
     beforeDestroy() {
+      document.removeEventListener('click', this.handleOutsideClick);
       if (this.mixer) {
         this.mixer.uncacheRoot(this.mixer.getRoot());
       }
@@ -598,8 +631,16 @@ export default {
       window.removeEventListener('mousemove', this.handleMouseMove);
       window.removeEventListener('click', this.handleClick);
     },
+    
     beforeUnloadHandler() {
       this.unload3DModels();
+    },
+
+    handleOutsideClick(event) {
+      if (event.target != this.renderer.domElement) {
+        this.showInfoWindow = false;
+        this.currentInfoWindow = null;
+      }
     },
   },
 }
