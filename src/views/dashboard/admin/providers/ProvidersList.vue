@@ -54,14 +54,16 @@
                 ></v-select>
                 <v-text-field v-model="selectedSNLink" label="Lien du profil"></v-text-field>
               </v-col>
-              <v-col cols="12"  v-for="service in services" :key="service.id">
-
-                <v-text-field value="getLinks" label="Services Offered (JSON)"></v-text-field>
+              <v-col cols="12">
+                <div class="text-h6">Services disponibles</div>
+              </v-col>
+              <v-col cols="12" v-for="service in services" :key="service.id" class="my-0 py-0">
+                <v-checkbox :label="service.name" v-model="serviceStates[service.nameOfService]"
+                            class="my-0 py-0"></v-checkbox>
               </v-col>
             </v-row>
           </v-container>
         </v-card-text>
-
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
@@ -81,7 +83,7 @@ export default {
     selectedSN: '',
     editDialog: false,
     dialogDelete: false,
-    selectSNLink: '',
+    selectedSNLink: '',
     editedIndex: -1,
     headers: [
       {text: 'Nom', value: 'name'},
@@ -97,9 +99,18 @@ export default {
       services: '{}'
     },
     services: [
-      {name: "livredor", id: "1"},
-      {name: "post", id: "2"},
-    ]
+      {name: "Livre d'or", id: "1", nameOfService:"livredor"},
+      {name: "Postes", id: "2", nameOfService:"posts"},
+      {name: "Emplacement sur carte", id: "3",nameOfService: "mapPlacement"},
+      {name: "Billetterie", id: "4", nameOfService: "ticketing"},
+    ],
+    serviceStates: {
+      posts: false,
+      ticketing: false,
+      goodies: false,
+      mapPlacement: false,
+      livredor: false,
+    },
   }),
   computed: mapState({
     providers: state => state.providers.providers,
@@ -123,6 +134,7 @@ export default {
       this.editedIndex = this.providers.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.editDialog = true
+      this.initializeServiceStates();
     },
     deleteItem(item) {
       console.log(item)
@@ -143,7 +155,31 @@ export default {
     onSocialNetworkChange(selectedItem) {
       this.selectedSNLink = selectedItem ? selectedItem.to : '';
     },
+    test() {
+      const services = Object.entries(this.editedItem.services).map(([key, value]) => {
+        return { nameOfService: key, enable: value };
+      });
+      console.log("Services:", services);
+      return services;
+    },
+    initializeServiceStates() {
+      this.serviceStates = {};
 
+      const serviceObj = this.editedItem.services && typeof this.editedItem.services === 'object'
+          ? this.editedItem.services
+          : JSON.parse(this.editedItem.services || '{}');
+
+      Object.keys(serviceObj).forEach((key) => {
+        // Assigner la valeur de chaque clé dans `serviceObj` à `serviceStates`
+        this.serviceStates[key] = serviceObj[key];
+      });
+
+      this.services.forEach((service) => {
+        if (!(service.nameOfService in this.serviceStates)) {
+          this.serviceStates[service.nameOfService] = false;
+        }
+      });
+    },
     save() {
       if (this.selectedSN && this.selectedSNLink) {
         const existingLinkIndex = this.editedItem.profileLinks.findIndex(link => link.name === this.selectedSN.name);
@@ -156,13 +192,18 @@ export default {
           });
         }
       }
+      this.editedItem.services = { ...this.serviceStates };
       console.log("Saving provider:", this.editedItem);
       // APPEL API
+      this.$store.dispatch('updateProviderProfile', this.editedItem)
+      this.editDialog = false
+      window.location.reload();
     },
   },
-
   async mounted() {
     await this.$store.dispatch('getProviders')
+    console.log("Mounted log",this.editedItem.services);
+    this.initializeServiceStates();
   }
 
 }

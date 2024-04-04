@@ -29,6 +29,8 @@ async function getProvider(id) {
  * @returns {Promise<unknown>} - The updated provider
  */
 async function updateProviderProfile(id, profile) {
+    console.log(id);
+    console.log(profile);
     const provider = await AxiosService.putRequest(`/providers/${id}`, profile);
     return provider.data;
 }

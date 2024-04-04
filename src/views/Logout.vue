@@ -47,7 +47,8 @@ export default {
       this.loading = true;
       this.$store.dispatch("logout").then(() => {
         this.loading = false;
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "home" })
+            .then(() => { this.$router.go(0) });
       }).catch(() => {
         this.loading = false;
       });

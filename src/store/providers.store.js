@@ -22,10 +22,13 @@ const providersStore = {
             const provider = await Providers.getProvider(id);
             store.commit("setProviders", provider);
         },
+
+         */
         async updateProviderProfile(store, payload) {
-            await Providers.updateProviderProfile(payload.id, payload.profile);
+            console.log("ID : " + payload._id)
+            console.log("Payload : " + payload)
+            await Providers.updateProviderProfile(payload._id, payload);
         },
-        */
         async deleteProvider(store, id) {
             await Providers.deleteProvider(id);
         }
