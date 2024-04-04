@@ -15,7 +15,9 @@ const authStore = {
             localStorage.setItem("user", JSON.stringify(user));
         },
         dropUser(state) {
-            state.user = null;
+            state.user = {
+                role: "DEFAULT"
+            };
             localStorage.removeItem("user");
         },
         setLocale(state, locale) {
