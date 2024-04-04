@@ -105,6 +105,9 @@
       "cancel": "Cancel"
     },
     "providers": {
+      "dashboard": {
+        "for_provider": "For"
+      },
       "posts": {
         "listTitle": "Your posts",
         "create": {

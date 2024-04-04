@@ -1,5 +1,12 @@
 <template>
   <v-container>
+    <v-rating
+        :value="rateAvg"
+        readonly
+        half-increments
+    />
+    <v-divider/>
+    <br>
     <v-row>
       <v-col v-for="(comment, id) of comments" :key="id" cols="12" md="6" xl="4">
         <v-card class="mx-auto" color="#A83532" dark>
@@ -12,6 +19,8 @@
             <v-rating
                 :value="comment.rate"
                 readonly
+                small
+                dense
                 color="white"
                 v-if="comment.rate"
             />
@@ -19,7 +28,7 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-list-item class="grow">
+            <v-list-item>
               <v-list-item-avatar>
                 <v-img
                     alt=""
@@ -32,6 +41,12 @@
                 <v-list-item-title>{{ comment.author }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
+            <v-spacer/>
+            <v-btn icon @click="$store.dispatch('deleteReview', comment._id)">
+              <v-icon>
+                mdi-eye-off
+              </v-icon>
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -40,29 +55,19 @@
 </template>
 
 <script>
-import {getComments} from "@/services/from_api/livredor.service";
+import {mapState} from "vuex";
 
 export default {
-  data() {
-    return {
-      comments: [],
-    };
-  },
   computed: {
-    commentsStats() {
-      const rates = []
-      this.comments.forEach((comment) => {
-        if(comment.rate) rates.push(comment.rate)
-      })
-      return {
-
-      }
+    ...mapState({
+      comments: state => state.livredor.providerReviews
+    }),
+    rateAvg() {
+      return this.comments.reduce((acc, comment) => acc + comment.rate, 0) / this.comments.length
     }
   },
-  async mounted() {
-    this.comments = await getComments(this.$store.state.auth.user.providerId);
-  },
-  methods: {
+  mounted() {
+    this.$store.dispatch('getProviderReviews')
   }
 };
 </script>

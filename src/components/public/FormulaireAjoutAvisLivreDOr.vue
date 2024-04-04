@@ -92,9 +92,9 @@ export default {
       this.isPublishing = true;
       const comment = {
         title: this.title,
-        author: this.author,
+        rate: this.rating,
         content: this.content,
-        rate: this.rating
+        author: this.author
       };
       LivreDOrService.addComment(this.providerId, comment).then((result) => {
         this.isPublishing = false;
