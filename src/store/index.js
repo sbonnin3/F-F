@@ -4,7 +4,8 @@ import Vuex from "vuex";
 import auth from "./auth.store"
 import users from "./users.store"
 import posts from "./posts.store"
-import livredor from "./reviews.store"
+import livredor from './reviews.store'
+import providers from "./providers.store"
 
 import Roles from "@/services/from_datasets/roles.service";
 
@@ -22,7 +23,6 @@ export default new Vuex.Store({
   },
   actions: {
     async getNavLinks(store) {
-      console.log("store.state.auth.user.role", store.state.auth.user.role);
       const menu = await Roles.getMenu(store.state.auth.user.role);
       store.commit("setNavLinks", menu);
     },
@@ -31,6 +31,7 @@ export default new Vuex.Store({
     auth,
     users,
     posts,
-    livredor
+    livredor,
+    providers
   },
 });

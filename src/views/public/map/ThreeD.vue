@@ -3,36 +3,30 @@
     <div class="carte" id="threeContainer" ref="container"></div>
     <div class="menu-toggle">
       <button :class="{ active: allObjectsVisible }" @click="toggleAllObjects">Tout</button>
-      <button :class="{ active: objectVisibility['restaurantsObject'] }" @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
-      <button :class="{ active: objectVisibility['toilettesObject'] }" @click="toggleObjectVisibility('toilettesObject')">Toilettes</button>
-      <button :class="{ active: objectVisibility['batimentsObject'] }" @click="toggleObjectVisibility('batimentsObject')">Bâtiments</button>
-      <button :class="{ active: objectVisibility['kartingObject'] }" @click="toggleObjectVisibility('kartingObject')">Karting</button>
-      <button :class="{ active: objectVisibility['parkingObject'] }" @click="toggleObjectVisibility('parkingObject')">Parking</button>
-      <button :class="{ active: objectVisibility['aeroportObject'] }" @click="toggleObjectVisibility('aeroportObject')">Aéroport</button>
-      <button :class="{ active: objectVisibility['concertsObject'] }" @click="toggleObjectVisibility('concertsObject')">Scène</button>
+      <button :class="{ active: objectVisibility['restaurantsObject'] }"
+        @click="toggleObjectVisibility('restaurantsObject')">Restaurant</button>
+      <button :class="{ active: objectVisibility['toilettesObject'] }"
+        @click="toggleObjectVisibility('toilettesObject')">Toilettes</button>
+      <button :class="{ active: objectVisibility['batimentsObject'] }"
+        @click="toggleObjectVisibility('batimentsObject')">Bâtiments</button>
+      <button :class="{ active: objectVisibility['kartingObject'] }"
+        @click="toggleObjectVisibility('kartingObject')">Karting</button>
+      <button :class="{ active: objectVisibility['parkingObject'] }"
+        @click="toggleObjectVisibility('parkingObject')">Parking</button>
+      <button :class="{ active: objectVisibility['aeroportObject'] }"
+        @click="toggleObjectVisibility('aeroportObject')">Aéroport</button>
+      <button :class="{ active: objectVisibility['concertsObject'] }"
+        @click="toggleObjectVisibility('concertsObject')">Scène</button>
     </div>
     <div class="info-window" v-if="showInfoWindow && currentInfoWindow">
-      <h2 v-if="currentInfoWindow.title">{{ currentInfoWindow.title }}</h2>
-      <p v-if="currentInfoWindow.text">{{ currentInfoWindow.text }}</p>
-      <img v-if="currentInfoWindow.title === 'Toilettes' && currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image des toilettes" />
-      <img v-if="currentInfoWindow.title === 'Les pilotes' && currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image des pilotes" />
-      <div v-if="currentInfoWindow.groups">
-        <div v-for="(group, index) in currentInfoWindow.groups" :key="index">
-          <br/>
-          <h3>{{ group.name }}</h3>
-          <p v-if="group.text">{{ group.text }}</p>
-          <img :src="group.image" :alt="group.name" />
-          <br/>
-        </div>
-      </div>
-      <ProviderProfile v-if="currentInfoWindow && currentInfoWindow.providerId" minimal :id="currentInfoWindow.providerId" />
-      <div class="close-button" @click="closeInfoWindow">×</div>
+      <h2>{{ currentInfoWindow.title }}</h2>
+      <p>{{ currentInfoWindow.text }}</p>
+      <img v-if="currentInfoWindow.image" :src="currentInfoWindow.image" alt="Image du provider" />
     </div>
   </div>
 </template>
 
 <script>
-import ProviderProfile from "@/components/public/ProviderProfile.vue";
 import * as THREE from 'three';
 import { TweenMax, Power2 } from 'gsap';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -62,21 +56,17 @@ export default {
       infoWindowTitle: '',
       infoWindowText: '',
       infoWindowImage: '',
-      infoWindowContent: {
-        Toilettes: {
-          title: 'Toilettes',
-          image: 'https://us.123rf.com/450wm/malaha3/malaha32004/malaha3200400190/144852346-mod%C3%A8le-de-signe-de-toilettes-publiques-et-texte-wc-signe-de-porte-aiguille-lieu-public.jpg?ver=6',
-          providerId: null
-        },
-        Route: {
-          title: 'Les pilotes',
-          image: 'https://www.motorsinside.com/images/photo/article/f12022/miniature/1500/touslespilotes.webp',
-          providerId: null
-        },
-        Quick: {
-          providerId: '1'
-        },
-        Concert: {
+      defaultInfoForObjects() {
+        return {
+          Toilettes: {
+            title: "Toilettes",
+            image: 'https://us.123rf.com/450wm/malaha3/malaha32004/malaha3200400190/144852346-mod%C3%A8le-de-signe-de-toilettes-publiques-et-texte-wc-signe-de-porte-aiguille-lieu-public.jpg?ver=6',
+          },
+          Route: {
+            title: 'Les pilotes',
+            image: 'https://www.motorsinside.com/images/photo/article/f12022/miniature/1500/touslespilotes.webp',
+          },
+          Concert: {
           title: 'Concerts',
           text: "Des concerts au programme de 17h00 jusqu'à 02h00 !",
           groups: [
@@ -96,8 +86,8 @@ export default {
               image: 'https://www.zenithdelille.com/wp-content/uploads/2023/05/gims-1-1-scaled-1600x0-c-default.jpg',
             },
           ],
-          providerId: null,
         },
+        };
       },
       currentInfoWindow: null,
 
@@ -150,11 +140,8 @@ export default {
         kartingObject: true,
         parkingObject: true,
         aeroportObject: true,
-      }
+      },
     };
-  },
-  components: {
-    ProviderProfile
   },
   mounted() {
     this.initThreeJS();
@@ -166,7 +153,7 @@ export default {
     this.updateObjectVisibility();
     const threeContainer = document.getElementById('threeContainer');
     if (threeContainer) {
-      threeContainer.addEventListener('wheel', this.handleMouseWheel);
+      threeContainer.addEventListener('wheel', this.handleMouseWheel, { passive: false });
     }
   },
   computed: {
@@ -229,7 +216,7 @@ export default {
       this.group = new THREE.Group();
 
       const loader = new GLTFLoader();
-      
+
       loader.load(plateformePath, (gltf) => {
         this.plateformeObject = gltf.scene;
         this.group.add(this.plateformeObject);
@@ -290,6 +277,44 @@ export default {
       this.scene.add(this.group);
       this.updateObjectVisibility();
     },
+
+    fetchProviderData(objectName) {
+      const url = `http://localhost:3000/api/providers/objet/${objectName}`;
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            // Si aucun provider n'est trouvé, utilisez les informations par défaut
+            throw new Error('Aucun provider associé');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data && data.length > 0) {
+            const providerData = data[0]; // Prendre le premier provider correspondant
+            this.currentInfoWindow = {
+              title: providerData.name,
+              text: providerData.description,
+              image: providerData.logo,
+            };
+          } else {
+            throw new Error('Aucun provider associé');
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          // Utiliser les informations par défaut pour l'objet cliqué
+          const defaultInfo = this.defaultInfoForObjects()[objectName];
+          if (defaultInfo) {
+            this.currentInfoWindow = { ...defaultInfo };
+          } else {
+            console.error(`Aucune information trouvée pour l'objet : ${objectName}`);
+          }
+        })
+        .finally(() => {
+          this.showInfoWindow = true;
+        });
+    },
+
     unload3DModels() {
       window.removeEventListener('resize', this.onWindowResize);
       window.removeEventListener('mousemove', this.handleMouseMove);
@@ -396,7 +421,7 @@ export default {
       }
       this.camera.updateProjectionMatrix();
     },
-    
+
     handleTouchStart(event) {
       if (event.touches.length === 2) {
         event.preventDefault();
@@ -460,7 +485,7 @@ export default {
 
       const raycaster = new THREE.Raycaster();
       raycaster.setFromCamera(mouse, this.camera);
-      
+
 
       const objectsToIntersect = [
         this.routeObject,
@@ -474,11 +499,11 @@ export default {
       ].filter(obj => obj !== null);
 
       const intersects = raycaster.intersectObjects(objectsToIntersect, true);
-      
+
       if (intersects.length > 0) {
         const intersectedObject = intersects[0].object;
         this.renderer.domElement.style.cursor = 'pointer';
-        
+
         if (this.hoveredObject !== intersectedObject) {
           if (this.hoveredObject && this.hoveredObject.material && this.hoveredObject.material.emissive) {
             this.hoveredObject.material.emissive.setHex(this.originalColors.get(this.hoveredObject) || 0x000000);
@@ -533,9 +558,8 @@ export default {
       const intersects = raycaster.intersectObjects(objectsToIntersect, true);
 
       if (intersects.length > 0) {
-        const clickedObject = intersects[0].object;
-        this.currentInfoWindow = this.infoWindowContent[clickedObject.name] || null;
-        this.showInfoWindow = true;
+        const clickedObjectName = intersects[0].object.name;
+        this.fetchProviderData(clickedObjectName);
       }
     },
     animate() {
@@ -568,7 +592,7 @@ export default {
       }
       const threeContainer = document.getElementById('threeContainer');
       if (threeContainer) {
-        threeContainer.removeEventListener('wheel', this.handleMouseWheel);
+        threeContainer.removeEventListener('wheel', this.handleMouseWheel, { passive: false });
       }
       window.removeEventListener('resize', this.onWindowResize);
       window.removeEventListener('mousemove', this.handleMouseMove);
@@ -605,15 +629,18 @@ export default {
 .info-window p {
   margin-bottom: 16px;
 }
+
 .info-window img {
   max-width: 100%;
   height: auto;
 }
+
 .carte {
   flex: 1;
   max-height: calc(100vh - 91px);
   overflow: hidden;
 }
+
 .menu-toggle {
   position: fixed;
   bottom: 10px;
@@ -624,10 +651,12 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
 .menu-toggle button {
   margin-bottom: 5px;
   background-color: white;
 }
+
 .menu-toggle button.active {
   background-color: lightgreen;
 }

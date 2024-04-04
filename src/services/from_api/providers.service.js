@@ -33,4 +33,17 @@ async function updateProviderProfile(id, profile) {
     return provider.data;
 }
 
-module.exports = {getProviders, getProvider, updateProviderProfile};
+/**
+ * Delete a provider's by its id
+ * @author Théo GOUSSOT
+ * @param id - The id of the provider
+ * @returns {Promise<unknown>} - The updated provider
+ */
+
+async function deleteProvider(id) {
+    const provider = await AxiosService.deleteRequest(`/providers/${id}`);
+    return provider.data;
+}
+
+
+module.exports = {getProviders, getProvider, updateProviderProfile, deleteProvider};
