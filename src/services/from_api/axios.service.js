@@ -3,6 +3,12 @@ const axios = require('axios');
 const axiosService = axios.create({
     baseURL: "http://localhost:3000/api/",
     timeout: 1000,
+    withCredentials: true,
+    // CORS
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+    }
 })
 
 function getRequest(path) {
