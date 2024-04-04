@@ -1,4 +1,4 @@
-import Users from "@/services/from_datasets/users.service";
+import Users from "@/services/from_api/users.service";
 
 
 const userStore = {
