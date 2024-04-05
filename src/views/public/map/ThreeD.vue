@@ -175,7 +175,6 @@ export default {
     this.faireQuelqueChose();
     this.updateObjectVisibility();
 
-    // Écouteur pour les clics en dehors des objets
     document.addEventListener('click', this.handleOutsideClick);
   },
 
@@ -306,14 +305,13 @@ export default {
       fetch(url)
         .then(response => {
           if (!response.ok) {
-            // Si aucun provider n'est trouvé, utilisez les informations par défaut
             throw new Error('Aucun provider associé');
           }
           return response.json();
         })
         .then(data => {
           if (data && data.length > 0) {
-            const providerData = data[0]; // Prendre le premier provider correspondant
+            const providerData = data[0];
             this.currentInfoWindow = {
               title: providerData.name,
               text: providerData.description,
@@ -325,7 +323,6 @@ export default {
         })
         .catch(error => {
           console.log(error);
-          // Utiliser les informations par défaut pour l'objet cliqué
           const defaultInfo = this.defaultInfoForObjects()[objectName];
           if (defaultInfo) {
             this.currentInfoWindow = { ...defaultInfo };
@@ -587,7 +584,6 @@ export default {
         const clickedObjectName = intersects[0].object.name;
         this.fetchProviderData(clickedObjectName);
       } else {
-        // Aucun objet pertinent n'a été cliqué, fermez la fenêtre d'information
         this.showInfoWindow = false;
         this.currentInfoWindow = null;
       }
