@@ -4,6 +4,7 @@
       <h1>{{ $t("dashboard.navigation.map") }}</h1>
       <router-view></router-view>
       <img :src="imagePath" alt="Carte">
+      <div v-if="objectName">Bâtiment actuel : {{ objectName }}</div>
       <v-select v-model="selectedOption" :items="options" item-text="text" item-value="value"
         label="Choisissez une option"></v-select>
       <v-btn @click="submitUpdate">Valider</v-btn>
@@ -17,13 +18,13 @@
 
 <script>
 import PleaseSuscribeToService from "@/components/dashboard/PleaseSuscribeToService.vue";
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Template",
   components: { PleaseSuscribeToService },
   data() {
     return {
+      objectName: '',
       imagePath: require('@/assets/images/CarteInteractiveProvider.png'),
       selectedOption: null,
       options: [
@@ -40,6 +41,40 @@ export default {
     }
   },
   methods: {
+    fetchProviderData(objectName) {
+      const url = `http://localhost:3000/api/providers/objet/${objectName}`;
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Aucun provider associé');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data && data.length > 0) {
+            const providerData = data[0];
+            this.currentInfoWindow = {
+              title: providerData.name,
+              text: providerData.description,
+              image: providerData.logo,
+            };
+          } else {
+            throw new Error('Aucun provider associé');
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          const defaultInfo = this.defaultInfoForObjects()[objectName];
+          if (defaultInfo) {
+            this.currentInfoWindow = { ...defaultInfo };
+          } else {
+            console.error(`Aucune information trouvée pour l'objet : ${objectName}`);
+          }
+        })
+        .finally(() => {
+          this.showInfoWindow = true;
+        });
+    },
     async submitUpdate() {
       const providerId = this.$store.state.auth.user.provider._id; // ou providerId si vous avez cette donnée autrement
       const objetName = this.selectedOption;
@@ -62,7 +97,7 @@ export default {
         console.error("Erreur lors de l'appel API", error);
       }
     }
-  }
+  },
 };
 </script>
 

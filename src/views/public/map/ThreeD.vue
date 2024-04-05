@@ -61,6 +61,7 @@ export default {
       isPinching: false,
       initialPinchDistance: 0,
       showInfoWindow: false,
+      enSavoirPlus: '',
       infoWindowTitle: '',
       infoWindowText: '',
       infoWindowImage: '',
