@@ -4,12 +4,13 @@
       <h1>{{ $t("dashboard.navigation.map") }}</h1>
       <router-view></router-view>
       <img :src="imagePath" alt="Carte">
+      <v-select v-model="selectedOption" :items="options" item-text="text" item-value="value"
+        label="Choisissez une option"></v-select>
+      <v-btn @click="submitUpdate">Valider</v-btn>
     </v-container>
     <v-container v-else>
-      <PleaseSuscribeToService
-        :service="$t('dashboard.navigation.map')"
-        :link-to-suscribe="{ name: 'dashboard.ROLE_PROVIDER' }"
-      ></PleaseSuscribeToService>
+      <PleaseSuscribeToService :service="$t('dashboard.navigation.map')"
+        :link-to-suscribe="{ name: 'dashboard.ROLE_PROVIDER' }"></PleaseSuscribeToService>
     </v-container>
   </div>
 </template>
@@ -23,10 +24,45 @@ export default {
   components: { PleaseSuscribeToService },
   data() {
     return {
-      // Utilisez `require` ici pour résoudre le chemin d'accès à l'image
       imagePath: require('@/assets/images/CarteInteractiveProvider.png'),
+      selectedOption: null,
+      options: [
+        { text: 'Restaurant1', value: 'Restaurant1' },
+        { text: 'Restaurant2', value: 'Restaurant2' },
+        { text: 'Restaurant3', value: 'Restaurant3' },
+        { text: 'Restaurant4', value: 'Restaurant4' },
+      ],
     };
   },
+  computed: {
+    providerId() {
+      return this.$store.state.auth.user.provider.providerId;
+    }
+  },
+  methods: {
+    async submitUpdate() {
+      const providerId = this.$store.state.auth.user.provider._id; // ou providerId si vous avez cette donnée autrement
+      const objetName = this.selectedOption;
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/providers/${providerId}/${objetName}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          // Vous n'avez pas besoin de corps pour cette requête, à moins que votre backend ne le demande
+        });
+
+        if (response.ok) {
+          console.log("Mise à jour réussie");
+          // Traitez ici la réponse, par exemple en actualisant les données affichées
+        } else {
+          console.error("Erreur lors de la mise à jour");
+          // Vous pouvez afficher plus de détails ici en utilisant response.text() ou response.json() selon le cas
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'appel API", error);
+      }
+    }
+  }
 };
 </script>
 
