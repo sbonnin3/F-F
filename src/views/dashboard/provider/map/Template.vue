@@ -78,22 +78,19 @@ export default {
         });
     },
     async submitUpdate() {
-      const providerId = this.$store.state.auth.user.provider._id; // ou providerId si vous avez cette donnée autrement
+      const providerId = this.$store.state.auth.user.provider._id;
       const objetName = this.selectedOption;
 
       try {
         const response = await fetch(`http://localhost:3000/api/providers/${providerId}/${objetName}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          // Vous n'avez pas besoin de corps pour cette requête, à moins que votre backend ne le demande
         });
 
         if (response.ok) {
           console.log("Mise à jour réussie");
-          // Traitez ici la réponse, par exemple en actualisant les données affichées
         } else {
           console.error("Erreur lors de la mise à jour");
-          // Vous pouvez afficher plus de détails ici en utilisant response.text() ou response.json() selon le cas
         }
       } catch (error) {
         console.error("Erreur lors de l'appel API", error);
