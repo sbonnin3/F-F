@@ -1,7 +1,7 @@
 const AxiosService = require("./axios.service");
 
 async function setLocale(userId, locale) {
-    const result = await AxiosService.patchRequest("/users/" + userId + "/locale", { locale });
+    const result = await AxiosService.patchRequest("/users/" + userId + "/locale", {locale});
     return result;
 }
 
@@ -15,8 +15,13 @@ async function deleteUser(userId) {
     return user.data;
 }
 
+async function addUser(data) {
+    await AxiosService.postRequest("/users", data)
+        .then(() => {
+            console.log("User added");
+        });
+}
+
 module.exports = {
-    setLocale,
-    updateUser,
-    deleteUser
+    setLocale, updateUser, deleteUser, addUser
 };

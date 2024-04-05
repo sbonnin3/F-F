@@ -52,5 +52,13 @@ async function getProviderIdByUserId(userId) {
     return provider.data;
 }
 
+async function addProvider(data) {
+    console.log("providers.service.js", data);
+    await AxiosService.postRequest('/providers', data)
+        .then(() => {
+            console.log("Provider added")
+        });
+}
 
-module.exports = {getProviders, getProvider, updateProviderProfile, deleteProvider, getProviderIdByUserId};
+
+module.exports = {getProviders, getProvider, updateProviderProfile, deleteProvider, getProviderIdByUserId, addProvider};
