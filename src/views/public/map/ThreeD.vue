@@ -95,19 +95,7 @@ export default {
                 image: 'https://www.zenithdelille.com/wp-content/uploads/2023/05/gims-1-1-scaled-1600x0-c-default.jpg',
               },
             ],
-          },
-          Aéroport: {
-            title: "L'aéroport",
-            image: 'https://www.aerobuzz.fr/wp-content/uploads/2022/01/piste-atterrissage-castellet-900x516.jpg',
-          },
-          Karting: {
-            title: 'Karting',
-            image: 'https://www.circuitpaulricard.com/assets/actualites/496/fiche/2020_PaulRicard_KARTPACA-7820.jpg',
-          },
-          Parking: {
-            title: 'Parking',
-            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/1200px-Parking_icon.svg.png',
-          },
+          }
         };
       },
       currentInfoWindow: null,

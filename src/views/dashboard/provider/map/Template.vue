@@ -32,6 +32,8 @@ export default {
         { text: 'Restaurant2', value: 'Restaurant2' },
         { text: 'Restaurant3', value: 'Restaurant3' },
         { text: 'Restaurant4', value: 'Restaurant4' },
+        { text: 'Aéroport', value: 'Aéroport' },
+        { text: 'Karting', value: 'Karting' },
       ],
     };
   },
