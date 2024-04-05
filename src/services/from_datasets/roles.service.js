@@ -14,7 +14,7 @@ const roles = [
             {
                 to: {name: "providers"},
                 title: "public.navigation.providers"
-            }
+            },
         ]
     },
     {
@@ -31,21 +31,6 @@ const roles = [
                 to: {name: "providers.list"},
                 title: "dashboard.navigation.providers",
                 icon: "mdi-badge-account-horizontal"
-            },
-            {
-                to: {name: "users.admin"},
-                title: "dashboard.navigation.users",
-                icon: "mdi-account-multiple"
-            },
-            {
-                to: {name: "roles.admin"},
-                title: "dashboard.navigation.roles",
-                icon: "mdi-lock"
-            },
-            {
-                to: {name: "translations.admin"},
-                title: "dashboard.navigation.translations",
-                icon: "mdi-translate"
             },
             {
                 to: {name: "myAccount"},

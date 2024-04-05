@@ -33,21 +33,6 @@ const roles = [
                 icon: "mdi-badge-account-horizontal"
             },
             {
-                to: {name: "users.admin"},
-                title: "dashboard.navigation.users",
-                icon: "mdi-account-multiple"
-            },
-            {
-                to: {name: "roles.admin"},
-                title: "dashboard.navigation.roles",
-                icon: "mdi-lock"
-            },
-            {
-                to: {name: "translations.admin"},
-                title: "dashboard.navigation.translations",
-                icon: "mdi-translate"
-            },
-            {
                 to: {name: "myAccount"},
                 title: "dashboard.navigation.myAccount",
                 icon: "mdi-account"

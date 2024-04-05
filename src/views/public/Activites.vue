@@ -3,49 +3,53 @@
     <h1 class="page-title">Découvrez nos activités</h1>
     <div class="card-container">
       <div
-        class="card"
-        v-for="activity in activities"
-        :key="activity.title"
-        @click="openPopup(activity)"
+          v-for="activity in activities"
+          :key="activity.title"
+          class="card"
+          @click="openPopup(activity)"
       >
         <h3 class="card-title">{{ activity.title }}</h3>
         <img
-          :src="activity.image"
-          :alt="activity.title"
-          class="card-image"
+            :alt="activity.title"
+            :src="activity.image"
+            class="card-image"
         />
         <p class="card-summary">{{ activity.summary }}</p>
         <button class="reserve-button">Réserver</button>
       </div>
     </div>
-    <div class="popup" v-if="showPopup" @click.self="closePopup">
+    <div v-if="showPopup" class="popup" @click.self="closePopup">
       <div class="popup-content" @click.stop>
         <h2>{{ selectedActivity.title }}</h2>
         <img
-          :src="selectedActivity.image"
-          :alt="selectedActivity.title"
-          style="width: 70%; border-radius: 10px; margin: auto"
+            :alt="selectedActivity.title"
+            :src="selectedActivity.image"
+            style="width: 70%; border-radius: 10px; margin: auto"
         />
         <p>{{ selectedActivity.summary }}</p>
         <p class="activity-price">Prix: {{ selectedActivity.price }} €</p>
-      <div class="select-time-container">
-  <span class="time-label">Horaires :</span>
-  <select v-model="selectedTimeSlot" class="select-time-slot">
-    <option value="" disabled selected>Sélectionnez un horaire</option>
-    <option v-for="horaire in selectedActivity.horaires" :key="horaire" :value="horaire">
-      {{ horaire }}
-    </option>
-  </select>
-</div>
-
-        <button @click="reserveActivity">Réserver</button>
+        <div class="select-time-container">
+          <span class="time-label">🕘 Horaires :</span>
+          <select v-model="selectedTimeSlot" class="select-time-slot">
+            <option disabled selected value="">Sélectionnez un horaire</option>
+            <option v-for="horaire in selectedActivity.horaires" :key="horaire" :value="horaire">
+              {{ horaire }}
+            </option>
+          </select>
+        </div>
+        <div class="select-time-container">
+          <span class="time-label">💻 E-mail :</span>
+          <input v-model="email" class="select-time-slot" type="email" placeholder="Entrez votre e-mail">
+        </div>
+        <button @click="sendEmail">Réserver</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { activités } from "@/services/from_datasets/activite.service.js";
+import {activités} from "@/services/from_datasets/activite.service.js";
+import Swal from 'sweetalert2';
 
 export default {
   name: "ListeActivites",
@@ -55,6 +59,7 @@ export default {
       selectedActivity: null,
       showPopup: false,
       selectedTimeSlot: null,
+      email: null,
     };
   },
   methods: {
@@ -65,15 +70,42 @@ export default {
     closePopup() {
       this.showPopup = false;
     },
-    reserveActivity() {
-      this.showPopup = false;
-      this.$router.push({
-        name: "ReservationForm",
-        query: {
-          selectedActivity: this.selectedActivity.title,
-          selectedTimeSlot: this.selectedTimeSlot,
-        },
-      });
+    async sendEmail() {
+      const formData = {
+        email: this.email,
+        activityTitle: this.selectedActivity.title,
+        timeSlot: this.selectedTimeSlot,
+      };
+
+      try {
+        const response = await fetch('http://localhost:3000/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) throw new Error('Failed to send email');
+
+        // Show success alert
+        Swal.fire({
+          title: 'Tout est bon !',
+          text: 'Un mail de confirmation de réservation a été envoyé à votre adresse e-mail.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        this.showPopup= false;
+
+      } catch (error) {
+        // Show error alert
+        Swal.fire({
+          title: 'Error!',
+          text: error.message,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
     },
   },
 };
