@@ -74,27 +74,6 @@ export default {
           Route: {
             title: 'Les pilotes',
             image: 'https://www.motorsinside.com/images/photo/article/f12022/miniature/1500/touslespilotes.webp',
-          },
-          Concert: {
-            title: 'Concerts',
-            text: "Des concerts au programme de 17h00 jusqu'à 02h00 !",
-            groups: [
-              {
-                name: "Sexion d'Assaut",
-                text: "17h00",
-                image: 'https://www.nikaia.fr/thumbs/1024x562r/2022-02/sexion-site.jpg',
-              },
-              {
-                name: '47ter',
-                text: "20h00",
-                image: 'https://www.arkeaarena.com/app/uploads/2020/09/AA_SI_SQR_WEB-3.jpg',
-              },
-              {
-                name: 'Maitre GIMS',
-                text: "23h00",
-                image: 'https://www.zenithdelille.com/wp-content/uploads/2023/05/gims-1-1-scaled-1600x0-c-default.jpg',
-              },
-            ],
           }
         };
       },
